@@ -9,23 +9,20 @@ namespace Data.Model
     public class Class : BaseModel
     {
         public string Name { get; set; }
-        public Batch Batch { get; set; }
-
+       
         public Class() { }
 
-        public Class(ClassVM classVM, Batch batch)
+        public Class(ClassVM classVM)
         {
             this.Name = classVM.Name;
-            this.Batch = batch;
             this.CreateDate = DateTimeOffset.Now;
             this.IsDelete = false;
 
         }
 
-        public void Update(ClassVM classVM, Batch batch)
+        public void Update(ClassVM classVM)
         {
             this.Name = classVM.Name;
-            this.Batch = batch;
             this.CreateDate = DateTimeOffset.Now;
             this.IsDelete = false;
         }

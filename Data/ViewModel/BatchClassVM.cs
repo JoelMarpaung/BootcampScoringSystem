@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Data.Model;
 
 namespace Data.ViewModel
 {
-    public class CourseComprehensionEmployeeVM
+   public class BatchClassVM
     {
         public int Id { get; set; }
-        public int Value { get; set; }
+        public int Class { get; set; }
+        public int Batch { get; set; }
         public int Trainee { get; set; }
-        public int CourseComprehension { get; set; }
+        public int Trainer { get; set; }
     }
 }
