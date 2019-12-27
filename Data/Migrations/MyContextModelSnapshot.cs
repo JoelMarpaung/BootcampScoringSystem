@@ -99,7 +99,7 @@ namespace Data.Migrations
 
             modelBuilder.Entity("Data.Model.Batch", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<DateTimeOffset>("CreateDate");
@@ -128,7 +128,7 @@ namespace Data.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int?>("BatchId");
+                    b.Property<string>("BatchId");
 
                     b.Property<int?>("ClassId");
 

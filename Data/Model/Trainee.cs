@@ -27,7 +27,7 @@ namespace Data.Model
         {
             this.Grade = grade;
             this.BatchClass = batchclass;
-            this.CreateDate = DateTimeOffset.Now;
+            this.UpdateDate = DateTimeOffset.Now;
             this.IsDelete = false;
         }
 

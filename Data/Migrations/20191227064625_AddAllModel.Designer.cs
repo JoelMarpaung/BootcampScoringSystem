@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Data.Migrations
 {
     [DbContext(typeof(MyContext))]
-    [Migration("20191227042810_AddAllModel")]
+    [Migration("20191227064625_AddAllModel")]
     partial class AddAllModel
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -101,7 +101,7 @@ namespace Data.Migrations
 
             modelBuilder.Entity("Data.Model.Batch", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<DateTimeOffset>("CreateDate");
@@ -130,7 +130,7 @@ namespace Data.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int?>("BatchId");
+                    b.Property<string>("BatchId");
 
                     b.Property<int?>("ClassId");
 

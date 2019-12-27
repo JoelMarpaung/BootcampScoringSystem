@@ -29,7 +29,7 @@ namespace Data.Model
             this.Name = coursecomprehensionVM.Name;
             this.Weight = coursecomprehensionVM.Weight;
             this.Class = _class;
-            this.CreateDate = DateTimeOffset.Now;
+            this.UpdateDate = DateTimeOffset.Now;
             this.IsDelete = false;
         }
 

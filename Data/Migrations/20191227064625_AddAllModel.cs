@@ -30,8 +30,7 @@ namespace Data.Migrations
                 name: "Batchs",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Id = table.Column<string>(nullable: false),
                     IsDelete = table.Column<bool>(nullable: false),
                     CreateDate = table.Column<DateTimeOffset>(nullable: false),
                     UpdateDate = table.Column<DateTimeOffset>(nullable: false),
@@ -170,7 +169,7 @@ namespace Data.Migrations
                     UpdateDate = table.Column<DateTimeOffset>(nullable: false),
                     DeleteDate = table.Column<DateTimeOffset>(nullable: false),
                     ClassId = table.Column<int>(nullable: true),
-                    BatchId = table.Column<int>(nullable: true),
+                    BatchId = table.Column<string>(nullable: true),
                     TrainerId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>

@@ -29,7 +29,7 @@ namespace Data.Model
             this.Class = _class;
             this.Batch = batch;
             this.Trainer = trainer;
-            this.CreateDate = DateTimeOffset.Now;
+            this.UpdateDate = DateTimeOffset.Now;
             this.IsDelete = false;
         }
 

@@ -32,7 +32,7 @@ namespace Data.Model
             this.Password = accountVM.Password;
             this.Employee = employee;
             this.Role = role;
-            this.CreateDate = DateTimeOffset.Now;
+            this.UpdateDate = DateTimeOffset.Now;
             this.IsDelete = false;
 
 
