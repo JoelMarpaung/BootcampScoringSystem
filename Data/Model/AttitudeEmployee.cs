@@ -11,25 +11,25 @@ namespace Data.Model
         private AttitudeEmployeeVM attitudeEmployeeVM;
 
         public int Value { get; set; }
-        public Employee Employee { get; set; }
+        public Employee Trainee { get; set; }
         public Attitude Attitude { get; set; }
 
         public AttitudeEmployee() { }
 
-        public AttitudeEmployee(AttitudeEmployeeVM attitudeemployeVM, Employee employee, Attitude attitude)
+        public AttitudeEmployee(AttitudeEmployeeVM attitudeemployeVM, Employee trainee, Attitude attitude)
         {
             this.Value = attitudeemployeVM.Value;
-            this.Employee = employee;
+            this.Trainee = trainee;
             this.Attitude = attitude;
             this.CreateDate = DateTimeOffset.Now;
             this.IsDelete = false;
 
         }
 
-        public void Update(AttitudeEmployeeVM attitudeemployeVM, Employee employee, Attitude attitude)
+        public void Update(AttitudeEmployeeVM attitudeemployeVM, Employee trainee, Attitude attitude)
         {
             this.Value = attitudeemployeVM.Value;
-            this.Employee = employee;
+            this.Trainee = trainee;
             this.Attitude = attitude;
             this.CreateDate = DateTimeOffset.Now;
             this.IsDelete = false;
