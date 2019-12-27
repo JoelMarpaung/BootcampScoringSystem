@@ -14,12 +14,12 @@ namespace Data.Model
         public string Id { get; set; }
         public bool IsDelete { get; set; }
         public DateTimeOffset CreateDate { get; set; }
-        public DateTimeOffset UpdateDate { get; set; }
-        public DateTimeOffset DeleteDate { get; set; }
+        public Nullable<DateTimeOffset> UpdateDate { get; set; }
+        public Nullable<DateTimeOffset> DeleteDate { get; set; }
         public string Name { get; set; }
         public string Type { get; set; }
         public DateTimeOffset JoinDate { get; set; }
-        public DateTimeOffset FinishDate { get; set; }
+        public Nullable<DateTimeOffset> FinishDate { get; set; }
 
         public Batch() { }
 
@@ -29,7 +29,6 @@ namespace Data.Model
             this.Name = batchVM.Name;
             this.Type = batchVM.Type;
             this.JoinDate = batchVM.JoinDate;
-            this.FinishDate = batchVM.FinishDate;
             this.CreateDate = DateTimeOffset.Now;
             this.IsDelete = false;
 
