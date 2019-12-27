@@ -11,26 +11,23 @@ namespace Data.Model
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Email { get; set; }
-        public Account Account { get; set; }
 
         public Employee() { }
 
-        public Employee(EmployeeVM employeeVM, Account account)
+        public Employee(EmployeeVM employeeVM)
         {
             this.FirstName = employeeVM.FirstName;
             this.LastName = employeeVM.LastName;
             this.Email = employeeVM.Email;
-            this.Account = account;
             this.CreateDate = DateTimeOffset.Now;
             this.IsDelete = false;
         }
 
-        public void Update(EmployeeVM employeeVM, Account account)
+        public void Update(EmployeeVM employeeVM)
         {
             this.FirstName = employeeVM.FirstName;
             this.LastName = employeeVM.LastName;
             this.Email = employeeVM.Email;
-            this.Account = account;
             this.CreateDate = DateTimeOffset.Now;
             this.IsDelete = false;
         }

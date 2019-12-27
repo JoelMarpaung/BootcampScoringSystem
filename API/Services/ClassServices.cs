@@ -6,13 +6,15 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Data.Repositories;
+using Data.Repositories.Interface;
 
 namespace API.Services
 {
     public class ClassServices : IClassServices
     {
         int status = 0;
-        private IClassRepository _ClassRepository;
+        private IClassRepository _ClassRepository = new ClassRepository();
 
         MyContext myContext = new MyContext();
 

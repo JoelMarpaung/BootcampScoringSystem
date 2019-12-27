@@ -10,27 +10,24 @@ namespace Data.Model
     {
         public Class Class { get; set; }
         public Batch Batch { get; set; }
-        public Trainee Trainee { get; set; }
         public Employee Trainer { get; set; }
 
         public BatchClass() { }
 
-        public BatchClass(BatchClassVM batchclassVM, Class _class, Batch batch, Trainee trainee, Employee trainer)
+        public BatchClass(BatchClassVM batchclassVM, Class _class, Batch batch, Employee trainer)
         {
             this.Class = _class;
             this.Batch = batch;
-            this.Trainee = trainee;
             this.Trainer = trainer;
             this.CreateDate = DateTimeOffset.Now;
             this.IsDelete = false;
 
         }
 
-        public void Update(BatchClassVM batchclassVM, Class _class, Batch batch, Trainee trainee, Employee trainer)
+        public void Update(BatchClassVM batchclassVM, Class _class, Batch batch,Employee trainer)
         {
             this.Class = _class;
             this.Batch = batch;
-            this.Trainee = trainee;
             this.Trainer = trainer;
             this.CreateDate = DateTimeOffset.Now;
             this.IsDelete = false;

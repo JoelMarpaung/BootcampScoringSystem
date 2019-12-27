@@ -7,20 +7,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Data.Repositories.Interface;
+using Data.Repositories;
 
 namespace API.Services
 {
     public class GradeServices : IGradeServices
     {
         int status = 0;
-        private IGradeRepository _GradeRepository;
+        private IGradeRepository _GradeRepository = new GradeRepository();
 
         MyContext myContext = new MyContext();
-
-        public GradeServices(IGradeRepository GradeRepository)
-        {
-            _GradeRepository = GradeRepository;
-        }
+        
         public int Create(GradeVM gradeVM)
         {
             if (string.IsNullOrWhiteSpace(gradeVM.Name))

@@ -1,4 +1,9 @@
 ﻿using API.Services.Interface;
+using Data.Model;
+using Data.Repositories.Interface;
+using Data.Context;
+using Data.ViewModel;
+using Data.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,25 +14,13 @@ namespace API.Services
     public class BatchClassServices : IBatchClassServices
     {
         int status = 0;
-        private IBatchClassRepository _BatchClassRepository;
+        private IBatchClassRepository _BatchClassRepository = new BatchClassRepository();
 
         MyContext myContext = new MyContext();
 
-        public BatchClassServices(IBatchClassRepository BatchClassRepository)
+        public int Create(BatchClassVM batchClassVM)
         {
-            _BatchClassRepository = BatchClassRepository;
-        }
-
-        public int Create(BatchClasshVM batchClassVM)
-        {
-            if (string.IsNullOrWhiteSpace(batchClassVM.FirstName))
-            {
-                return status;
-            }
-            else
-            {
-                return _BatchClassRepository.Create(batchClassVM);
-            }
+            return _BatchClassRepository.Create(batchClassVM);
         }
 
         public int Delete(int id)
@@ -58,23 +51,17 @@ namespace API.Services
 
         public BatchClass Get(BatchClassVM batchClassVM)
         {
-            if (string.IsNullOrWhiteSpace(id.ToString()))
+            if (string.IsNullOrWhiteSpace(batchClassVM.Id.ToString()))
             {
                 var data = status;
             }
             return _BatchClassRepository.Get(batchClassVM);
         }
 
-        public int Update(int id, BatchClasshVM batchClassVM)
+        public int Update(int id, BatchClassVM batchClassVM)
         {
-            if (string.IsNullOrWhiteSpace(batchClassVM.FirstName))
-            {
-                return status;
-            }
-            else
-            {
-                return _BatchClassRepository.Update(id, batchClassVM);
-            }
+
+            return _BatchClassRepository.Update(id, batchClassVM);
         }
     }
 }

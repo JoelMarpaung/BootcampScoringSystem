@@ -5,11 +5,11 @@ using Data.Model;
 
 namespace Data.ViewModel
 {
-   public class AttitudeEmployeeVM
+    public class CourseComprehensionTraineeVM
     {
         public int Id { get; set; }
         public int Value { get; set; }
-        public int Employee { get; set; }
-        public int Attitude { get; set; }
+        public int Trainee { get; set; }
+        public int CourseComprehension { get; set; }
     }
 }

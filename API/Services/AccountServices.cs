@@ -7,21 +7,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Data.Repositories.Interface;
+using Data.Repositories;
 
 namespace API.Services
 {
     public class AccountServices : IAccountServices
     {
         int status = 0;
-        private IAccountRepository _AccountRepository;
+        private IAccountRepository _AccountRepository = new AccountRepository();
 
         MyContext myContext = new MyContext();
-
-        public AccountServices(IAccountRepository AccountRepository)
-        {
-            _AccountRepository = AccountRepository;
-        }
-
+        
         public int Create(AccountVM accountVM)
         {
             if (string.IsNullOrWhiteSpace(accountVM.UserName))
@@ -71,7 +67,7 @@ namespace API.Services
 
         public int Update(int id, AccountVM accountVM)
         {
-            if (string.IsNullOrWhiteSpace(accountVM..UserName))
+            if (string.IsNullOrWhiteSpace(accountVM.UserName))
             {
                 return status;
             }
