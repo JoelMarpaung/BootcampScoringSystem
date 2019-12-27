@@ -16,9 +16,9 @@ namespace Data.Repositories
         public int Create(CourseComprehensionEmployeeVM CourseComprehensionEmployeeVM)
         {
             int result = 0;
-            var employee = myContext.Employees.Find(CourseComprehensionEmployeeVM.Employee);
+            var trainee = myContext.Trainees.Find(CourseComprehensionEmployeeVM.Trainee);
             var corsecomprehension = myContext.CourseComprehensions.Find(CourseComprehensionEmployeeVM.CourseComprehension);
-            var push = new CourseComprehensionEmployee(CourseComprehensionEmployeeVM, employee, corsecomprehension);
+            var push = new CourseComprehensionEmployee(CourseComprehensionEmployeeVM, trainee, corsecomprehension);
             myContext.CourseComprehensionEmployees.Add(push);
             result = myContext.SaveChanges();
             return result;
@@ -50,11 +50,11 @@ namespace Data.Repositories
             throw new NotImplementedException();
         }
 
-        public int Update(int id, CourseComprehensionEmployeeVM CourseComprehensionEmployeeVM, Employee employee, CourseComprehension coursecomprehension)
+        public int Update(int id, CourseComprehensionEmployeeVM CourseComprehensionEmployeeVM, Trainee trainee, CourseComprehension coursecomprehension)
         {
             var result = 0;
             var update = myContext.CourseComprehensionEmployees.Find(id);
-            update.Update(CourseComprehensionEmployeeVM, employee, coursecomprehension);
+            update.Update(CourseComprehensionEmployeeVM, trainee, coursecomprehension);
             result = myContext.SaveChanges();
             return result;
         }

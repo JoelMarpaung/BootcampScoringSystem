@@ -23,6 +23,8 @@ namespace Data.Context
         public DbSet<FinalProjectEmployee> FinalProjectEmployees { get; set; }
         public DbSet<Grade> Grades { get; set; }
         public DbSet<Role> Roles { get; set; }
+        public DbSet<Trainee> Trainees { get; set; }
+        public DbSet<BatchClass> BatchClasses { get; set; }
 
         public MyContext() { }
 

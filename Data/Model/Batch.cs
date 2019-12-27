@@ -10,6 +10,7 @@ namespace Data.Model
     public class Batch : BaseModel
     {
         public string Name { get; set; }
+        public string Type { get; set; }
         public DateTimeOffset JoinDate { get; set; }
         public DateTimeOffset FinishDate { get; set; }
 
@@ -18,6 +19,7 @@ namespace Data.Model
         public Batch(BatchVM batchVM)
         {
             this.Name = batchVM.Name;
+            this.Type = batchVM.Type;
             this.JoinDate = batchVM.JoinDate;
             this.FinishDate = batchVM.FinishDate;
             this.CreateDate = DateTimeOffset.Now;
