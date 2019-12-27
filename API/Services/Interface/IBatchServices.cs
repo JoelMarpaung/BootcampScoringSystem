@@ -12,8 +12,8 @@ namespace API.Services.Interface
         IEnumerable<Batch> Get();
         Batch Get(int id);
         Batch Get(BatchVM batchVM);
-        int Create(BatchVM batchVM);
-        int Update(int id, BatchVM batchVM);
-        int Delete(int id);
+        //int Create(BatchVM batchVM);
+        //int Update(int id, BatchVM batchVM);
+        //int Delete(int id);
     }
 }
