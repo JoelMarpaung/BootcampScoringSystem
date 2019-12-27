@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Microsoft.EntityFrameworkCore;
 using Data.Context;
 using Data.Model;
 using Data.Repositories.Interface;
@@ -37,7 +38,7 @@ namespace Data.Repositories
 
         public IEnumerable<Trainee> Get()
         {
-            return myContext.Trainees.ToList();
+            return myContext.Trainees.Include(trainee => trainee.BatchClass).ThenInclude(batchclass => batchclass.Batch).Include(trainee => trainee.BatchClass).ThenInclude(batchclass => batchclass.Class).Include(trainee => trainee.Grade).ToList();
         }
 
         public Trainee Get(int id)
@@ -50,18 +51,15 @@ namespace Data.Repositories
             throw new NotImplementedException();
         }
 
-        public int Update(int id, TraineeVM TraineeVM, Grade grade, BatchClass batchclass)
+        public int Update(int id, TraineeVM TraineeVM)
         {
             var result = 0;
+            var grade = myContext.Grades.Find(TraineeVM.Grade);
+            var batchclass = myContext.BatchClasses.Find(TraineeVM.BatchClass);
             var update = myContext.Trainees.Find(id);
             update.Update(TraineeVM, grade, batchclass);
             result = myContext.SaveChanges();
             return result;
-        }
-
-        public int Update(int id, TraineeVM TraineeVM)
-        {
-            throw new NotImplementedException();
         }
     }
 }
