@@ -23,7 +23,7 @@ namespace Data.Model
         public void Update(RoleVM roleVM)
         {
             this.Name = roleVM.Name;
-            this.CreateDate = DateTimeOffset.Now;
+            this.UpdateDate = DateTimeOffset.Now;
             this.IsDelete = false;
         }
 

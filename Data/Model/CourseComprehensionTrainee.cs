@@ -29,7 +29,7 @@ namespace Data.Model
             this.Value = coursecomprehensiontraineeVM.Value;
             this.Trainee = trainee;
             this.CourseComprehension = coursecomprehension;
-            this.CreateDate = DateTimeOffset.Now;
+            this.UpdateDate = DateTimeOffset.Now;
             this.IsDelete = false;
         }
 

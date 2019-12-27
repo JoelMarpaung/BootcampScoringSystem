@@ -26,7 +26,7 @@ namespace Data.Model
         {
             this.Name = finalprojectVM.Name;
             this.Weight = finalprojectVM.Weight;
-            this.CreateDate = DateTimeOffset.Now;
+            this.UpdateDate = DateTimeOffset.Now;
             this.IsDelete = false;
         }
 

@@ -28,7 +28,7 @@ namespace Data.Model
             this.Value = finalprojecttraineeVM.Value;
             this.Trainee = trainee;
             this.FinalProject = finalproject;
-            this.CreateDate = DateTimeOffset.Now;
+            this.UpdateDate = DateTimeOffset.Now;
             this.IsDelete = false;
         }
 
