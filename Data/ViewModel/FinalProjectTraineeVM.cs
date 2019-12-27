@@ -4,10 +4,10 @@ using System.Text;
 
 namespace Data.ViewModel
 {
-   public class FinalProjectEmployeeVM
+   public class FinalProjectTraineeVM
     {
         public int Value { get; set; }
-        public int Employee { get; set; }
+        public int Trainee { get; set; }
         public int FinalProject { get; set; }
     }
 }

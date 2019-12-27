@@ -6,19 +6,17 @@ using Data.ViewModel;
 
 namespace Data.Model
 {
-    public class AttitudeEmployee : BaseModel
+    public class AttitudeTrainee : BaseModel
     {
-        private AttitudeEmployeeVM attitudeEmployeeVM;
-
         public int Value { get; set; }
-        public Employee Trainee { get; set; }
+        public Trainee Trainee { get; set; }
         public Attitude Attitude { get; set; }
 
-        public AttitudeEmployee() { }
+        public AttitudeTrainee() { }
 
-        public AttitudeEmployee(AttitudeEmployeeVM attitudeemployeVM, Employee trainee, Attitude attitude)
+        public AttitudeTrainee(AttitudeTraineeVM attitudetraineeVM, Trainee trainee, Attitude attitude)
         {
-            this.Value = attitudeemployeVM.Value;
+            this.Value = attitudetraineeVM.Value;
             this.Trainee = trainee;
             this.Attitude = attitude;
             this.CreateDate = DateTimeOffset.Now;
@@ -26,9 +24,9 @@ namespace Data.Model
 
         }
 
-        public void Update(AttitudeEmployeeVM attitudeemployeVM, Employee trainee, Attitude attitude)
+        public void Update(AttitudeTraineeVM attitudetraineeVM, Trainee trainee, Attitude attitude)
         {
-            this.Value = attitudeemployeVM.Value;
+            this.Value = attitudetraineeVM.Value;
             this.Trainee = trainee;
             this.Attitude = attitude;
             this.CreateDate = DateTimeOffset.Now;

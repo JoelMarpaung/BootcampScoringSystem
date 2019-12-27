@@ -16,11 +16,9 @@ namespace Data.Repositories
         public int Create(TraineeVM TraineeVM)
         {
             int result = 0;
-            var batch = myContext.Batchs.Find(TraineeVM.Batch);
-            var _class = myContext.Classes.Find(TraineeVM.Class);
             var grade = myContext.Grades.Find(TraineeVM.Grade);
-            var trainer = myContext.Employees.Find(TraineeVM.Trainer);
-            var push = new Trainee(TraineeVM, batch, _class, grade, trainer);
+            var batchclass = myContext.BatchClasses.Find(TraineeVM.BatchClass);
+            var push = new Trainee(TraineeVM, grade, batchclass);
             myContext.Trainees.Add(push);
             result = myContext.SaveChanges();
             return result;
@@ -52,11 +50,11 @@ namespace Data.Repositories
             throw new NotImplementedException();
         }
 
-        public int Update(int id, TraineeVM TraineeVM, Batch batch, Class _class, Grade grade, Employee trainer)
+        public int Update(int id, TraineeVM TraineeVM, Grade grade, BatchClass batchclass)
         {
             var result = 0;
             var update = myContext.Trainees.Find(id);
-            update.Update(TraineeVM, batch, _class, grade, trainer);
+            update.Update(TraineeVM, grade, batchclass);
             result = myContext.SaveChanges();
             return result;
         }

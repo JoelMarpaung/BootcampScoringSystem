@@ -9,30 +9,24 @@ namespace Data.Model
     public class Trainee : BaseModel
     {
 
-        public Batch Batch { get; set; }
-        public Class Class { get; set; }
         public Grade Grade { get; set; }
-        public Employee Trainer { get; set; }
+        public BatchClass BatchClass { get; set; }
 
         public Trainee() { }
 
-        public Trainee(TraineeVM traineeVM, Batch batch, Class _class, Grade grade, Employee trainer)
+        public Trainee(TraineeVM traineeVM, Grade grade, BatchClass batchclass)
         {
-            this.Batch = batch;
-            this.Class = _class;
             this.Grade = grade;
-            this.Trainer = trainer;
+            this.BatchClass = batchclass;
             this.CreateDate = DateTimeOffset.Now;
             this.IsDelete = false;
 
         }
 
-        public void Update(TraineeVM traineeVM, Batch batch, Class _class, Grade grade, Employee trainer)
+        public void Update(TraineeVM traineeVM, Grade grade, BatchClass batchclass)
         {
-            this.Batch = batch;
-            this.Class = _class;
             this.Grade = grade;
-            this.Trainer = trainer;
+            this.BatchClass = batchclass;
             this.CreateDate = DateTimeOffset.Now;
             this.IsDelete = false;
         }
