@@ -17,12 +17,7 @@ namespace API.Services
         private IClassRepository _ClassRepository = new ClassRepository();
 
         MyContext myContext = new MyContext();
-
-        public ClassServices(IClassRepository ClassRepository)
-        {
-            _ClassRepository = ClassRepository;
-        }
-
+        
         public int Create(ClassVM classVM)
         {
             if (string.IsNullOrWhiteSpace(classVM.Name))

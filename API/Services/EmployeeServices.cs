@@ -17,12 +17,7 @@ namespace API.Id
         private IEmployeeRepository _EmployeeRepository = new EmployeeRepository();
 
         MyContext myContext = new MyContext();
-
-        public EmployeeServices(IEmployeeRepository EmployeeRepository)
-        {
-            _EmployeeRepository = EmployeeRepository;
-        }
-
+        
         public int Create(EmployeeVM employeeVM)
         {
             if (string.IsNullOrWhiteSpace(employeeVM.FirstName))
