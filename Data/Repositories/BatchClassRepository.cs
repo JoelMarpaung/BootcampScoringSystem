@@ -51,18 +51,18 @@ namespace Data.Repositories
             throw new NotImplementedException();
         }
 
-        public int Update(int id, BatchClassVM BatchClassVM,  Class _class, Batch batch, Employee trainer)
+        public int Update(int id, BatchClassVM BatchClassVM)
         {
             var result = 0;
+            var batch = myContext.Batchs.Find(BatchClassVM.Batch);
+            var _class = myContext.Classes.Find(BatchClassVM.Class);
+            var trainer = myContext.Employees.Find(BatchClassVM.Trainer);
             var update = myContext.BatchClasses.Find(id);
             update.Update(BatchClassVM, _class, batch,trainer);
             result = myContext.SaveChanges();
             return result;
         }
 
-        public int Update(int id, BatchClassVM BatchClassVM)
-        {
-            throw new NotImplementedException();
-        }
+       
     }
 }

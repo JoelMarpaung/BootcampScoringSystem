@@ -50,18 +50,15 @@ namespace Data.Repositories
             throw new NotImplementedException();
         }
 
-        public int Update(int id, CourseComprehensionVM CourseComprehensionVM, Class _class)
+        public int Update(int id, CourseComprehensionVM CourseComprehensionVM)
         {
             var result = 0;
+            var _class = myContext.Classes.Find(CourseComprehensionVM.Class);
             var update = myContext.CourseComprehensions.Find(id);
             update.Update(CourseComprehensionVM, _class);
             result = myContext.SaveChanges();
             return result;
         }
 
-        public int Update(int id, CourseComprehensionVM CourseComprehensionVM)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

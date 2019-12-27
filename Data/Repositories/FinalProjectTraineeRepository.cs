@@ -48,18 +48,15 @@ namespace Data.Repositories.Interface
             throw new NotImplementedException();
         }
 
-        public int Update(int id, FinalProjectTraineeVM FinalProjectEmployeeVM,Trainee trainee, FinalProject finalproject)
+        public int Update(int id, FinalProjectTraineeVM FinalProjectEmployeeVM)
         {
             var result = 0;
+            var trainee = myContext.Trainees.Find(FinalProjectEmployeeVM.Trainee);
+            var finalproject = myContext.FinalProjects.Find(FinalProjectEmployeeVM.FinalProject);
             var update = myContext.FinalProjectTrainees.Find(id);
             update.Update(FinalProjectEmployeeVM, trainee, finalproject);
             result = myContext.SaveChanges();
             return result;
-        }
-
-        public int Update(int id, FinalProjectTraineeVM FinalProjectEmployeeVM)
-        {
-            throw new NotImplementedException();
         }
     }
 }
