@@ -12,8 +12,8 @@ namespace API.Services.Interface
         IEnumerable<Account> Get();
         Account Get(int id);
         Account Get(AccountVM accountVM);
-        int Create(AccountVM accountVM);
-        int Update(int id, AccountVM accountVM);
-        int Delete(int id);
+        //int Create(AccountVM accountVM);
+        //int Update(int id, AccountVM accountVM);
+        //int Delete(int id);
     }
 }

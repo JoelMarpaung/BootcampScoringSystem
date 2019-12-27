@@ -12,8 +12,8 @@ namespace API.Services.Interface
         IEnumerable<Data.Model.Class> Get();
         Data.Model.Class Get(int id);
         Data.Model.Class Get(ClassVM classVM);
-        int Create(ClassVM classVM);
-        int Update(int id, ClassVM classVM);
-        int Delete(int id);
+        //int Create(ClassVM classVM);
+        //int Update(int id, ClassVM classVM);
+        //int Delete(int id);
     }
 }
