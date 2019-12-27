@@ -17,7 +17,6 @@ namespace Data.Model
         public Nullable<DateTimeOffset> UpdateDate { get; set; }
         public Nullable<DateTimeOffset> DeleteDate { get; set; }
         public string Name { get; set; }
-        public string Type { get; set; }
         public DateTimeOffset JoinDate { get; set; }
         public Nullable<DateTimeOffset> FinishDate { get; set; }
 
@@ -27,7 +26,6 @@ namespace Data.Model
         {
             this.Id = batchVM.Id;
             this.Name = batchVM.Name;
-            this.Type = batchVM.Type;
             this.JoinDate = batchVM.JoinDate;
             this.CreateDate = DateTimeOffset.Now;
             this.IsDelete = false;
