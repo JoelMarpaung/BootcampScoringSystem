@@ -18,11 +18,6 @@ namespace API.Services
 
         MyContext myContext = new MyContext();
 
-        public FinalProjectServices(IFinalProjectRepository FinalProjectRepository)
-        {
-            _FinalProjectRepository = FinalProjectRepository;
-        }
-
         public int Create(FinalProjectVM finalProjectVM)
         {
             if (string.IsNullOrWhiteSpace(finalProjectVM.Name))
