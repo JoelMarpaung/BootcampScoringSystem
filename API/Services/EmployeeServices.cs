@@ -10,7 +10,7 @@ using Data.Repositories.Interface;
 
 namespace API.Id
 {
-    public class EmployeeId : IEmployeeServices
+    public class EmployeeServices : IEmployeeServices
     {
         int status = 0;
         private IEmployeeRepository _EmployeeRepository;
