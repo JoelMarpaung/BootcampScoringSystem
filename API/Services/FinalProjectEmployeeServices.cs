@@ -20,7 +20,7 @@ namespace API.Services
         
         public int Create(FinalProjectEmployeeVM finalProjectEmployeeVM)
         {
-            if (string.IsNullOrWhiteSpace(finalProjectEmployeeVM.Value))
+            if (string.IsNullOrWhiteSpace(finalProjectEmployeeVM.Value.ToString()))
             {
                 return status;
             }
@@ -58,7 +58,7 @@ namespace API.Services
 
         public FinalProjectEmployee Get(FinalProjectEmployeeVM finalProjectEmployeeVM)
         {
-            if (string.IsNullOrWhiteSpace(finalProjectEmployeeVM.Value))
+            if (string.IsNullOrWhiteSpace(finalProjectEmployeeVM.Value.ToString()))
             {
                 var data = status;
             }
@@ -67,7 +67,7 @@ namespace API.Services
 
         public int Update(int id, FinalProjectEmployeeVM finalProjectEmployeeVM)
         {
-            if (string.IsNullOrWhiteSpace(finalProjectEmployeeVM.Value))
+            if (string.IsNullOrWhiteSpace(finalProjectEmployeeVM.Value.ToString()))
             {
                 return status;
             }

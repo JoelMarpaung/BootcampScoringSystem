@@ -17,17 +17,12 @@ namespace API.Services
         private ITraineeRepository _TraineeRepository = new TraineeRepository();
 
         MyContext myContext = new MyContext();
-        
+
         public int Create(TraineeVM traineeVM)
         {
-            if (string.IsNullOrWhiteSpace(traineeVM.FirstName))
-            {
-                return status;
-            }
-            else
-            {
-                return _TraineeRepository.Create(traineeVM);
-            }
+
+            return _TraineeRepository.Create(traineeVM);
+
         }
 
         public int Delete(int id)
@@ -58,23 +53,14 @@ namespace API.Services
 
         public Trainee Get(TraineeVM traineeVM)
         {
-            if (string.IsNullOrWhiteSpace(traineeVM.FirstName))
-            {
-                var data = status;
-            }
+
             return _TraineeRepository.Get(traineeVM);
         }
 
         public int Update(int id, TraineeVM traineeVM)
         {
-            if (string.IsNullOrWhiteSpace(traineeVM.FirstName))
-            {
-                return status;
-            }
-            else
-            {
-                return _TraineeRepository.Update(id, traineeVM);
-            }
+
+            return _TraineeRepository.Update(id, traineeVM);
         }
     }
 }

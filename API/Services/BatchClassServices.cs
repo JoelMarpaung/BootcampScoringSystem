@@ -18,16 +18,9 @@ namespace API.Services
 
         MyContext myContext = new MyContext();
 
-        public int Create(BatchClasshVM batchClassVM)
+        public int Create(BatchClassVM batchClassVM)
         {
-            if (string.IsNullOrWhiteSpace(batchClassVM.FirstName))
-            {
-                return status;
-            }
-            else
-            {
-                return _BatchClassRepository.Create(batchClassVM);
-            }
+            return _BatchClassRepository.Create(batchClassVM);
         }
 
         public int Delete(int id)
@@ -58,23 +51,17 @@ namespace API.Services
 
         public BatchClass Get(BatchClassVM batchClassVM)
         {
-            if (string.IsNullOrWhiteSpace(id.ToString()))
+            if (string.IsNullOrWhiteSpace(batchClassVM.Id.ToString()))
             {
                 var data = status;
             }
             return _BatchClassRepository.Get(batchClassVM);
         }
 
-        public int Update(int id, BatchClasshVM batchClassVM)
+        public int Update(int id, BatchClassVM batchClassVM)
         {
-            if (string.IsNullOrWhiteSpace(batchClassVM.FirstName))
-            {
-                return status;
-            }
-            else
-            {
-                return _BatchClassRepository.Update(id, batchClassVM);
-            }
+
+            return _BatchClassRepository.Update(id, batchClassVM);
         }
     }
 }
