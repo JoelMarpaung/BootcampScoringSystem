@@ -11,7 +11,7 @@ namespace Data.Base
         public int Id { get; set; }
         public bool IsDelete { get; set; }
         public DateTimeOffset CreateDate { get; set; }
-        public DateTimeOffset UpdateDate { get; set; }
-        public DateTimeOffset DeleteDate { get; set; }
+        public Nullable<DateTimeOffset> UpdateDate { get; set; }
+        public Nullable<DateTimeOffset> DeleteDate { get; set; }
     }
 }

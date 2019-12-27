@@ -29,7 +29,7 @@ namespace Data.Model
             this.Value = attitudetraineeVM.Value;
             this.Trainee = trainee;
             this.Attitude = attitude;
-            this.CreateDate = DateTimeOffset.Now;
+            this.UpdateDate = DateTimeOffset.Now;
             this.IsDelete = false;
         }
 
