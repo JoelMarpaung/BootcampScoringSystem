@@ -20,7 +20,7 @@ namespace Data.Repositories
 
         public int Delete(int id)
         {
-            var delete = myContext.Roles.Find(id);
+            var delete = myContext.Accounts.Find(id);
             if (delete != null)
             {
                 delete.Delete();

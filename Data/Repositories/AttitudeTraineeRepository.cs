@@ -51,18 +51,16 @@ namespace Data.Repositories
             throw new NotImplementedException();
         }
 
-        public int Update(int id, AttitudeTraineeVM AttitudeTraineeVM, Trainee trainee, Attitude attitude)
+        public int Update(int id, AttitudeTraineeVM AttitudeTraineeVM)
         {
             var result = 0;
+            var trainee = myContext.Trainees.Find(AttitudeTraineeVM.Trainee);
+            var attitude = myContext.Attitudes.Find(AttitudeTraineeVM.Attitude);
             var update = myContext.AttitudeTrainees.Find(id);
             update.Update(AttitudeTraineeVM, trainee, attitude);
             result = myContext.SaveChanges();
             return result;
         }
 
-        public int Update(int id, AttitudeTraineeVM AttitudeTraineeVM)
-        {
-            throw new NotImplementedException();
-        }
     }
 }
