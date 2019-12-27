@@ -17,12 +17,7 @@ namespace API.Services
         private ICourseComprehensionRepository _CourseComprehensionRepository = new CourseComprehensionRepository();
 
         MyContext myContext = new MyContext();
-
-        public CourseComprehensionServices(ICourseComprehensionRepository CourseComprehensionRepository)
-        {
-            _CourseComprehensionRepository = CourseComprehensionRepository;
-        }
-
+        
         public int Create(CourseComprehensionVM courseComprehensionVM)
         {
             if (string.IsNullOrWhiteSpace(courseComprehensionVM.Name))
