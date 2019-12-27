@@ -28,7 +28,7 @@ namespace Data.Model
             this.FirstName = employeeVM.FirstName;
             this.LastName = employeeVM.LastName;
             this.Email = employeeVM.Email;
-            this.CreateDate = DateTimeOffset.Now;
+            this.UpdateDate = DateTimeOffset.Now;
             this.IsDelete = false;
         }
 
