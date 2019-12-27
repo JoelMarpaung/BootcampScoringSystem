@@ -13,14 +13,14 @@ namespace Data.Context
         private readonly IServiceProvider _serviceProvider;
         public DbSet<Account> Accounts { get; set; }
         public DbSet<Attitude> Attitudes { get; set; }
-        public DbSet<AttitudeEmployee> AttitudeEmployees { get; set; }
+        public DbSet<AttitudeTrainee> AttitudeTrainees { get; set; }
         public DbSet<Batch> Batchs { get; set; }
         public DbSet<Class> Classes { get; set; }
         public DbSet<CourseComprehension> CourseComprehensions { get; set; }
-        public DbSet<CourseComprehensionEmployee> CourseComprehensionEmployees { get; set; }
+        public DbSet<CourseComprehensionTrainee> CourseComprehensionTrainees { get; set; }
         public DbSet<Employee> Employees { get; set; }
         public DbSet<FinalProject> FinalProjects { get; set; }
-        public DbSet<FinalProjectEmployee> FinalProjectEmployees { get; set; }
+        public DbSet<FinalProjectTrainee> FinalProjectTrainees { get; set; }
         public DbSet<Grade> Grades { get; set; }
         public DbSet<Role> Roles { get; set; }
         public DbSet<Trainee> Trainees { get; set; }
