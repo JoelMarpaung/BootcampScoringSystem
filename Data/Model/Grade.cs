@@ -23,7 +23,7 @@ namespace Data.Model
         public void Update(GradeVM gradeVM)
         {
             this.Name = gradeVM.Name;
-            this.CreateDate = DateTimeOffset.Now;
+            this.UpdateDate = DateTimeOffset.Now;
             this.IsDelete = false;
         }
 

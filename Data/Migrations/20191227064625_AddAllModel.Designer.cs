@@ -3,14 +3,16 @@ using System;
 using Data.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Data.Migrations
 {
     [DbContext(typeof(MyContext))]
-    partial class MyContextModelSnapshot : ModelSnapshot
+    [Migration("20191227064625_AddAllModel")]
+    partial class AddAllModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -24,7 +26,7 @@ namespace Data.Migrations
 
                     b.Property<DateTimeOffset>("CreateDate");
 
-                    b.Property<DateTimeOffset?>("DeleteDate");
+                    b.Property<DateTimeOffset>("DeleteDate");
 
                     b.Property<int?>("EmployeeId");
 
@@ -34,8 +36,8 @@ namespace Data.Migrations
 
                     b.Property<int?>("RoleId");
 
-                    b.Property<DateTimeOffset?>("UpdateDate");
-                    
+                    b.Property<DateTimeOffset>("UpdateDate");
+
                     b.Property<string>("UserName");
 
                     b.HasKey("Id");
@@ -54,13 +56,13 @@ namespace Data.Migrations
 
                     b.Property<DateTimeOffset>("CreateDate");
 
-                    b.Property<DateTimeOffset?>("DeleteDate");
+                    b.Property<DateTimeOffset>("DeleteDate");
 
                     b.Property<bool>("IsDelete");
 
                     b.Property<string>("Name");
 
-                    b.Property<DateTimeOffset?>("UpdateDate");
+                    b.Property<DateTimeOffset>("UpdateDate");
 
                     b.Property<int>("Weight");
 
@@ -78,13 +80,13 @@ namespace Data.Migrations
 
                     b.Property<DateTimeOffset>("CreateDate");
 
-                    b.Property<DateTimeOffset?>("DeleteDate");
+                    b.Property<DateTimeOffset>("DeleteDate");
 
                     b.Property<bool>("IsDelete");
 
                     b.Property<int?>("TraineeId");
 
-                    b.Property<DateTimeOffset?>("UpdateDate");
+                    b.Property<DateTimeOffset>("UpdateDate");
 
                     b.Property<int>("Value");
 
@@ -99,15 +101,14 @@ namespace Data.Migrations
 
             modelBuilder.Entity("Data.Model.Batch", b =>
                 {
-
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<DateTimeOffset>("CreateDate");
 
-                    b.Property<DateTimeOffset?>("DeleteDate");
+                    b.Property<DateTimeOffset>("DeleteDate");
 
-                    b.Property<DateTimeOffset?>("FinishDate");
+                    b.Property<DateTimeOffset>("FinishDate");
 
                     b.Property<bool>("IsDelete");
 
@@ -117,7 +118,7 @@ namespace Data.Migrations
 
                     b.Property<string>("Type");
 
-                    b.Property<DateTimeOffset?>("UpdateDate");
+                    b.Property<DateTimeOffset>("UpdateDate");
 
                     b.HasKey("Id");
 
@@ -135,13 +136,13 @@ namespace Data.Migrations
 
                     b.Property<DateTimeOffset>("CreateDate");
 
-                    b.Property<DateTimeOffset?>("DeleteDate");
+                    b.Property<DateTimeOffset>("DeleteDate");
 
                     b.Property<bool>("IsDelete");
 
                     b.Property<int?>("TrainerId");
 
-                    b.Property<DateTimeOffset?>("UpdateDate");
+                    b.Property<DateTimeOffset>("UpdateDate");
 
                     b.HasKey("Id");
 
@@ -161,13 +162,13 @@ namespace Data.Migrations
 
                     b.Property<DateTimeOffset>("CreateDate");
 
-                    b.Property<DateTimeOffset?>("DeleteDate");
+                    b.Property<DateTimeOffset>("DeleteDate");
 
                     b.Property<bool>("IsDelete");
 
                     b.Property<string>("Name");
 
-                    b.Property<DateTimeOffset?>("UpdateDate");
+                    b.Property<DateTimeOffset>("UpdateDate");
 
                     b.HasKey("Id");
 
@@ -183,13 +184,13 @@ namespace Data.Migrations
 
                     b.Property<DateTimeOffset>("CreateDate");
 
-                    b.Property<DateTimeOffset?>("DeleteDate");
+                    b.Property<DateTimeOffset>("DeleteDate");
 
                     b.Property<bool>("IsDelete");
 
                     b.Property<string>("Name");
 
-                    b.Property<DateTimeOffset?>("UpdateDate");
+                    b.Property<DateTimeOffset>("UpdateDate");
 
                     b.Property<int>("Weight");
 
@@ -209,13 +210,13 @@ namespace Data.Migrations
 
                     b.Property<DateTimeOffset>("CreateDate");
 
-                    b.Property<DateTimeOffset?>("DeleteDate");
+                    b.Property<DateTimeOffset>("DeleteDate");
 
                     b.Property<bool>("IsDelete");
 
                     b.Property<int?>("TraineeId");
 
-                    b.Property<DateTimeOffset?>("UpdateDate");
+                    b.Property<DateTimeOffset>("UpdateDate");
 
                     b.Property<int>("Value");
 
@@ -235,7 +236,7 @@ namespace Data.Migrations
 
                     b.Property<DateTimeOffset>("CreateDate");
 
-                    b.Property<DateTimeOffset?>("DeleteDate");
+                    b.Property<DateTimeOffset>("DeleteDate");
 
                     b.Property<string>("Email");
 
@@ -245,7 +246,7 @@ namespace Data.Migrations
 
                     b.Property<string>("LastName");
 
-                    b.Property<DateTimeOffset?>("UpdateDate");
+                    b.Property<DateTimeOffset>("UpdateDate");
 
                     b.HasKey("Id");
 
@@ -259,13 +260,13 @@ namespace Data.Migrations
 
                     b.Property<DateTimeOffset>("CreateDate");
 
-                    b.Property<DateTimeOffset?>("DeleteDate");
+                    b.Property<DateTimeOffset>("DeleteDate");
 
                     b.Property<bool>("IsDelete");
 
                     b.Property<string>("Name");
 
-                    b.Property<DateTimeOffset?>("UpdateDate");
+                    b.Property<DateTimeOffset>("UpdateDate");
 
                     b.Property<int>("Weight");
 
@@ -281,7 +282,7 @@ namespace Data.Migrations
 
                     b.Property<DateTimeOffset>("CreateDate");
 
-                    b.Property<DateTimeOffset?>("DeleteDate");
+                    b.Property<DateTimeOffset>("DeleteDate");
 
                     b.Property<int?>("FinalProjectId");
 
@@ -289,7 +290,7 @@ namespace Data.Migrations
 
                     b.Property<int?>("TraineeId");
 
-                    b.Property<DateTimeOffset?>("UpdateDate");
+                    b.Property<DateTimeOffset>("UpdateDate");
 
                     b.Property<int>("Value");
 
@@ -309,13 +310,13 @@ namespace Data.Migrations
 
                     b.Property<DateTimeOffset>("CreateDate");
 
-                    b.Property<DateTimeOffset?>("DeleteDate");
+                    b.Property<DateTimeOffset>("DeleteDate");
 
                     b.Property<bool>("IsDelete");
 
                     b.Property<string>("Name");
 
-                    b.Property<DateTimeOffset?>("UpdateDate");
+                    b.Property<DateTimeOffset>("UpdateDate");
 
                     b.HasKey("Id");
 
@@ -329,13 +330,13 @@ namespace Data.Migrations
 
                     b.Property<DateTimeOffset>("CreateDate");
 
-                    b.Property<DateTimeOffset?>("DeleteDate");
+                    b.Property<DateTimeOffset>("DeleteDate");
 
                     b.Property<bool>("IsDelete");
 
                     b.Property<string>("Name");
 
-                    b.Property<DateTimeOffset?>("UpdateDate");
+                    b.Property<DateTimeOffset>("UpdateDate");
 
                     b.HasKey("Id");
 
@@ -351,13 +352,13 @@ namespace Data.Migrations
 
                     b.Property<DateTimeOffset>("CreateDate");
 
-                    b.Property<DateTimeOffset?>("DeleteDate");
+                    b.Property<DateTimeOffset>("DeleteDate");
 
                     b.Property<int?>("GradeId");
 
                     b.Property<bool>("IsDelete");
 
-                    b.Property<DateTimeOffset?>("UpdateDate");
+                    b.Property<DateTimeOffset>("UpdateDate");
 
                     b.HasKey("Id");
 

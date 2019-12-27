@@ -25,7 +25,7 @@ namespace Data.Model
         {
             this.Name = attitudeVM.Name;
             this.Weight = attitudeVM.Weight;
-            this.CreateDate = DateTimeOffset.Now;
+            this.UpdateDate = DateTimeOffset.Now;
             this.IsDelete = false;
         }
 
