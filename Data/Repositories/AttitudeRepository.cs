@@ -56,10 +56,5 @@ namespace Data.Repositories
             result = myContext.SaveChanges();
             return result;
         }
-
-        IEnumerable<Attitude> IAttitudeRepository.Get()
-        {
-            throw new NotImplementedException();
-        }
     }
 }
