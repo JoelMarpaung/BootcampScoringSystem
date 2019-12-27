@@ -7,13 +7,14 @@ using System.Collections.Generic;
 using Data.Context;
 using System.Linq;
 using System.Threading.Tasks;
+using Data.Repositories;
 
 namespace API.Services
 {
     public class CourseComprehensionServices : ICourseComprehensionServices
     {
         int status = 0;
-        private ICourseComprehensionRepository _CourseComprehensionRepository;
+        private ICourseComprehensionRepository _CourseComprehensionRepository = new CourseComprehensionRepository();
 
         MyContext myContext = new MyContext();
 

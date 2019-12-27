@@ -7,21 +7,17 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Data.Repositories;
 
 namespace API.Services
 {
     public class AttitudeServices : IAttitudeServices
     {
         int status = 0;
-        private IAttitudeRepository _AttitudeRepository;
+        private IAttitudeRepository _AttitudeRepository = new AttitudeRepository();
 
         MyContext myContext = new MyContext();
-
-        public AttitudeServices(IAttitudeRepository AttitudeRepository)
-        {
-            _AttitudeRepository = AttitudeRepository;
-        }
-
+        
         public int Create(AttitudeVM attitudeVM)
         {
             if (string.IsNullOrWhiteSpace(attitudeVM.Name))

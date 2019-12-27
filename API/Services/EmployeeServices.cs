@@ -7,13 +7,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Data.Repositories.Interface;
+using Data.Repositories;
 
 namespace API.Id
 {
     public class EmployeeServices : IEmployeeServices
     {
         int status = 0;
-        private IEmployeeRepository _EmployeeRepository;
+        private IEmployeeRepository _EmployeeRepository = new EmployeeRepository();
 
         MyContext myContext = new MyContext();
 

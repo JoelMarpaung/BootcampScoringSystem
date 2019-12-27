@@ -7,21 +7,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Data.Repositories.Interface;
+using Data.Repositories;
 
 namespace API.Services
 {
     public class BatchServices : IBatchServices
     {
         int status = 0;
-        private IBatchRepository _BatchRepository;
+        private IBatchRepository _BatchRepository = new BatchRepository();
 
         MyContext myContext = new MyContext();
-
-        public BatchServices(IBatchRepository BatchRepository)
-        {
-            _BatchRepository = BatchRepository;
-        }
-
+        
         public int Create(BatchVM batchVM)
         {
             if (string.IsNullOrWhiteSpace(batchVM.Name))
