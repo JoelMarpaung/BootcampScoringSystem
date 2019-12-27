@@ -1,5 +1,7 @@
 ﻿using API.Services.Interface;
+using Data.Context;
 using Data.Model;
+using Data.Repositories;
 using Data.Repositories.Interface;
 using Data.ViewModel;
 using System;
@@ -12,18 +14,14 @@ namespace API.Services
     public class CourseComprehensionEmployeeServices : ICourseComprehensionEmployeeServices
     {
         int status = 0;
-        private ICourseComprehensionEmployeeRepository _CourseComprehensionEmployeeRepository;
+        private ICourseComprehensionEmployeeRepository _CourseComprehensionEmployeeRepository = new CourseComprehensionEmployeeRepository();
 
         MyContext myContext = new MyContext();
 
-        public CourseComprehensionEmployeeServices(ICourseComprehensionEmployeeRepository CourseComprehensionEmployeeRepository)
-        {
-            _CourseComprehensionEmployeeRepository = CourseComprehensionEmployeeRepository;
-        }
 
         public int Create(CourseComprehensionEmployeeVM courseComprehensionEmployeeVM)
         {
-            if (string.IsNullOrWhiteSpace(courseComprehensionEmployeeVM.Value))
+            if (string.IsNullOrWhiteSpace(courseComprehensionEmployeeVM.Value.ToString()))
             {
                 return status;
             }
@@ -61,7 +59,7 @@ namespace API.Services
 
         public CourseComprehensionEmployee Get(CourseComprehensionEmployeeVM courseComprehensionEmployeeVM)
         {
-            if (string.IsNullOrWhiteSpace(courseComprehensionEmployeeVM.Value))
+            if (string.IsNullOrWhiteSpace(courseComprehensionEmployeeVM.Value.ToString()))
             {
                 var data = status;
             }
@@ -70,7 +68,7 @@ namespace API.Services
 
         public int Update(int id, CourseComprehensionEmployeeVM courseComprehensionEmployeeVM)
         {
-            if (string.IsNullOrWhiteSpace(courseComprehensionEmployeeVM.Value))
+            if (string.IsNullOrWhiteSpace(courseComprehensionEmployeeVM.Value.ToString()))
             {
                 return status;
             }

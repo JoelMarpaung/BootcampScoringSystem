@@ -7,21 +7,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Data.Repositories.Interface;
+using Data.Repositories;
 
 namespace API.Services
 {
     public class RoleServices : IRoleServices
     {
         int status = 0;
-        private IRoleRepository _RoleRepository;
+        private IRoleRepository _RoleRepository = new RoleRepository();
 
         MyContext myContext = new MyContext();
-
-        public RoleServices(IRoleRepository RoleRepository)
-        {
-            _RoleRepository = RoleRepository;
-        }
-
+        
         public int Create(RoleVM roleVM)
         {
             if (string.IsNullOrWhiteSpace(roleVM.Name))

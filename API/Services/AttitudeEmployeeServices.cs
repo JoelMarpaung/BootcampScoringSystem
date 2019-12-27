@@ -1,5 +1,7 @@
 ﻿using API.Services.Interface;
+using Data.Context;
 using Data.Model;
+using Data.Repositories;
 using Data.Repositories.Interface;
 using Data.ViewModel;
 using System;
@@ -12,18 +14,13 @@ namespace API.Services
     public class AttitudeEmployeeServices : IAttitudeEmployeeServices
     {
         int status = 0;
-        private IAttitudeEmployeeRepository _AttitudeEmployeeRepository;
+        private IAttitudeEmployeeRepository _AttitudeEmployeeRepository = new AttitudeEmployeeRepository();
 
         MyContext myContext = new MyContext();
-
-        public AttitudeEmployeeServices(IAttitudeEmployeeRepository AttitudeEmployeeRepository)
-        {
-            _AttitudeEmployeeRepository = AttitudeEmployeeRepository;
-        }
-
+        
         public int Create(AttitudeEmployeeVM attitudeEmployeeVM)
         {
-            if (string.IsNullOrWhiteSpace(attitudeEmployeeVM.Value))
+            if (string.IsNullOrWhiteSpace(attitudeEmployeeVM.Value.ToString()))
             {
                 return status;
             }
@@ -61,7 +58,7 @@ namespace API.Services
 
         public AttitudeEmployee Get(AttitudeEmployeeVM attitudeEmployeeVM)
         {
-            if (string.IsNullOrWhiteSpace(attitudeEmployeeVM.Value))
+            if (string.IsNullOrWhiteSpace(attitudeEmployeeVM.Value.ToString()))
             {
                 var data = status;
             }
@@ -70,7 +67,7 @@ namespace API.Services
 
         public int Update(int id, AttitudeEmployeeVM attitudeEmployeeVM)
         {
-            if (string.IsNullOrWhiteSpace(attitudeEmployeeVM.Value))
+            if (string.IsNullOrWhiteSpace(attitudeEmployeeVM.Value.ToString()))
             {
                 return status;
             }

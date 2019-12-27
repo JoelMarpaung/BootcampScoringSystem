@@ -14,7 +14,7 @@ namespace API.Services
     public class FinalProjectServices : IFinalProjectServices
     {
         int status = 0;
-        private IFinalProjectRepository _FinalProjectRepository;
+        private IFinalProjectRepository _FinalProjectRepository = new FinalProjectRepository();
 
         MyContext myContext = new MyContext();
 

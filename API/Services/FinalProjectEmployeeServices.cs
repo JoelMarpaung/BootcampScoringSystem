@@ -1,6 +1,7 @@
 ﻿using API.Services.Interface;
 using Data.Model;
 using Data.Repositories.Interface;
+using Data.Repositories;
 using Data.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -13,13 +14,10 @@ namespace API.Services
     public class FinalProjectEmployeeServices : IFinalProjectEmployeeServices
     {
         int status = 0;
-        private IFinalProjectEmployeeRepository _FinalProjectEmployeeRepository;
+        private IFinalProjectEmployeeRepository _FinalProjectEmployeeRepository = new FinalProjectEmployeeRepository();
 
         MyContext myContext = new MyContext();
-        public FinalProjectEmployeeServices(IFinalProjectEmployeeRepository FinalProjectEmployeeRepository)
-        {
-            _FinalProjectEmployeeRepository = FinalProjectEmployeeRepository;
-        }
+        
         public int Create(FinalProjectEmployeeVM finalProjectEmployeeVM)
         {
             if (string.IsNullOrWhiteSpace(finalProjectEmployeeVM.Value))
@@ -60,7 +58,7 @@ namespace API.Services
 
         public FinalProjectEmployee Get(FinalProjectEmployeeVM finalProjectEmployeeVM)
         {
-            t if (string.IsNullOrWhiteSpace(finalProjectEmployeeVM.Value))
+            if (string.IsNullOrWhiteSpace(finalProjectEmployeeVM.Value))
             {
                 var data = status;
             }

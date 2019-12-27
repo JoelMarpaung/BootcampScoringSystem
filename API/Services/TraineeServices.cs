@@ -1,23 +1,23 @@
 ﻿using API.Services.Interface;
+using Data.Model;
+using Data.ViewModel;
+using Data.Context;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Data.Repositories.Interface;
+using Data.Repositories;
 
 namespace API.Services
 {
     public class TraineeServices : ITraineeServices
     {
         int status = 0;
-        private ITraineeRepository _TraineeRepository;
+        private ITraineeRepository _TraineeRepository = new TraineeRepository();
 
         MyContext myContext = new MyContext();
-
-        public TraineeServices(ITraineeRepository TraineeRepository)
-        {
-            _TraineeRepository = TraineeRepository;
-        }
-
+        
         public int Create(TraineeVM traineeVM)
         {
             if (string.IsNullOrWhiteSpace(traineeVM.FirstName))

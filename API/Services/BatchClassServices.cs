@@ -1,4 +1,9 @@
 ﻿using API.Services.Interface;
+using Data.Model;
+using Data.Repositories.Interface;
+using Data.Context;
+using Data.ViewModel;
+using Data.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,14 +14,9 @@ namespace API.Services
     public class BatchClassServices : IBatchClassServices
     {
         int status = 0;
-        private IBatchClassRepository _BatchClassRepository;
+        private IBatchClassRepository _BatchClassRepository = new BatchClassRepository();
 
         MyContext myContext = new MyContext();
-
-        public BatchClassServices(IBatchClassRepository BatchClassRepository)
-        {
-            _BatchClassRepository = BatchClassRepository;
-        }
 
         public int Create(BatchClasshVM batchClassVM)
         {
