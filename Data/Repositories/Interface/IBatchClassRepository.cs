@@ -11,6 +11,7 @@ namespace Data.Repositories.Interface
         IEnumerable<BatchClass> Get();
         BatchClass Get(int id);
         BatchClass Get(BatchClassVM BatchClassVM);
+        IEnumerable<BatchClass> GetByTrainer(int trainerId);
         int Create(BatchClassVM BatchClassVM);
         int Update(int id, BatchClassVM BatchClassVM);
         int Delete(int id);
