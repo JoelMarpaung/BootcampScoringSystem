@@ -58,6 +58,11 @@ namespace API.Services
             return _BatchClassRepository.Get(batchClassVM);
         }
 
+        public IEnumerable<BatchClass> GetByTrainer(int trainerId)
+        {
+            return _BatchClassRepository.GetByTrainer(trainerId);
+        }
+
         public int Update(int id, BatchClassVM batchClassVM)
         {
 

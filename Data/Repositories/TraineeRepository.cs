@@ -51,6 +51,11 @@ namespace Data.Repositories
             throw new NotImplementedException();
         }
 
+        public IEnumerable<Trainee> GetByTrainer(int trainerId)
+        {
+            return myContext.Trainees.Include(trainee => trainee.BatchClass).ThenInclude(batchclass => batchclass.Batch).Include(trainee => trainee.BatchClass).ThenInclude(batchclass => batchclass.Class).Include(trainee => trainee.Grade).ToList();
+        }
+
         public int Update(int id, TraineeVM TraineeVM)
         {
             var result = 0;
