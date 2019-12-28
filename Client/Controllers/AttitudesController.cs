@@ -110,8 +110,8 @@ namespace Client.Controllers
             if (response.IsSuccessStatusCode)
             {
                 var data = await response.Content.ReadAsAsync<Attitude[]>();
-                var supplier = data.FirstOrDefault(s => s.Id == id);
-                var json = JsonConvert.SerializeObject(supplier, Formatting.None, new JsonSerializerSettings()
+                var attitude = data.FirstOrDefault(s => s.Id == id);
+                var json = JsonConvert.SerializeObject(attitude, Formatting.None, new JsonSerializerSettings()
                 {
                     ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
                 });

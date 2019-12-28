@@ -59,20 +59,22 @@
     </div>
 
 <script type="text/javascript">
-    
-    $('#table').dataTable({
 
-            "aoColumns": [null, null, null, { "bSortable": true }],
-            "order": [],
-            "columnDefs": [{
-                "targets": 'no-sort',
-                "retrieve": true,
-                "paging": false,
-                "orderable": false,
-            }],
-            "ajax": loadData(),
-            "responsive": true
-        });
+    $(document).ready(function () {
+        loadData();
+    });
+    $('#table').dataTable({
+        "aoColumns": [null, null, null, { "bSortable": false }],
+        "order": [],
+        "columnDefs": [{
+            "targets": 'no-sort',
+            "retrieve": true,
+            "paging": false,
+            "orderable": false,
+        }],
+        "ajax": loadData(),
+        "responsive": true
+    });
        
 
     //Load Data function  
@@ -123,19 +125,22 @@
             url: "Attitudes/Add/",
             data: attitude
         }).then((result) => {
-            debugger;
-            if (result.StatusCode === 200) {
+            //debugger;
+            //if (result.StatusCode == 200) {
                 Swal.fire({
                     position: 'center',
                     type: 'success',
                     title: 'Insert Successfully'
-                });
-                window.location.href = "/Attitudes/";
-            }
-            else {
-                Swal.fire('Error', 'Insert Fail', 'error');
-                ClearScreen();
-            }
+            });
+            loadData();
+            $('#myModal').modal('hide');
+            ClearScreen();
+                //window.location.href = "/Attitudes/";
+            //}
+            //else {
+            //    Swal.fire('Error', 'Insert Fail', 'error');
+            //    ClearScreen();
+            //}
         });
     }
 
@@ -151,20 +156,26 @@
             data: data
         }).then((result) => {
             debugger;
-            if (result.StatusCode === 200) {
+            //debugger;
+            //if (result.StatusCode === 200) {
                 Swal.fire({
                     position: 'center',
                     type: 'success',
                     title: 'Update Successfully',
                     showConfirmButton: false,
                     timer: 1500
-                });
-                window.location.href = "/Suppliers/";
-            }
-            else {
-                Swal.fire('Error', 'Update Fail', 'error');
-                ClearScreen();
-            }
+            });
+            //ResetTable();
+            loadData();
+            $('#myModal').modal('hide');
+            ClearScreen();
+            //window.location.href = "/Attitudes/";
+            //table.ajax.reload();
+            //}
+            //else {
+            //    Swal.fire('Error', 'Update Fail', 'error');
+            //    ClearScreen();
+            //}
         });
     }
 
