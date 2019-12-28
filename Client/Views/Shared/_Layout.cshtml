@@ -13,7 +13,7 @@
     <!-- ============================================================== -->
     <!-- Main wrapper - style you can find in pages.scss -->
     <!-- ============================================================== -->
-    @if (@HttpContextAccessor.HttpContext.Session.GetString("Id") != null)
+    @if (@HttpContextAccessor.HttpContext.Session.GetString("Id") == null)
     {
         <div id="main-wrapper">
             <!-- ============================================================== -->
