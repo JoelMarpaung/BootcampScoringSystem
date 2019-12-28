@@ -34,7 +34,7 @@ namespace Data.Repositories
 
         public IEnumerable<Grade> Get()
         {
-            return myContext.Grades.ToList();
+            return myContext.Grades.Where(g=>g.IsDelete==false).ToList();
         }
 
         public Grade Get(int id)
