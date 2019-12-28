@@ -5,6 +5,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20191228132119_UpdateTraineeModel.cs" />
+    <Compile Remove="Migrations\20191228135418_UpdateTraineeModel.cs" />
+    <Compile Remove="Migrations\20191228135645_UpdateTraineeModel.cs" />
+    <Compile Remove="Migrations\20191228135852_UpdateTraineeModel.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="appsettings.Development.json" />
     <None Remove="appsettings.json" />
   </ItemGroup>
