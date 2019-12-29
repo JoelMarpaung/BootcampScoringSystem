@@ -8,7 +8,7 @@ using Data.Context;
 using Data.Model;
 using Data.Repositories.Interface;
 using Data.ViewModel;
-
+using Microsoft.EntityFrameworkCore;
 
 namespace Data.Repositories
 {
@@ -50,6 +50,11 @@ namespace Data.Repositories
         public CourseComprehension Get(CourseComprehensionVM CourseComprehensionVM)
         {
             throw new NotImplementedException();
+        }
+
+        public IEnumerable<CourseComprehension> GetByClass(int classId)
+        {
+            return myContext.CourseComprehensions.Include(cc => cc.Class).Where(cc => cc.Class.Id == classId).ToList();
         }
 
         public int Update(int id, CourseComprehensionVM CourseComprehensionVM)

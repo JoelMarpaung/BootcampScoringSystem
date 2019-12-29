@@ -65,6 +65,11 @@ namespace API.Services
             return _CourseComprehensionRepository.Get(courseComprehensionVM);
         }
 
+        public IEnumerable<CourseComprehension> GetByClass(int classId)
+        {
+            return _CourseComprehensionRepository.GetByClass(classId);
+        }
+
         public int Update(int id, CourseComprehensionVM courseComprehensionVM)
         {
             if (string.IsNullOrWhiteSpace(courseComprehensionVM.Name))

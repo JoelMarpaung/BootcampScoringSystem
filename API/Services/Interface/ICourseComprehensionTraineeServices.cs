@@ -12,6 +12,7 @@ namespace API.Services.Interface
         IEnumerable<CourseComprehensionTrainee> Get();
         CourseComprehensionTrainee Get(int id);
         CourseComprehensionTrainee Get(CourseComprehensionTraineeVM courseComprehensionEmployeeVM);
+        IEnumerable<CourseComprehensionTrainee> GetByTrainee(int traineeId);
         int Create(CourseComprehensionTraineeVM courseComprehensionEmployeeVM);
         int Update(int id, CourseComprehensionTraineeVM courseComprehensionEmployeeVM);
         int Delete(int id);

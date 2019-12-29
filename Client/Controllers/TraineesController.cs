@@ -40,5 +40,64 @@ namespace Client.Controllers
             return Json("Internal Server Error");
         }
 
+        public JsonResult TraineeByTrainerList(int id)
+        {
+            var response = client.GetAsync("Trainee/GetByTrainer/" + id);
+            response.Wait();
+            var result = response.Result;
+            if (result.IsSuccessStatusCode)
+            {
+                var data = result.Content.ReadAsAsync<IList<Trainee>>();
+                data.Wait();
+                var json = data.Result;
+                return Json(json);
+            }
+            return Json("Internal Server Error");
+        }
+
+        public JsonResult CourseComprehensionByTraineeList(int id)
+        {
+            var response = client.GetAsync("CourseComprehensionTrainee/GetByTrainee/" + id);
+            response.Wait();
+            var result = response.Result;
+            if (result.IsSuccessStatusCode)
+            {
+                var data = result.Content.ReadAsAsync<IList<CourseComprehensionTrainee>>();
+                data.Wait();
+                var json = data.Result;
+                return Json(json);
+            }
+            return Json("Internal Server Error");
+        }
+
+        public JsonResult AttitudeByTraineeList(int id)
+        {
+            var response = client.GetAsync("AttitudeTrainee/GetByTrainee/" + id);
+            response.Wait();
+            var result = response.Result;
+            if (result.IsSuccessStatusCode)
+            {
+                var data = result.Content.ReadAsAsync<IList<AttitudeTrainee>>();
+                data.Wait();
+                var json = data.Result;
+                return Json(json);
+            }
+            return Json("Internal Server Error");
+        }
+        public JsonResult FinalProjectByTraineeList(int id)
+        {
+            var response = client.GetAsync("FinalProjectTrainee/GetByTrainee/" + id);
+            response.Wait();
+            var result = response.Result;
+            if (result.IsSuccessStatusCode)
+            {
+                var data = result.Content.ReadAsAsync<IList<FinalProjectTrainee>>();
+                data.Wait();
+                var json = data.Result;
+                return Json(json);
+            }
+            return Json("Internal Server Error");
+        }
+
     }
 }

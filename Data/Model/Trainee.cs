@@ -8,7 +8,7 @@ namespace Data.Model
 {
     public class Trainee : BaseModel
     {
-
+        public Employee Employee { get; set; }
         public Grade Grade { get; set; }
         public BatchClass BatchClass { get; set; }
 

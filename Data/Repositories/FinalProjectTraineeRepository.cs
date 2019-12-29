@@ -5,6 +5,7 @@ using System.Text;
 using Data.Context;
 using Data.Model;
 using Data.ViewModel;
+using Microsoft.EntityFrameworkCore;
 
 namespace Data.Repositories.Interface
 {
@@ -46,6 +47,11 @@ namespace Data.Repositories.Interface
         public FinalProjectTrainee Get(FinalProjectTraineeVM FinalProjectEmployeeVM)
         {
             throw new NotImplementedException();
+        }
+
+        public IEnumerable<FinalProjectTrainee> GetByTrainee(int traineeId)
+        {
+            return myContext.FinalProjectTrainees.Include(fp => fp.FinalProject).Include(fp=>fp.Trainee).Where(fp=>fp.Trainee.Id == traineeId).ToList();
         }
 
         public int Update(int id, FinalProjectTraineeVM FinalProjectEmployeeVM)

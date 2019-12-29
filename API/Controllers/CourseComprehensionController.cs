@@ -40,6 +40,17 @@ namespace API.Controllers
             return NotFound("No Data Found");
         }
 
+        [HttpGet("GetByClass/{classId}")]
+        public ActionResult<CourseComprehension> GetByClass(int classId)
+        {
+            var get = courseComprehensionServices.GetByClass(classId);
+            if (get != null)
+            {
+                return Ok(get);
+            }
+            return NotFound("No Data Found");
+        }
+
         // POST: api/Attitude
         [HttpPost]
         public ActionResult Post(CourseComprehensionVM courseComprehensionVM)
