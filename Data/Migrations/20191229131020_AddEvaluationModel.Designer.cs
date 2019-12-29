@@ -3,14 +3,16 @@ using System;
 using Data.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Data.Migrations
 {
     [DbContext(typeof(MyContext))]
-    partial class MyContextModelSnapshot : ModelSnapshot
+    [Migration("20191229131020_AddEvaluationModel")]
+    partial class AddEvaluationModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -374,8 +376,6 @@ namespace Data.Migrations
 
                     b.Property<DateTimeOffset?>("DeleteDate");
 
-                    b.Property<int?>("EmployeeId");
-
                     b.Property<int?>("GradeId");
 
                     b.Property<bool>("IsDelete");
@@ -385,8 +385,6 @@ namespace Data.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("BatchClassId");
-
-                    b.HasIndex("EmployeeId");
 
                     b.HasIndex("GradeId");
 
@@ -464,10 +462,6 @@ namespace Data.Migrations
                     b.HasOne("Data.Model.BatchClass", "BatchClass")
                         .WithMany()
                         .HasForeignKey("BatchClassId");
-
-                    b.HasOne("Data.Model.Employee", "Employee")
-                        .WithMany()
-                        .HasForeignKey("EmployeeId");
 
                     b.HasOne("Data.Model.Grade", "Grade")
                         .WithMany()

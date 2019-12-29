@@ -4,10 +4,10 @@ using System.Text;
 
 namespace Data.ViewModel
 {
-   public class GradeVM
+    public class EvaluationVM
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public int MaxValue { get; set; }
+        public int Weight { get; set; }
     }
 }
