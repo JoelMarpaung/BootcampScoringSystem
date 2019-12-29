@@ -9,12 +9,14 @@ namespace Data.Model
     public class Grade : BaseModel
     {
         public string Name { get; set; }
+        public int MaxValue { get; set; }
 
         public Grade() { }
 
         public Grade(GradeVM gradeVM)
         {
             this.Name = gradeVM.Name;
+            this.MaxValue = gradeVM.MaxValue;
             this.CreateDate = DateTimeOffset.Now;
             this.IsDelete = false;
 
@@ -23,6 +25,7 @@ namespace Data.Model
         public void Update(GradeVM gradeVM)
         {
             this.Name = gradeVM.Name;
+            this.MaxValue = gradeVM.MaxValue;
             this.UpdateDate = DateTimeOffset.Now;
             this.IsDelete = false;
         }
