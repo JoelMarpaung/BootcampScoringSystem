@@ -25,6 +25,7 @@ namespace Data.Context
         public DbSet<Role> Roles { get; set; }
         public DbSet<Trainee> Trainees { get; set; }
         public DbSet<BatchClass> BatchClasses { get; set; }
+        public DbSet<Evaluation> Evaluations { get; set; }
 
         public MyContext() { }
 
