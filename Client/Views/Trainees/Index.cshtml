@@ -8,8 +8,7 @@
     <div class="col-md-6">
         <div class="form-group">
             <label for="batch">Batch : </label>
-            <select id="batch" class="form-control">
-            </select>
+            <select id="batch" class="form-control"></select>
         </div>
     </div>
 </div>
@@ -29,26 +28,26 @@
             </thead>
             <tbody class="traineeDataTable">
                 @*<tr>
-                    <td>32</td>
-                    <td>Joel Marpaung</td>
-                    <td>-</td>
-                    <td>Bootcamp</td>
-                    <td><button class="btn btn-primary">Edit</button></td>
-                </tr>
-                <tr>
-                    <td>31</td>
-                    <td>Anak Anak</td>
-                    <td>A</td>
-                    <td>Lulus</td>
-                    <td><button class="btn btn-success">Detail</button></td>
-                </tr>
-                <tr>
-                    <td>31</td>
-                    <td>Anak Anak 2</td>
-                    <td>B</td>
-                    <td>Lulus</td>
-                    <td><button class="btn btn-success">Detail</button></td>
-                </tr>*@
+                        <td>32</td>
+                        <td>Joel Marpaung</td>
+                        <td>-</td>
+                        <td>Bootcamp</td>
+                        <td><button class="btn btn-primary">Edit</button></td>
+                    </tr>
+                    <tr>
+                        <td>31</td>
+                        <td>Anak Anak</td>
+                        <td>A</td>
+                        <td>Lulus</td>
+                        <td><button class="btn btn-success">Detail</button></td>
+                    </tr>
+                    <tr>
+                        <td>31</td>
+                        <td>Anak Anak 2</td>
+                        <td>B</td>
+                        <td>Lulus</td>
+                        <td><button class="btn btn-success">Detail</button></td>
+                    </tr>*@
             </tbody>
         </table>
     </div>
@@ -246,13 +245,13 @@
 <script>
     $(document).ready(function () {
         loadBatch();
-        loadAllDataTraine();
     });
     $('#dataTraineeGrid').DataTable({
         "ajax": loadAllDataTraine(),
         "columnDefs": [
             { "orderable": false, "targets": 4 }
-        ]
+        ],
+        "order": []
     });
     function loadAllDataTraine() {
         $.ajax({
@@ -266,14 +265,22 @@
                 //const obj = JSON.parse(result);
                 console.log(result);
                 $.each(result, function (index, item) {
-                html += '<tr>';
-                html += '<td>' + item.batchClass.batch.name + '</td>';
-                html += '<td>' + item.employee.firstName + " " + item.employee.lastName + '</td>';
-                html += '<td>' + item.grade.name + '</td>';
-                html += '<td>' + item.grade.name + '</td>';
-                //html += '<td>' + item.createDate + '</td>';
-                html += '<td>' + "test" + '</td>';
-                //html += '<td><a href="#" onclick="return getbyID(' + item.Id + ')">Edit</a> | <a href="#" onclick="Delete(' + item.Id + ')">Delete</a></td>';
+                    var grade = '-';
+                    var status = 'Bootcamp';
+                    if (item.grade != null) {
+                        grade = item.grade.name;
+                        status = 'Finish';
+                    }
+                    html += '<tr>';
+                    html += '<td>' + item.batchClass.batch.name + '</td>';
+                    html += '<td>' + item.employee.firstName + " " + item.employee.lastName + '</td>';
+                    html += '<td>' + grade + '</td>';
+                    html += '<td>' + status + '</td>';
+                    if (item.grade != null) {
+                        html += '<td><a class="btn btn-success" href="#" onclick="return getDetailTrainee(' + item.id + ')">Detail</a></td>';
+                    } else {
+                        html += '<td><a class="btn btn-primary" href="#" onclick="return getDetailTrainee(' + item.id + ')">Edit</a></td>';
+                    }
                     html += '</tr>';
                 });
                 $('.traineeDataTable').html(html);
