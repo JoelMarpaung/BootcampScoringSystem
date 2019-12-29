@@ -6,35 +6,30 @@ using System.Text;
 
 namespace Data.Model
 {
-    public class Grade : BaseModel
+    public class Evaluation : BaseModel
     {
         public string Name { get; set; }
-        public int MaxValue { get; set; }
+        public int Weight { get; set; }
 
-        public Grade() { }
-
-        public Grade(GradeVM gradeVM)
+        public Evaluation() { }
+        public Evaluation(EvaluationVM evaluationVM)
         {
-            this.Name = gradeVM.Name;
-            this.MaxValue = gradeVM.MaxValue;
+            this.Name = evaluationVM.Name;
+            this.Weight = evaluationVM.Weight;
             this.CreateDate = DateTimeOffset.Now;
             this.IsDelete = false;
-
         }
-
-        public void Update(GradeVM gradeVM)
+        public void Update(EvaluationVM evaluationVM)
         {
-            this.Name = gradeVM.Name;
-            this.MaxValue = gradeVM.MaxValue;
+            this.Name = evaluationVM.Name;
+            this.Weight = evaluationVM.Weight;
             this.UpdateDate = DateTimeOffset.Now;
             this.IsDelete = false;
         }
-
         public void Delete()
         {
-            this.IsDelete = true;
             this.DeleteDate = DateTimeOffset.Now.LocalDateTime;
-
+            this.IsDelete = true;
         }
     }
 }
