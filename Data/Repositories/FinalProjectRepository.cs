@@ -35,7 +35,7 @@ namespace Data.Repositories
 
         public IEnumerable<FinalProject> Get()
         {
-            return myContext.FinalProjects.ToList();
+            return myContext.FinalProjects.Where ( f => f.IsDelete == false).ToList();
         }
 
         public FinalProject Get(int id)

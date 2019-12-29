@@ -91,10 +91,11 @@
             async: false,
             success: function (result) {
                 var html = '';
-                const obj = JSON.parse(result);
+                const obj = JSON.parse(result)  ;
                 $.each(obj, function (key, item) {
                     html += '<tr>';
                     html += '<td>' + item.Id + '</td>';
+                    html += '<td>' + item.Name + '</td>';
                     html += '<td>' + item.Name + '</td>';
                     html += '<td>' + item.Weight + '</td>';
                     html += '<td>' + item.Class['Name'] + '</td>';

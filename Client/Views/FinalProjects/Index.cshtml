@@ -77,19 +77,20 @@
     function loadData() {
         debugger;
         $.ajax({
-            url: "/FinalProjects/List",
+            url: "FinalProjects/List",
             type: "GET",
             contentType: "application/json;charset=utf-8",
             dataType: "json",
+            async: false,
             success: function (result) {
                 var html = '';
                 const obj = JSON.parse(result);
-                $.each(result, function (index, item) {
+                $.each(obj, function (key, item) {
                     html += '<tr>';
                     html += '<td>' + item.Id + '</td>';
                     html += '<td>' + item.Name + '</td>';
                     html += '<td>' + item.Weight + '</td>';
-                    html += '<td><button type="button" class="btn btn-warning" id="Edit" onclick="return getbyID(' + item.Id + ')">Edit</button> ' +
+                    html += '<td><button type="button" class="btn btn-warning" id="Edit" onclick="return GetbyId(' + item.Id + ')">Edit</button> ' +
                         '<button type="button" class="btn btn-danger" id="Delete" onclick="return Delete(' + item.Id + ')" > Delete</button ></td > ';
                     html += '</tr>';
                 });
@@ -105,163 +106,117 @@
         });
     }
 
-    //function Create() {
-    //    var final = new Object();
-    //    final.Name = $('#Name').val();
-    //    final.Weight = $('#Weight').val();
-    //    $.ajax({
-    //        url: "CourseComprehensions/InsertOrUpdate/",
-    //        type: "POST",
-    //        dataType: "json",
-    //        data: final,
-    //        success: function (result) {
-    //            //debugger;
-    //            console.log(result.StatusCode);
-    //            $('#myModal').modal('hide');
-    //            loadData();
-    //            ClearScreen();
-    //            if (result.StatusCode == 200) {
-    //                Swal.fire(
-    //                    'Success',
-    //                    'Data has been created',
-    //                    'success'
-    //                );
-    //            } else {
-    //                Swal.fire({
-    //                    icon: 'error',
-    //                    title: 'Oops...',
-    //                    text: 'Something went wrong!'
-    //                });
-    //            }
-
-    //        },
-    //        error: function (errormessage) {
-    //            Swal.fire({
-    //                icon: 'error',
-    //                title: 'Oops...',
-    //                text: 'Something went wrong!'
-    //            })
-    //        }
-
-    //    });
-    //}
-
-    //function Update() {
-    //    var final = new Object();
-    //    final.Id = $('#Id').val();
-    //    final.Name = $('#Name').val();
-    //    final.Weight = $('#Weight').val();
-    //    $.ajax({
-    //        url: "CourseComprehensions/InsertOrUpdate/",
-    //        //data: JSON.stringify(itemObj),
-    //        type: "PUT",
-    //        //contentType: "application/json;charset=utf-8",
-    //        dataType: "json",
-    //        data: supplier,
-    //        success: function (result) {
-    //            console.log(result);
-    //            $('#myModal').modal('hide');
-    //            //var table = $('#dataGrid').dataTable({
-    //            //    ajax: result
-    //            //});
-    //            loadData();
-    //            ClearScreen();
-    //            Swal.fire(
-    //                'Success',
-    //                'Data has been updated',
-    //                'success'
-    //            );
-    //        },
-    //        error: function (errormessage) {
-    //            Swal.fire({
-    //                icon: 'error',
-    //                title: 'Oops...',
-    //                text: 'Something went wrong!'
-    //            })
-    //        }
-
-    //    });
-    //}
-
-    //function getbyID(Id) {
-    //    $.ajax({
-    //        url: "/FinalProjects/GetById/",
-    //        type: "GET",
-    //        data: { id: Id },
-    //        dataType: "json",
-    //        success: function (result) {
-    //            $('#Id').val(result.Id);
-    //            $('#Name').val(result.Name);
-    //            $('#Weight').val(result.Weight);
-    //            $('#myModal').modal('show');
-    //            $('#Update').show();
-    //            $('#Create').hide();
-    //        }
-    //    })
-    //}
-
-    //function ClearScreen() {
-    //    $('#Id').val('');
-    //    $('#Name').val('');
-    //    $('#Weight').val('');
-    //    $('#Update').hide();
-    //    $('#Create').show();
-    //}
-
-    //function Delete(Id) {
-    //    const swalWithBootstrapButtons = Swal.mixin({
-    //        customClass: {
-    //            confirmButton: 'btn btn-success',
-    //            cancelButton: 'btn btn-danger'
-    //        },
-    //        buttonsStyling: false
-    //    });
-    //    swalWithBootstrapButtons.fire({
-    //        title: 'Are you sure?',
-    //        text: "You won't be able to revert this!",
-    //        icon: 'warning',
-    //        showCancelButton: true,
-    //        confirmButtonText: 'Yes, delete it!',
-    //        cancelButtonText: 'No, cancel!',
-    //        reverseButtons: true
-    //    }).then((result) => {
-    //        if (result.value) {
-    //            $.ajax({
-    //                url: "FinalProjects/Delete/",
-    //                type: "DELETE",
-    //                data: { id: Id },
-    //                success: function (result) {
-    //                    swalWithBootstrapButtons.fire(
-    //                        'Deleted!',
-    //                        'Your file has been deleted.',
-    //                        'success'
-    //                    );
-    //                    loadData();
-    //                    ClearScreen();
-    //                },
-    //                error: function (errormessage) {
-    //                    Swal.fire({
-    //                        icon: 'error',
-    //                        title: 'Oops...',
-    //                        text: 'Something went wrong!'
-    //                    })
-    //                }
-    //            });
+    function Create() {
+        var final = new Object();
+        final.Name = $('#Name').val();
+        final.Weight = $('#Weight').val();
+        $.ajax({
+            url: "FinalProjects/InsertOrUpdate/",
+            type: "POST",
+            dataType: "json",
+            data: final,
+            success: function (result) {
+                Swal.fire({
+                    position: 'center',
+                    type: 'success',
+                    title: 'Data has been created'
+                });
+                $('#myModal').hide();
+            },
+            error: function (result) {
+                Swal.fire('center', 'error', 'Create Failed');
+            }
+        });
+    }
 
 
-    //        } else if (
-    //            /* Read more about handling dismissals below */
-    //            result.dismiss === Swal.DismissReason.cancel
-    //        ) {
-    //            swalWithBootstrapButtons.fire(
-    //                'Cancelled',
-    //                'Your data is safe :)',
-    //                'error'
-    //            )
-    //        }
-    //    })
+    function Update() {
+        var final = new object();
+        final.Id = $('#Id').val();
+        final.Name = $('#Name').val();
+        final.Weight = $('#Weight').val();
+        $.ajax({
+            type: "PUT",
+            url: "FinalProjects/InsertOrUpdate/",
+            data: final,
+            success: function (result) {
+                Swal.fire({
+                    position: 'center',
+                    type: 'success',
+                    title: 'Update Successfully'
+                });
+                loadData();
+            },
+            error: function (result) {
+                swal.fire('center', 'error', 'Update Fail');
+            }
+        });
+    }
 
-    //}
+    function GetbyId(ID) {
+        $.ajax({
+            url: "FinalProjects/GetbyId/" + ID,
+            type: "GET",
+            contentType: "application/json;charset=utf-8",
+            dataType: "json",
+            async: false,
+            success: function (result) {
+                const obj = JSON.parse(result);
+                $('#Id').val(result.Id);
+                $('#Name').val(result.Name);
+                $('#Weight').val(result.Weight);
+
+                $('#myModal').modal('show');
+                $('#btnUpdate').show();
+                $('#btnAdd').hide();
+            },
+            error: function (errormessage) {
+                alert(errormessage.responseText);
+            }
+        });
+        return false;
+    }
+
+    function Delete(ID) {
+        debugger;
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            debugger;
+            if (result.value) {
+                $.ajax({
+                    url: "FinalProjects/Delete/",
+                    type: "DELETE",
+                    data: { id: ID }
+                }).then((result) => {
+                    debugger;
+                    Swal.fire({
+                        position: 'center',
+                        type: 'success',
+                        title: 'Delete Successfully'
+                    });
+                    loadData();
+                });
+            }
+        })
+    }
+
+    function clearTextBox() {
+        $('#Id').val("");
+        $('#Name').val("");
+        $('#Weight').val("");
+        $('#btnUpdate').hide();
+        $('#btnAdd').show();
+        loadClass();
+
+    }
+
 
 
 </script>
