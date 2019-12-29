@@ -43,7 +43,7 @@ namespace Data.Repositories
 
         public Trainee Get(int id)
         {
-            return myContext.Trainees.Find(id);
+            return myContext.Trainees.Include(trainee => trainee.BatchClass).ThenInclude(batchclass => batchclass.Batch).Include(trainee => trainee.BatchClass).ThenInclude(batchclass => batchclass.Class).Include(trainee => trainee.BatchClass).ThenInclude(batchclass => batchclass.Trainer).Include(trainee => trainee.Grade).Include(trainee => trainee.Employee).FirstOrDefault(t=>t.Id==id);
         }
 
         public Trainee Get(TraineeVM TraineeVM)
