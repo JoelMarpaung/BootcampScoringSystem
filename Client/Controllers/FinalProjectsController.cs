@@ -79,7 +79,7 @@ namespace Client.Controllers
             var buffer = System.Text.Encoding.UTF8.GetBytes(myContent);
             var byteContent = new ByteArrayContent(buffer);
             byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-            if (finalprojectVM.Id.Equals(0))
+            if (finalprojectVM.Id == 0)
             {
                 var result = client.PostAsync("API/FinalProject", byteContent).Result;
                 return Json(result);
