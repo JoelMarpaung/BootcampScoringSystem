@@ -3,10 +3,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Microsoft.EntityFrameworkCore;
 using Data.Context;
 using Data.Model;
 using Data.Repositories.Interface;
 using Data.ViewModel;
+
 
 namespace Data.Repositories
 {
@@ -37,7 +39,7 @@ namespace Data.Repositories
 
         public IEnumerable<CourseComprehension> Get()
         {
-            return myContext.CourseComprehensions.ToList();
+            return myContext.CourseComprehensions.Include(coursecomprehension => coursecomprehension.Class).Where(s=>s.IsDelete==false);
         }
 
         public CourseComprehension Get(int id)
