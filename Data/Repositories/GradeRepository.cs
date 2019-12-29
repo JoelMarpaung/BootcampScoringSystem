@@ -14,7 +14,11 @@ namespace Data.Repositories
         MyContext myContext = new MyContext();
         public int Create(GradeVM GradeVM)
         {
-            throw new NotImplementedException();
+            int result = 0;
+            var push = new Grade(GradeVM);
+            myContext.Grades.Add(push);
+            result = myContext.SaveChanges();
+            return result;
         }
 
         public int Delete(int id)
@@ -30,7 +34,7 @@ namespace Data.Repositories
 
         public IEnumerable<Grade> Get()
         {
-            return myContext.Grades.ToList();
+            return myContext.Grades.Where(g=>g.IsDelete==false).ToList();
         }
 
         public Grade Get(int id)
@@ -40,12 +44,16 @@ namespace Data.Repositories
 
         public Grade Get(GradeVM GradeVM)
         {
-            throw new NotImplementedException();
+            return myContext.Grades.Find(GradeVM);
         }
 
         public int Update(int id, GradeVM GradeVM)
         {
-            throw new NotImplementedException();
+            var result = 0;
+            var update = myContext.Grades.Find(id);
+            update.Update(GradeVM);
+            result = myContext.SaveChanges();
+            return result;
         }
     }
 }

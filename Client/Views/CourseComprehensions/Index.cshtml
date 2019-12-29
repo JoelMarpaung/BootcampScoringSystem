@@ -46,7 +46,7 @@
                     <div class="container">
                         <form>
                             <div class="form-group" hidden="hidden">
-                                <label for="Id">Course Comprehension Id</label>
+                                <label for="Id">Id Course Comprehension </label>
                                 <input type="text" class="form-control" id="Id" placeholder="Id" name="Id" />
                             </div>
                             <div class="form-group">
@@ -58,7 +58,8 @@
                                 <input type="text" class="form-control" id="Weight" placeholder="Weight" name="Weight">
                             </div>
                             <div class="form-group">
-                                <label for="ClassName">Class Course Comprehension</label>
+                                <label for="Class">Class Course Comprehension</label>
+                                <input type="text" id="Class_Id" hidden disabled/>
                                 <select id="Class" class="pc form-control"></select>
                             </div>
                         </form>
@@ -109,34 +110,113 @@
         });
     }
 
-    function loadClass() {
+    var Classes = []
+    function LoadClass(element) {
+        if (Classes.length == 0) {
+            $.ajax({
+                type: "GET",
+                url: "/CourseComprehensions/ClassList",
+                success: function (data) {
+                    Classes = data;
+                    renderClass(element);
+                }
+            })
+        }
+        else {
+            renderClass(element);
+        }
+    }
+
+    function renderClass(element) {
+        var $ele = $(element);
+        $ele.empty();
+        $ele.append($('<option/>').val('0').text('Select Class'));
+        $.each(Classes, function (i, val) {
+            $ele.append($('<option/>').val(val.id).text(val.name));
+        })
+    }
+
+    LoadClass($('#Class'));
+
+
+    //function loadClass() {
+    //    debugger;
+    //    $.ajax({
+    //        url: "CourseComprehensions/ClassList",
+    //        type: "GET",
+    //        contentType: "application/json;charset=utf-8",
+    //        dataType: "json",
+    //        success: function (result) {
+    //            var html = '';
+    //            $.each(result, function (index, item) {
+    //                html += '<option value=' + item.Id;
+    //                if ($('#Class').val() == item.Id) {
+    //                    html += ' selected ';
+    //                }
+    //                html += '>' + item.Name + '</option>';
+    //            });
+    //            $('#Class_Id').html(html);
+    //        },
+    //        error: function (errormessage) {
+    //            Swal.fire({
+    //                icon: 'error',
+    //                title: 'Oops...',
+    //                text: 'Something went wrong!'
+    //            })
+    //        }
+    //    });
+    //}
+
+
+    function Create() {
+        var item = new Object();
+        item.Name = $('#Name').val();
+        item.Weight = $('#Weight').val();
+        item.Class = $('#Class').val();
         $.ajax({
-            url: "/Suppliers/List",
-            type: "GET",
-            contentType: "application/json;charset=utf-8",
+            url: "CourseComprehensions/InsertOrUpdate/",
+            type: "POST",
             dataType: "json",
+            data: item,
             success: function (result) {
-                var html = '';
-                //const obj = JSON.parse(result);
-                $.each(result, function (index, item) {
-                    html += '<option value=' + item.Id;
-                    if ($('#Supp_Id').val() == item.Id) {
-                        html += ' selected ';
-                    }
-                    html += '>' + item.Name + '</option>';
-                });
-                $('#Supplier_Id').html(html);
-            },
-            error: function (errormessage) {
                 Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: 'Something went wrong!'
-                })
+                    position: 'center',
+                    type: 'success',
+                    title: 'Data has been created'
+                });
+                $('#myModal').hide();
+            },
+            error: function (result) {
+                Swal.fire('center', 'error', 'Create Failed');
             }
         });
     }
 
+    function Update() {
+        debugger;
+        var item = new Object();
+        item.Id = $('#Id').val();
+        item.Name = $('#Name').val();
+        item.Weight = $('#Weight').val();
+        item.Class = $('#Class').val();
+        $.ajax({
+            type: "POST",
+            url: "CourseComprehensions/InsertOrUpdate/",
+            data: item,
+            success: function (result) {
+                Swal.fire({
+                    position: 'center',
+                    type: 'success',
+                    title: 'Update Successfully'
+                });
+                loadData();
+            },
+            error: function (result) {
+                Swal.fire('center', 'error', 'Update Fail');
+            }
+        });
+    }
+    
     function GetbyId(ID) {
         debugger;
         $.ajax({
@@ -151,7 +231,8 @@
                 $('#Id').val(obj.Id);
                 $('#Name').val(obj.Name);
                 $('#Weight').val(obj.Weight);
-
+                $('#Class').val(obj.Class.Id);
+                
                 $('#myModal').modal('show');
                 $('#btnUpdate').show();
                 $('#btnAdd').hide();
@@ -164,6 +245,7 @@
     }
 
     function Delete(ID) {
+        debugger;
         Swal.fire({
             title: 'Are you sure?',
             text: "You won't be able to revert this!",
@@ -173,38 +255,35 @@
             cancelButtonColor: '#d33',
             confirmButtonText: 'Yes, delete it!'
         }).then((result) => {
+            debugger;
             if (result.value) {
                 $.ajax({
                     url: "CourseComprehensions/Delete/",
-                    type: "POST",
+                    type: "DELETE",
                     data: { id: ID }
                 }).then((result) => {
                     debugger;
-                    if (result.StatusCode == 200) {
                         Swal.fire({
                             position: 'center',
                             type: 'success',
                             title: 'Delete Successfully'
                         });
                         loadData();
-                    }
-                    else {
-                        Swal.fire('Error', 'Update Fail', 'error');
-
-                    }
                 });
             }
         })
     }
-
-
+    
     function clearTextBox() {
         $('#Id').val("");
         $('#Name').val("");
         $('#Weight').val("");
         $('#btnUpdate').hide();
         $('#btnAdd').show();
-        $('#Name').css('border-color', 'lightgrey');
-        $('#Weight').css('border-color', 'lightgrey');
+        loadClass();
+     
     }
+
+
+    
 </script>

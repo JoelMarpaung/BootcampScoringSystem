@@ -9,9 +9,7 @@
         <div class="form-group">
             <label for="batch">Batch : </label>
             <select id="batch" class="form-control">
-                <option>All</option>
-                <option>32</option>
-                <option>31</option>
+                <option value="0">All</option>
             </select>
         </div>
     </div>
@@ -246,3 +244,35 @@
     </div>
 </div>
 
+<script>
+    $(document).ready(function () {
+        loadBatch();
+        //loadAllDataTraine();
+    });
+
+    function loadBatch() {
+        $.ajax({
+            url: "/Trainees/BatchByTrainerList/1",
+            type: "GET",
+            contentType: "application/json;charset=utf-8",
+            dataType: "json",
+            success: function (result) {
+                var html = '<option value="0">All</option>';
+                //const obj = JSON.parse(result);
+                console.log(result);
+                $.each(result, function (index, item) {
+                    html += '<option value=' + item.id;
+                    html += '>' + item.batch.name + '</option>';
+                });
+                $('#batch').html(html);
+            },
+            error: function (errormessage) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Something went wrong!'
+                })
+            }
+        });
+    }
+</script>

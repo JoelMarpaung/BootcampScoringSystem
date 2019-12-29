@@ -35,7 +35,7 @@ namespace Data.Repositories
 
         public IEnumerable<Attitude> Get()
         {
-            return myContext.Attitudes.ToList();
+            return myContext.Attitudes.Where(s=>s.IsDelete==false).ToList();
         }
 
         public Attitude Get(int id)

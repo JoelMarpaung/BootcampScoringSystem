@@ -40,6 +40,17 @@ namespace API.Controllers
             return NotFound("No Data Found");
         }
 
+        [HttpGet("GetByTrainer/{trainerId}")]
+        public ActionResult<BatchClass> GetByTrainer(int trainerId)
+        {
+            var get = batchClassServices.GetByTrainer(trainerId);
+            if (get != null)
+            {
+                return Ok(get);
+            }
+            return NotFound("No Data Found");
+        }
+
         // POST: api/Attitude
         [HttpPost]
         public ActionResult Post(BatchClassVM batchClassVM)

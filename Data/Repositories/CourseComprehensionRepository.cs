@@ -39,7 +39,7 @@ namespace Data.Repositories
 
         public IEnumerable<CourseComprehension> Get()
         {
-            return myContext.CourseComprehensions.Include(coursecomprehension => coursecomprehension.Class);
+            return myContext.CourseComprehensions.Include(coursecomprehension => coursecomprehension.Class).Where(s=>s.IsDelete==false);
         }
 
         public CourseComprehension Get(int id)

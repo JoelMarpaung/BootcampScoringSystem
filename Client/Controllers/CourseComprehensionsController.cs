@@ -14,7 +14,7 @@ namespace Client.Controllers
 {
     public class CourseComprehensionsController : Controller
     {
-        string Baseurl ="https://localhost:44373/";
+        string Baseurl = "https://localhost:44373/";
         readonly HttpClient client = new HttpClient();
 
         public CourseComprehensionsController()
@@ -33,7 +33,7 @@ namespace Client.Controllers
 
         public async Task<JsonResult> List()
         {
-            HttpResponseMessage response = await client.GetAsync("api/CourseComprehension");
+            HttpResponseMessage response = await client.GetAsync("API/CourseComprehension");
             if (response.IsSuccessStatusCode)
             {
                 var data = await response.Content.ReadAsAsync<CourseComprehension[]>();
@@ -46,19 +46,59 @@ namespace Client.Controllers
             return Json("Internal Server Error");
         }
 
-        //public async Task<JsonResult> List()
+        public JsonResult ClassList()
+        {
+            IEnumerable<Class> classes = null;
+            var responseTask = client.GetAsync("API/Class");
+            responseTask.Wait();
+
+            var result = responseTask.Result;
+            if (result.IsSuccessStatusCode)
+            {
+                var readTask = result.Content.ReadAsAsync<IList<Class>>();
+                readTask.Wait();
+                classes = readTask.Result;
+            }
+            else
+            {
+                classes = Enumerable.Empty<Class>();
+                ModelState.AddModelError(string.Empty, "Server error");
+            }
+            return Json(classes);
+        }
+
+        public JsonResult InsertOrUpdate(CourseComprehensionVM coursecomprehensionVM)
+        {
+            var myContent = JsonConvert.SerializeObject(coursecomprehensionVM);
+            var buffer = System.Text.Encoding.UTF8.GetBytes(myContent);
+            var byteContent = new ByteArrayContent(buffer);
+
+            byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+            if (coursecomprehensionVM.Id == 0)
+            {
+                var result = client.PostAsync("API/CourseComprehension", byteContent).Result;
+                return Json(result);
+            }
+            else
+            {
+                var result = client.PutAsync("API/CourseComprehension/" + coursecomprehensionVM.Id, byteContent).Result;
+                return Json(result);
+            }
+
+        }
+        //public async task<jsonresult> classlist()
         //{
-        //    HttpResponseMessage response = await client.GetAsync("API/Class");
-        //    if (response.IsSuccessStatusCode)
+        //    httpresponsemessage response = await client.getasync("api/class");
+        //    if (response.issuccessstatuscode)
         //    {
-        //        var data = await response.Content.ReadAsAsync<CourseComprehension[]>();
-        //        var json = JsonConvert.SerializeObject(data, Formatting.None, new JsonSerializerSettings()
+        //        var data = await response.content.readasasync<class[]>();
+        //        var json = jsonconvert.serializeobject(data, formatting.none, new jsonserializersettings()
         //        {
-        //            ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+        //            referenceloophandling = newtonsoft.json.referenceloophandling.ignore
         //        });
-        //        return Json(json);
+        //        return json(json);
         //    }
-        //    return Json("Internal Server Error");
+        //    return json("internal server error");
         //}
 
         // GET: CourseComprehensions/Details/5

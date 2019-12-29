@@ -6,6 +6,7 @@ using Data.Context;
 using Data.Model;
 using Data.Repositories.Interface;
 using Data.ViewModel;
+using Microsoft.EntityFrameworkCore;
 
 namespace Data.Repositories
 {
@@ -49,6 +50,11 @@ namespace Data.Repositories
         public BatchClass Get(BatchClassVM BatchClassVM)
         {
             throw new NotImplementedException();
+        }
+
+        public IEnumerable<BatchClass> GetByTrainer(int trainerId)
+        {
+            return myContext.BatchClasses.Include(bc => bc.Batch).Include(bc => bc.Class).Include(bc => bc.Trainer).Where(bc => bc.Trainer.Id == trainerId).OrderByDescending(bc=>bc.Id).ToList();
         }
 
         public int Update(int id, BatchClassVM BatchClassVM)
