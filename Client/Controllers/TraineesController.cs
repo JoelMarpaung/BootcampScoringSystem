@@ -99,5 +99,20 @@ namespace Client.Controllers
             return Json("Internal Server Error");
         }
 
+        public JsonResult DetailTrainee(int id)
+        {
+            var response = client.GetAsync("trainee/" + id);
+            response.Wait();
+            var result = response.Result;
+            if (result.IsSuccessStatusCode)
+            {
+                var data = result.Content.ReadAsAsync<Trainee>();
+                data.Wait();
+                var json = data.Result;
+                return Json(json);
+            }
+            return Json("Internal Server Error");
+        }
+
     }
 }

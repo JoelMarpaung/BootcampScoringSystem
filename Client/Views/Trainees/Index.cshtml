@@ -33,7 +33,7 @@
 <hr />
 
 @*Data Traine*@
-<div class="traineeData">
+<div id="traineeData" class="traineeData">
     <div class="row">
         <div id="traineeName" class="col-md-12">
         </div>
@@ -54,22 +54,19 @@
         <div class="col-md-1">
             <h5>Batch : </h5>
         </div>
-        <div class="col-md-5">
-            <h5>32</h5>
+        <div id="traineeBatch" class="col-md-5">
         </div>
         <div class="col-md-1">
             <h5>Status</h5>
         </div>
-        <div class="col-md-5">
-            <h5>Bootcamp</h5>
+        <div id="traineeStatus" class="col-md-5">
         </div>
     </div>
     <div class="row">
         <div class="col-md-1">
             <h5>Trainer : </h5>
         </div>
-        <div class="col-md-2">
-            <h5>Naufal Aji Wibowo</h5>
+        <div id="traineeTrainer" class="col-md-2">
         </div>
     </div>
     <hr />
@@ -157,6 +154,7 @@
 <script>
     $(document).ready(function () {
         loadBatch();
+        $(".traineeData").hide();
     });
     $('#dataTraineeGrid').DataTable({
         "ajax": loadAllDataTraine(),
@@ -187,9 +185,60 @@
         "order": []
     });
 
-    function getDetailTraineeFinish() {
+    function getDetailTraineeFinish(id) {
+        getDetailTrainee(id);
+    }
+    function getDetailTraineeBootcamp(id) {
+        getDetailTrainee(id);
+    }
+    function getDetailTrainee(id) {
+        $(".traineeData").hide();
         $.ajax({
-            url: "/Trainees/FinalProjectByTraineeList/6",
+            url: "trainees/detailtrainee/" + id,
+            type: "GET",
+            contentType: "application/json;charset=utf-8",
+            dataType: "json",
+            async: false,
+            success: function (result) {
+                var traineeName = '-';
+                var traineeClass = '-';
+                var traineeBatch = '-';
+                var traineeTrainer = '-';
+                var traineeGrade = '<h5>-</h5>';
+                var traineeStatus = '<h5>Bootcamp</h5>';
+                traineeName = '<h2>' + result.employee.firstName + " " + result.employee.lastName + '<h2>';
+                traineeClass = '<h5>' + result.batchClass.class.name + '<h5>';
+                traineeBatch = '<h5>' + result.batchClass.batch.name + '<h5>';
+                traineeTrainer = '<h5>' + result.batchClass.trainer.firstName + " " + result.batchClass.trainer.lastName + '<h5>';
+                if (result.grade != null) {
+                    traineeGrade = '<h5>' + result.grade.name + '<h5>';
+                    traineeStatus = '<h5>Finish</h5>';
+                }
+                $('#traineeName').html(traineeName);
+                $('#traineeClass').html(traineeClass);
+                $('#traineeBatch').html(traineeBatch);
+                $('#traineeTrainer').html(traineeTrainer);
+                $('#traineeGrade').html(traineeGrade);
+                $('#traineeStatus').html(traineeStatus);
+            },
+            error: function (errormessage) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Something went wrong!'
+                })
+            }
+        });
+        loadAllDataFinalProject(id);
+        loadAllDataAttitude(id);
+        loadAllDataCourseComprehension(id);
+        $(".traineeData").show();
+    }
+
+    function loadAllDataFinalProject(id) {
+        var nilai = new Map();
+        $.ajax({
+            url: "/Trainees/FinalProjectByTraineeList/"+id,
             type: "GET",
             contentType: "application/json;charset=utf-8",
             dataType: "json",
@@ -243,67 +292,10 @@
         });
     }
 
-    function loadAllDataFinalProject() {
+    function loadAllDataAttitude(id) {
         var nilai = new Map();
         $.ajax({
-            url: "/Trainees/FinalProjectByTraineeList/6",
-            type: "GET",
-            contentType: "application/json;charset=utf-8",
-            dataType: "json",
-            async: false,
-            success: function (result) {
-                $.each(result, function (index, item) {
-                    nilai.set(item.finalProject.id, item.value);
-                });
-            },
-            error: function (errormessage) {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: 'Something went wrong!'
-                })
-            }
-        });
-
-        $.ajax({
-            url: "/FinalProjects/List/",
-            type: "GET",
-            contentType: "application/json;charset=utf-8",
-            dataType: "json",
-            async: false,
-            success: function (result) {
-                var html = '';
-                var no = 1;
-                const obj = JSON.parse(result);
-                $.each(obj, function (index, item) {
-                    var value = '-';
-                    if (nilai.get(item.Id) != null) {
-                        value = nilai.get(item.Id);
-                    }
-                    html += '<tr>';
-                    html += '<td>' + no + '</td>';
-                    html += '<td>' + item.Name + '</td>';
-                    html += '<td>' + value + '</td>';
-                    html += '<td><a class="btn btn-primary" href="#" onclick="return getDetailTrainee(' + item.Id + ')">Edit</a></td>';
-                    html += '</tr>';
-                    no++;
-                });
-                $('.finalProjectDataTable').html(html);
-            },
-            error: function (errormessage) {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: 'Something went wrong!'
-                })
-            }
-        });
-    }
-
-    function loadAllDataAttitude(){
-        var nilai = new Map();
-        $.ajax({
-            url: "/Trainees/AttitudeByTraineeList/6",
+            url: "/Trainees/AttitudeByTraineeList/"+id,
             type: "GET",
             contentType: "application/json;charset=utf-8",
             dataType: "json",
@@ -357,10 +349,10 @@
         });
     }
 
-    function loadAllDataCourseComprehension() {
+    function loadAllDataCourseComprehension(id) {
         var nilai = new Map();
         $.ajax({
-            url: "/Trainees/CourseComprehensionByTraineeList/6",
+            url: "/Trainees/CourseComprehensionByTraineeList/"+id,
             type: "GET",
             contentType: "application/json;charset=utf-8",
             dataType: "json",
@@ -436,9 +428,9 @@
                     html += '<td>' + grade + '</td>';
                     html += '<td>' + status + '</td>';
                     if (item.grade != null) {
-                        html += '<td><a class="btn btn-success" href="#" onclick="return getDetailTraineeFinish(' + item.id + ')">Detail</a></td>';
+                        html += '<td><button class="btn btn-success" onclick="return getDetailTraineeFinish(' + item.id + ')">Detail</button></td>';
                     } else {
-                        html += '<td><a class="btn btn-primary" href="#" onclick="return getDetailTraineeBootcamp(' + item.id + ')">Edit</a></td>';
+                        html += '<td><button class="btn btn-primary" onclick="return getDetailTraineeBootcamp(' + item.id + ')">Edit</button></td>';
                     }
                     html += '</tr>';
                 });
