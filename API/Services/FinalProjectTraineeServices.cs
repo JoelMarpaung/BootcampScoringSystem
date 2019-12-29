@@ -65,6 +65,11 @@ namespace API.Services
             return _FinalProjectTraineeRepository.Get(finalProjectTraineeVM);
         }
 
+        public IEnumerable<FinalProjectTrainee> GetByTrainee(int traineeId)
+        {
+            return _FinalProjectTraineeRepository.GetByTrainee(traineeId);
+        }
+
         public int Update(int id, FinalProjectTraineeVM finalProjectTraineeVM)
         {
             if (string.IsNullOrWhiteSpace(finalProjectTraineeVM.Value.ToString()))

@@ -40,6 +40,17 @@ namespace API.Controllers
             return NotFound("No Data Found");
         }
 
+        [HttpGet("GetByTrainee/{traineeId}")]
+        public ActionResult<AttitudeTrainee> GetByTrainee(int traineeId)
+        {
+            var get = attitudeTraineeServices.GetByTrainee(traineeId);
+            if (get != null)
+            {
+                return Ok(get);
+            }
+            return NotFound("No Data Found");
+        }
+
         // POST: api/Attitude
         [HttpPost]
         public ActionResult Post(AttitudeTraineeVM attitudeTraineeVM)

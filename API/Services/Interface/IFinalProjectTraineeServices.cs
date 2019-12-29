@@ -12,6 +12,7 @@ namespace API.Services.Interface
         IEnumerable<FinalProjectTrainee> Get();
         FinalProjectTrainee Get(int id);
         FinalProjectTrainee Get(FinalProjectTraineeVM finalProjectTraineeVM);
+        IEnumerable<FinalProjectTrainee> GetByTrainee(int traineeId);
         int Create(FinalProjectTraineeVM finalProjectTraineeVM);
         int Update(int id, FinalProjectTraineeVM finalProjectTraineeVM);
         int Delete(int id);

@@ -12,6 +12,7 @@ namespace API.Services.Interface
         IEnumerable<AttitudeTrainee> Get();
         AttitudeTrainee Get(int id);
         AttitudeTrainee Get(AttitudeTraineeVM attitudeTraineeVM);
+        IEnumerable<AttitudeTrainee> GetByTrainee(int traineeId);
         int Create(AttitudeTraineeVM attitudeTraineeVM);
         int Update(int id, AttitudeTraineeVM attitudeTraineeVM);
         int Delete(int id);

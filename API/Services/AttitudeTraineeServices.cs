@@ -65,6 +65,11 @@ namespace API.Services
             return _AttitudeTraineeRepository.Get(attitudeTraineeVM);
         }
 
+        public IEnumerable<AttitudeTrainee> GetByTrainee(int traineeId)
+        {
+            return _AttitudeTraineeRepository.GetByTrainee(traineeId);
+        }
+
         public int Update(int id, AttitudeTraineeVM attitudeTraineeVM)
         {
             if (string.IsNullOrWhiteSpace(attitudeTraineeVM.Value.ToString()))
