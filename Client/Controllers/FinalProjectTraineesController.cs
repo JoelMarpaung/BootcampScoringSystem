@@ -10,10 +10,10 @@ using Newtonsoft.Json;
 
 namespace Client.Controllers
 {
-    public class CourseComprehensionTraineesController : Controller
+    public class FinalProjectTraineesController : Controller
     {
         readonly HttpClient client = new HttpClient();
-        public CourseComprehensionTraineesController()
+        public FinalProjectTraineesController()
         {
             client.BaseAddress = new Uri("https://localhost:44373/api/");
             client.DefaultRequestHeaders.Accept.Clear();
@@ -24,20 +24,20 @@ namespace Client.Controllers
             return View();
         }
 
-        public JsonResult InsertOrUpdate(CourseComprehensionTraineeVM courseComprehensionTraineeVM)
+        public JsonResult InsertOrUpdate(FinalProjectTraineeVM finalProjectTraineeVM)
         {
-            var myContent = JsonConvert.SerializeObject(courseComprehensionTraineeVM);
+            var myContent = JsonConvert.SerializeObject(finalProjectTraineeVM);
             var buffer = System.Text.Encoding.UTF8.GetBytes(myContent);
             var byteContent = new ByteArrayContent(buffer);
             byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-            if (courseComprehensionTraineeVM.Id.Equals(0))
+            if (finalProjectTraineeVM.Id.Equals(0))
             {
-                var result = client.PostAsync("CourseComprehensionTrainee", byteContent).Result;
+                var result = client.PostAsync("FinalProjectTrainee", byteContent).Result;
                 return Json(result);
             }
             else
             {
-                var result = client.PutAsync("CourseComprehensionTrainee/" + courseComprehensionTraineeVM.Id, byteContent).Result;
+                var result = client.PutAsync("FinalProjectTrainee/" + finalProjectTraineeVM.Id, byteContent).Result;
                 return Json(result);
             }
         }

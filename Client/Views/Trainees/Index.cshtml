@@ -165,26 +165,36 @@
 
             <!-- Modal Header -->
             <div class="modal-header">
-                <h4 class="modal-title">Course Comprehension</h4>
+                <h4 class="courseTitle modal-title">Course Comprehension</h4>
+                <h4 class="attitudeTitle modal-title">Attitude</h4>
+                <h4 class="projectTitle modal-title">Final Project</h4>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
 
             <!-- Modal body -->
             <div class="modal-body">
-                <form>
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                     <div class="input-group">
                         <span class="input-group-addon">Score</span>
-                        <input id="courseScore" type="number" class="form-control" placeholder="-" min="0" required>
+                        <input id="idEditModal" type="number" hidden />
+                        <input id="idEditType" type="number" hidden />
+                        <input id="score" type="number" class="form-control" placeholder="-" min="0" required>
                         &nbsp;&nbsp;&nbsp;
-                        <button type="submit" class="btn btn-success">Save</button>
+                        <button type="button" class="btnCourseUpdate btn btn-success" onclick="return Update('course')">Save Course</button>
+                        <button type="button" class="btnAtitudeUpdate btn btn-success" onclick="return Update('attitude')">Save Attitude</button>
+                        <button type="button" class="btnProjectUpdate btn btn-success" onclick="return Update('project')">Save Project</button>
                     </div>
-                </form>
-            </div>
+                }
+                </div>
         </div>
     </div>
 </div>
 
 <script>
+    var idTrainee = 0;
     $(document).ready(function () {
         loadBatch();
         $('#dataTraineeGrid').DataTable({
@@ -194,30 +204,87 @@
             ],
             "order": []
         });
-        $('#courseComprehensionGrid').DataTable({
-            "ajax": loadAllDataCourseComprehension(),
-            "columnDefs": [
-                { "orderable": false, "targets": 3 }
-            ],
-            "order": []
-        });
-        $('#attitudeGrid').DataTable({
-            "ajax": loadAllDataAttitude(),
-            "columnDefs": [
-                { "orderable": false, "targets": 3 }
-            ],
-            "order": []
-        });
-        $('#finalProjectGrid').DataTable({
-            "ajax": loadAllDataFinalProject(),
-            "columnDefs": [
-                { "orderable": false, "targets": 3 }
-            ],
-            "order": []
-        });
         $(".traineeData").hide();
     });
 
+    function Update(status) {
+        var item = new Object();
+        item.Id = $('#idEditModal').val();
+        item.Value = $('#score').val();
+        item.Trainee = idTrainee;
+        item.CourseComprehension = $('#idEditType').val();
+        item.Attitude = $('#idEditType').val();
+        item.FinalProject = $('#idEditType').val();
+        if (status == 'course') {
+            var uri = '/CourseComprehensionTrainees/InsertOrUpdate/'
+        } else if (status == 'attitude') {
+            var uri = '/AttitudeTrainees/InsertOrUpdate/'
+        } else if (status == 'project') {
+            var uri = '/FinalProjectTrainees/InsertOrUpdate/'
+        }
+        console.log(status);
+        console.log(uri);
+        $.ajax({
+            url: uri,
+            //data: JSON.stringify(itemObj),
+            type: "PUT",
+            //contentType: "application/json;charset=utf-8",
+            dataType: "json",
+            data: item,
+            success: function (result) {
+                console.log(result);
+                loadAllDataFinalProject(idTrainee);
+                loadAllDataAttitude(idTrainee);
+                loadAllDataCourseComprehension(idTrainee);
+                $('#traineeModal').modal('hide');
+                //var table = $('#dataGrid').dataTable({
+                //    ajax: result
+                //});\
+                Swal.fire(
+                    'Success',
+                    'Data has been updated',
+                    'success'
+                );
+            },
+            error: function (errormessage) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Something went wrong!'
+                })
+            }
+
+        });
+    }
+
+    function editDataModal(id, type, value, status) {
+        if (status == 'project') {
+            $('.courseTitle').hide();
+            $('.attitudeTitle').hide();
+            $('.projectTitle').show();
+            $('.btnCourseUpdate').hide();
+            $('.btnAtitudeUpdate').hide();
+            $('.btnProjectUpdate').show();
+        } else if (status == 'attitude') {
+            $('.courseTitle').hide();
+            $('.attitudeTitle').show();
+            $('.projectTitle').hide();
+            $('.btnCourseUpdate').hide();
+            $('.btnAtitudeUpdate').show();
+            $('.btnProjectUpdate').hide();
+        } else {
+            $('.courseTitle').show();
+            $('.attitudeTitle').hide();
+            $('.projectTitle').hide();
+            $('.btnCourseUpdate').show();
+            $('.btnAtitudeUpdate').hide();
+            $('.btnProjectUpdate').hide();
+        }
+        $('#idEditModal').val(id);
+        $('#idEditType').val(type);
+        $('#score').val(value);
+        $('#traineeModal').modal('show');
+    }
 
     function changeBatch() {
         var id = document.getElementById("batch").value;
@@ -243,9 +310,11 @@
     }
 
     function getDetailTraineeFinish(id) {
+        idTrainee = id;
         getDetailTrainee(id);
     }
     function getDetailTraineeBootcamp(id) {
+        idTrainee = id;
         getDetailTrainee(id);
     }
     function getDetailTrainee(id) {
@@ -302,19 +371,46 @@
                 })
             }
         });
+        $('#courseComprehensionGrid').DataTable().destroy();
+        $('#courseComprehensionGrid').DataTable({
+            "ajax": loadAllDataCourseComprehension(id),
+            "columnDefs": [
+                { "orderable": false, "targets": 3 }
+            ],
+            "order": []
+        });
+        $('#attitudeGrid').DataTable().destroy();
+        $('#attitudeGrid').DataTable({
+            "ajax": loadAllDataAttitude(id),
+            "columnDefs": [
+                { "orderable": false, "targets": 3 }
+            ]
+        });
+        $('#finalProjectGrid').DataTable().destroy();
+        $('#finalProjectGrid').DataTable({
+            "ajax": loadAllDataFinalProject(id),
+            "columnDefs": [
+                { "orderable": false, "targets": 3 }
+            ]
+        });
         if (grade != null) {
             $('#courseComprehensionGrid').DataTable().destroy();
             $('#courseComprehensionGrid').DataTable({
+                "ajax": loadAllDataCourseComprehension(id),
                 "columnDefs": [
+                    { "orderable": false, "targets": 3 },
                     {
                         "targets": [3],
                         "visible": false
                     }
-                ]
+                ],
+                "order": []
             });
             $('#attitudeGrid').DataTable().destroy();
             $('#attitudeGrid').DataTable({
+                "ajax": loadAllDataAttitude(id),
                 "columnDefs": [
+                    { "orderable": false, "targets": 3 },
                     {
                         "targets": [3],
                         "visible": false
@@ -323,7 +419,9 @@
             });
             $('#finalProjectGrid').DataTable().destroy();
             $('#finalProjectGrid').DataTable({
+                "ajax": loadAllDataFinalProject(id),
                 "columnDefs": [
+                    { "orderable": false, "targets": 3 },
                     {
                         "targets": [3],
                         "visible": false
@@ -331,9 +429,9 @@
                 ]
             });
         }
-        loadAllDataFinalProject(id);
-        loadAllDataAttitude(id);
-        loadAllDataCourseComprehension(id);
+        //loadAllDataFinalProject(id);
+        //loadAllDataAttitude(id);
+        //loadAllDataCourseComprehension(id);
         $('.btnSubmit').show();
         $('.btnPrint').hide();
         if (grade != null) {
@@ -356,8 +454,9 @@
             async: false,
             success: function (result) {
                 $.each(result, function (index, item) {
-                    nilai.set(item.finalProject.id, item.value);
+                    nilai.set(item.finalProject.id, item.value + ',' + item.id);
                 });
+                console.log(nilai);
             },
             error: function (errormessage) {
                 Swal.fire({
@@ -380,14 +479,19 @@
                 const obj = JSON.parse(result);
                 $.each(obj, function (index, item) {
                     var value = '-';
+                    var num = 0;
+                    var id = 0;
                     if (nilai.get(item.Id) != null) {
-                        value = nilai.get(item.Id);
+                        value = nilai.get(item.Id).split(',')[0];
+                        num = value;
+                        id = nilai.get(item.Id).split(',')[1];
                     }
+
                     html += '<tr>';
                     html += '<td>' + no + '</td>';
                     html += '<td>' + item.Name + '</td>';
                     html += '<td>' + value + '</td>';
-                    html += '<td class="colEdit"><button class="btn btn-primary" onclick="return getDetailTrainee(' + item.Id + ')">Edit</button></td>';
+                    html += '<td class="colEdit"><button class="btn btn-primary" onclick="return editDataModal(' + id + ',' + item.Id + ','+ num + ',' + "'project'" + ')">Edit</button></td>';
                     html += '</tr>';
                     no++;
                 });
@@ -413,7 +517,7 @@
             async: false,
             success: function (result) {
                 $.each(result, function (index, item) {
-                    nilai.set(item.attitude.id, item.value);
+                    nilai.set(item.attitude.id, item.value + ',' + item.id);
                 });
             },
             error: function (errormessage) {
@@ -437,14 +541,19 @@
                 const obj = JSON.parse(result);
                 $.each(obj, function (index, item) {
                     var value = '-';
+                    var id = 0;
+                    var num = 0;
                     if (nilai.get(item.Id) != null) {
-                        value = nilai.get(item.Id);
+                        value = nilai.get(item.Id).split(',')[0];
+                        num = value;
+                        id = nilai.get(item.Id).split(',')[1];
                     }
+
                     html += '<tr>';
                     html += '<td>' + no + '</td>';
                     html += '<td>' + item.Name + '</td>';
                     html += '<td>' + value + '</td>';
-                    html += '<td class="colEdit"><button class="btn btn-primary" onclick="return getDetailTrainee(' + item.Id + ')">Edit</button></td>';
+                    html += '<td class="colEdit"><button class="btn btn-primary" onclick="return editDataModal(' + id + ',' + item.Id + ',' + num + ',' + "'attitude'" + ')">Edit</button></td>';
                     html += '</tr>';
                     no++;
                 });
@@ -470,7 +579,7 @@
             async: false,
             success: function (result) {
                 $.each(result, function (index, item) {
-                    nilai.set(item.courseComprehension.id, item.value);
+                    nilai.set(item.courseComprehension.id, item.value + ',' + item.id);
                 });
             },
             error: function (errormessage) {
@@ -494,14 +603,19 @@
                 //const obj = JSON.parse(result);
                 $.each(result, function (index, item) {
                     var value = '-';
+                    var id = 0;
+                    var num = 0;
                     if (nilai.get(item.id) != null) {
-                        value = nilai.get(item.id);
+                        value = nilai.get(item.id).split(',')[0];
+                        num = value;
+                        id = nilai.get(item.id).split(',')[1];
                     }
+
                     html += '<tr>';
                     html += '<td>' + no + '</td>';
                     html += '<td>' + item.name + '</td>';
                     html += '<td>' + value + '</td>';
-                    html += '<td class="colEdit"><button class="btn btn-primary" onclick="return getDetailTrainee(' + item.id + ')">Edit</button></td>';
+                    html += '<td class="colEdit"><button class="btn btn-primary" onclick="return editDataModal(' + id + ',' + item.id + ',' + num + ',' + "'course'" + ')">Edit</button></td>';
                     html += '</tr>';
                     no++;
                 });
