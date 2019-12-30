@@ -13,6 +13,7 @@ namespace API.Services.Interface
         Trainee Get(int id);
         Trainee Get(TraineeVM traineeVM);
         IEnumerable<Trainee> GetByTrainer(int trainerId);
+        IEnumerable<Trainee> GetByBatch(int batchId);
         int Create(TraineeVM traineeVM);
         int Update(int id, TraineeVM traineeVM);
         int Delete(int id);
