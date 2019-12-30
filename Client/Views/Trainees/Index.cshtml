@@ -40,7 +40,7 @@
     </div>
     <div class="row">
         <div class="col-md-1">
-            <h5>Class : </h5>
+            <h5>Class</h5>
         </div>
         <div id="traineeClass" class="col-md-5">
         </div>
@@ -52,7 +52,7 @@
     </div>
     <div class="row">
         <div class="col-md-1">
-            <h5>Batch : </h5>
+            <h5>Batch</h5>
         </div>
         <div id="traineeBatch" class="col-md-5">
         </div>
@@ -64,7 +64,7 @@
     </div>
     <div class="row">
         <div class="col-md-1">
-            <h5>Trainer : </h5>
+            <h5>Trainer</h5>
         </div>
         <div id="traineeTrainer" class="col-md-2">
         </div>
@@ -115,6 +115,36 @@
                 </thead>
                 <tbody class="finalProjectDataTable"></tbody>
             </table>
+        </div>
+        <div class="col-md-6">
+            <div class="row">
+                <div class="col-md-7">
+                    <h5>Course Comprehension Score</h5>
+                </div>
+                <div id="traineeCourse" class="col-md-3">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-7">
+                    <h5>Attitude Score</h5>
+                </div>
+                <div id="traineeAttitude" class="col-md-3">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-7">
+                    <h5>Final Project Score</h5>
+                </div>
+                <div id="traineeProject" class="col-md-3">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-7">
+                    <h5>Total Score</h5>
+                </div>
+                <div id="traineeTotal" class="col-md-3">
+                </div>
+            </div>
         </div>
     </div>
     <div class="row">
@@ -233,16 +263,24 @@
                 var traineeClass = '-';
                 var traineeBatch = '-';
                 var traineeTrainer = '-';
-                var traineeGrade = '<h5>-</h5>';
-                var traineeStatus = '<h5>Bootcamp</h5>';
+                var traineeGrade = '<h5>: -</h5>';
+                var traineeStatus = '<h5>: Bootcamp</h5>';
+                var traineeCourse = '<h5>: -</h5>';
+                var traineeAttitude = '<h5>: -</h5>';
+                var traineeProject = '<h5>: -</h5>';
+                var traineeTotal = '<h5>: -</h5>';
                 traineeName = '<h2>' + result.employee.firstName + " " + result.employee.lastName + '<h2>';
-                traineeClass = '<h5>' + result.batchClass.class.name + '<h5>';
-                traineeBatch = '<h5>' + result.batchClass.batch.name + '<h5>';
-                traineeTrainer = '<h5>' + result.batchClass.trainer.firstName + " " + result.batchClass.trainer.lastName + '<h5>';
+                traineeClass = '<h5>: ' + result.batchClass.class.name + '<h5>';
+                traineeBatch = '<h5>: ' + result.batchClass.batch.name + '<h5>';
+                traineeTrainer = '<h5>: ' + result.batchClass.trainer.firstName + " " + result.batchClass.trainer.lastName + '<h5>';
                 if (result.grade != null) {
-                    traineeGrade = '<h5>' + result.grade.name + '<h5>';
-                    traineeStatus = '<h5>Finish</h5>';
+                    traineeGrade = '<h5>: ' + result.grade.name + '<h5>';
+                    traineeStatus = '<h5>: Finish</h5>';
                     grade = result.grade;
+                    traineeCourse = '<h5>: ' + result.courseScore + '<h5>';
+                    traineeAttitude = '<h5>: ' + result.attitudeScore + '<h5>';
+                    traineeProject = '<h5>: ' + result.projectScore + '<h5>';
+                    traineeTotal = '<h5>: ' + result.totalScore + '<h5>';
                 }
                 $('#traineeName').html(traineeName);
                 $('#traineeClass').html(traineeClass);
@@ -250,6 +288,11 @@
                 $('#traineeTrainer').html(traineeTrainer);
                 $('#traineeGrade').html(traineeGrade);
                 $('#traineeStatus').html(traineeStatus);
+                $('#traineeStatus').html(traineeStatus);
+                $('#traineeCourse').html(traineeCourse);
+                $('#traineeAttitude').html(traineeAttitude);
+                $('#traineeProject').html(traineeProject);
+                $('#traineeTotal').html(traineeTotal);
             },
             error: function (errormessage) {
                 Swal.fire({
@@ -298,7 +341,7 @@
             $('.btnSubmit').hide();
             $('.btnPrint').show();
         }
-        
+
         $(".traineeData").show();
         //window.location.hash = '#traineeData';
     }
