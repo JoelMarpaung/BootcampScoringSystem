@@ -53,7 +53,12 @@ namespace Data.Repositories
 
         public IEnumerable<Trainee> GetByTrainer(int trainerId)
         {
-            return myContext.Trainees.Include(trainee => trainee.BatchClass).ThenInclude(batchclass => batchclass.Batch).Include(trainee => trainee.BatchClass).ThenInclude(batchclass => batchclass.Class).Include(trainee => trainee.BatchClass).ThenInclude(batchclass => batchclass.Trainer).Include(trainee => trainee.Grade).Where(trainee=>trainee.BatchClass.Trainer.Id == trainerId).Include(trainee=>trainee.Employee).OrderByDescending(trainee => trainee.Id).ToList();
+            return myContext.Trainees.Include(trainee => trainee.BatchClass).ThenInclude(batchclass => batchclass.Batch).Include(trainee => trainee.BatchClass).ThenInclude(batchclass => batchclass.Class).Include(trainee => trainee.BatchClass).ThenInclude(batchclass => batchclass.Trainer).Include(trainee => trainee.Grade).Include(trainee=>trainee.Employee).Where(trainee => trainee.BatchClass.Trainer.Id == trainerId).OrderByDescending(trainee => trainee.Id).ToList();
+        }
+
+        public IEnumerable<Trainee> GetByBatch(int batchId)
+        {
+            return myContext.Trainees.Include(trainee => trainee.BatchClass).ThenInclude(batchclass => batchclass.Batch).Include(trainee => trainee.BatchClass).ThenInclude(batchclass => batchclass.Class).Include(trainee => trainee.BatchClass).ThenInclude(batchclass => batchclass.Trainer).Include(trainee => trainee.Grade).Include(trainee => trainee.Employee).Where(trainee => trainee.BatchClass.Id == batchId).OrderByDescending(trainee => trainee.Id).ToList();
         }
 
         public int Update(int id, TraineeVM TraineeVM)

@@ -57,6 +57,11 @@ namespace API.Services
             return _TraineeRepository.Get(traineeVM);
         }
 
+        public IEnumerable<Trainee> GetByBatch(int batchId)
+        {
+            return _TraineeRepository.GetByBatch(batchId);
+        }
+
         public IEnumerable<Trainee> GetByTrainer(int trainerId)
         {
             return _TraineeRepository.GetByTrainer(trainerId);

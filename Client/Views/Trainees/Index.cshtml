@@ -8,7 +8,7 @@
     <div class="col-md-6">
         <div class="form-group">
             <label for="batch">Batch : </label>
-            <select id="batch" class="form-control"></select>
+            <select id="batch" class="form-control" onchange="changeBatch()"></select>
         </div>
     </div>
 </div>
@@ -79,7 +79,7 @@
                         <th>No.</th>
                         <th>Materi</th>
                         <th>Nilai</th>
-                        <th>Action</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody class="courseComprehensionDataTable"></tbody>
@@ -93,7 +93,7 @@
                         <th>No.</th>
                         <th>Character</th>
                         <th>Nilai</th>
-                        <th>Action</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody class="attitudeDataTable"></tbody>
@@ -110,7 +110,7 @@
                         <th>No.</th>
                         <th>Penilaian</th>
                         <th>Nilai</th>
-                        <th>Action</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody class="finalProjectDataTable"></tbody>
@@ -118,8 +118,11 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-2 ml-auto">
-            <button class="btn btn-success">Submit</button>
+        <div class="col-md-8">
+        </div>
+        <div class="col-md-3">
+            <button class="btn btn-block btn-success btnSubmit">Submit</button>
+            <button class="btn btn-success btnPrint">Print</button>
         </div>
     </div>
 </div>
@@ -154,36 +157,60 @@
 <script>
     $(document).ready(function () {
         loadBatch();
+        $('#dataTraineeGrid').DataTable({
+            "ajax": loadAllDataTraine(),
+            "columnDefs": [
+                { "orderable": false, "targets": 4 }
+            ],
+            "order": []
+        });
+        $('#courseComprehensionGrid').DataTable({
+            "ajax": loadAllDataCourseComprehension(),
+            "columnDefs": [
+                { "orderable": false, "targets": 3 }
+            ],
+            "order": []
+        });
+        $('#attitudeGrid').DataTable({
+            "ajax": loadAllDataAttitude(),
+            "columnDefs": [
+                { "orderable": false, "targets": 3 }
+            ],
+            "order": []
+        });
+        $('#finalProjectGrid').DataTable({
+            "ajax": loadAllDataFinalProject(),
+            "columnDefs": [
+                { "orderable": false, "targets": 3 }
+            ],
+            "order": []
+        });
         $(".traineeData").hide();
     });
-    $('#dataTraineeGrid').DataTable({
-        "ajax": loadAllDataTraine(),
-        "columnDefs": [
-            { "orderable": false, "targets": 4 }
-        ],
-        "order": []
-    });
-    $('#courseComprehensionGrid').DataTable({
-        "ajax": loadAllDataCourseComprehension(),
-        "columnDefs": [
-            { "orderable": false, "targets": 3 }
-        ],
-        "order": []
-    });
-    $('#attitudeGrid').DataTable({
-        "ajax": loadAllDataAttitude(),
-        "columnDefs": [
-            { "orderable": false, "targets": 3 }
-        ],
-        "order": []
-    });
-    $('#finalProjectGrid').DataTable({
-        "ajax": loadAllDataFinalProject(),
-        "columnDefs": [
-            { "orderable": false, "targets": 3 }
-        ],
-        "order": []
-    });
+
+
+    function changeBatch() {
+        var id = document.getElementById("batch").value;
+        if (id == 0) {
+            $('#dataTraineeGrid').DataTable().destroy();
+            $('#dataTraineeGrid').DataTable({
+                "ajax": loadAllDataTraine(),
+                "columnDefs": [
+                    { "orderable": false, "targets": 4 }
+                ],
+                "order": []
+            });
+        } else {
+            $('#dataTraineeGrid').DataTable().destroy();
+            $('#dataTraineeGrid').DataTable({
+                "ajax": loadAllDataTraineByBatch(id),
+                "columnDefs": [
+                    { "orderable": false, "targets": 4 }
+                ],
+                "order": []
+            });
+        }
+    }
 
     function getDetailTraineeFinish(id) {
         getDetailTrainee(id);
@@ -193,6 +220,8 @@
     }
     function getDetailTrainee(id) {
         $(".traineeData").hide();
+        $('#btnEdit').show();
+        var grade = null;
         $.ajax({
             url: "trainees/detailtrainee/" + id,
             type: "GET",
@@ -213,6 +242,7 @@
                 if (result.grade != null) {
                     traineeGrade = '<h5>' + result.grade.name + '<h5>';
                     traineeStatus = '<h5>Finish</h5>';
+                    grade = result.grade;
                 }
                 $('#traineeName').html(traineeName);
                 $('#traineeClass').html(traineeClass);
@@ -229,16 +259,54 @@
                 })
             }
         });
+        if (grade != null) {
+            $('#courseComprehensionGrid').DataTable().destroy();
+            $('#courseComprehensionGrid').DataTable({
+                "columnDefs": [
+                    {
+                        "targets": [3],
+                        "visible": false
+                    }
+                ]
+            });
+            $('#attitudeGrid').DataTable().destroy();
+            $('#attitudeGrid').DataTable({
+                "columnDefs": [
+                    {
+                        "targets": [3],
+                        "visible": false
+                    }
+                ]
+            });
+            $('#finalProjectGrid').DataTable().destroy();
+            $('#finalProjectGrid').DataTable({
+                "columnDefs": [
+                    {
+                        "targets": [3],
+                        "visible": false
+                    }
+                ]
+            });
+        }
         loadAllDataFinalProject(id);
         loadAllDataAttitude(id);
         loadAllDataCourseComprehension(id);
+        $('.btnSubmit').show();
+        $('.btnPrint').hide();
+        if (grade != null) {
+            $('.colEdit').hide();
+            $('.btnSubmit').hide();
+            $('.btnPrint').show();
+        }
+        
         $(".traineeData").show();
+        //window.location.hash = '#traineeData';
     }
 
     function loadAllDataFinalProject(id) {
         var nilai = new Map();
         $.ajax({
-            url: "/Trainees/FinalProjectByTraineeList/"+id,
+            url: "/Trainees/FinalProjectByTraineeList/" + id,
             type: "GET",
             contentType: "application/json;charset=utf-8",
             dataType: "json",
@@ -276,7 +344,7 @@
                     html += '<td>' + no + '</td>';
                     html += '<td>' + item.Name + '</td>';
                     html += '<td>' + value + '</td>';
-                    html += '<td><a class="btn btn-primary" href="#" onclick="return getDetailTrainee(' + item.Id + ')">Edit</a></td>';
+                    html += '<td class="colEdit"><button class="btn btn-primary" onclick="return getDetailTrainee(' + item.Id + ')">Edit</button></td>';
                     html += '</tr>';
                     no++;
                 });
@@ -295,7 +363,7 @@
     function loadAllDataAttitude(id) {
         var nilai = new Map();
         $.ajax({
-            url: "/Trainees/AttitudeByTraineeList/"+id,
+            url: "/Trainees/AttitudeByTraineeList/" + id,
             type: "GET",
             contentType: "application/json;charset=utf-8",
             dataType: "json",
@@ -333,7 +401,7 @@
                     html += '<td>' + no + '</td>';
                     html += '<td>' + item.Name + '</td>';
                     html += '<td>' + value + '</td>';
-                    html += '<td><a class="btn btn-primary" href="#" onclick="return getDetailTrainee(' + item.Id + ')">Edit</a></td>';
+                    html += '<td class="colEdit"><button class="btn btn-primary" onclick="return getDetailTrainee(' + item.Id + ')">Edit</button></td>';
                     html += '</tr>';
                     no++;
                 });
@@ -352,7 +420,7 @@
     function loadAllDataCourseComprehension(id) {
         var nilai = new Map();
         $.ajax({
-            url: "/Trainees/CourseComprehensionByTraineeList/"+id,
+            url: "/Trainees/CourseComprehensionByTraineeList/" + id,
             type: "GET",
             contentType: "application/json;charset=utf-8",
             dataType: "json",
@@ -390,11 +458,51 @@
                     html += '<td>' + no + '</td>';
                     html += '<td>' + item.name + '</td>';
                     html += '<td>' + value + '</td>';
-                    html += '<td><a class="btn btn-primary" href="#" onclick="return getDetailTrainee(' + item.id + ')">Edit</a></td>';
+                    html += '<td class="colEdit"><button class="btn btn-primary" onclick="return getDetailTrainee(' + item.id + ')">Edit</button></td>';
                     html += '</tr>';
                     no++;
                 });
                 $('.courseComprehensionDataTable').html(html);
+            },
+            error: function (errormessage) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Something went wrong!'
+                })
+            }
+        });
+    }
+
+    function loadAllDataTraineByBatch(id) {
+        $.ajax({
+            url: "/Trainees/TraineeByBatchList/" + id,
+            type: "GET",
+            contentType: "application/json;charset=utf-8",
+            dataType: "json",
+            async: false,
+            success: function (result) {
+                var html = '';
+                $.each(result, function (index, item) {
+                    var grade = '-';
+                    var status = 'Bootcamp';
+                    if (item.grade != null) {
+                        grade = item.grade.name;
+                        status = 'Finish';
+                    }
+                    html += '<tr>';
+                    html += '<td>' + item.batchClass.batch.name + '</td>';
+                    html += '<td>' + item.employee.firstName + " " + item.employee.lastName + '</td>';
+                    html += '<td>' + grade + '</td>';
+                    html += '<td>' + status + '</td>';
+                    if (item.grade != null) {
+                        html += '<td><button class="btn btn-success" onclick="return getDetailTraineeFinish(' + item.id + ')">Detail</button></td>';
+                    } else {
+                        html += '<td><button class="btn btn-primary" onclick="return getDetailTraineeBootcamp(' + item.id + ')">Edit</button></td>';
+                    }
+                    html += '</tr>';
+                });
+                $('.traineeDataTable').html(html);
             },
             error: function (errormessage) {
                 Swal.fire({
