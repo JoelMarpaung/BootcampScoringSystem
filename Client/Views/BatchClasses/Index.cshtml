@@ -71,18 +71,18 @@
                 "responsive": true
             });
         });
-        $('#modal').dataTable({
-            "aoColumns": [null, null, null, null, { "bSortable": false }],
-            "order": [],
-            "columnDefs": [{
-                "targets": 'no-sort',
-                "retrieve": true,
-                "paging": false,
-                "orderable": false,
-            }],
-            "ajax": loadAllDataTraineByBatch(id),
-            "responsive": true
-        });
+        //$('#modal').dataTable({
+        //    "aoColumns": [null, null, null, null, { "bSortable": false }],
+        //    "order": [],
+        //    "columnDefs": [{
+        //        "targets": 'no-sort',
+        //        "retrieve": true,
+        //        "paging": false,
+        //        "orderable": false,
+        //    }],
+        //    "ajax": loadAllDataTraineByBatch(id),
+        //    "responsive": true
+        //});
 
         //Load Data function
         function loadData() {
@@ -104,7 +104,7 @@
                         html += '<td>' + item.Class.Name + '</td>';
                         html += '<td>' + item.Batch.Name + '</td>';
                         html += '<td>' + item.Trainer.FirstName + ' ' + item.Trainer.LastName + '</td>';
-                        html += '<td><a href="#" onclick="return loadAllDataTraineByBatch(' + item.Id + ')">Detail</a></td>';
+                        html += '<td><a href="#" onclick="return Detail(' + item.Id + ')">Detail</a></td>';
                         html += '</tr>';
                     });
                     $('.tbody').html(html);
@@ -124,7 +124,7 @@
                     success: function (result) {
                         debugger;
                         $('#myModal').show();
-                        loadAllDataTraineByBatch(Id);
+                        //loadAllDataTraineByBatch(Id);
                     },
                     error: function (errormessage) {
                         Swal.fire({
@@ -134,82 +134,82 @@
                         })
                     }
                 });
-            //debugger;
+            debugger;
             //$('#myModal').show();
             //loadAllDataTraineByBatch(Id);
         }
 
-        function loadAllDataTraineByBatch(id) {
-            debugger;
-            $('#myModal').show();
-            $.ajax({
-                url: "Trainees/TraineeByBatchList/" + id,
-                type: "GET",
-                contentType: "application/json;charset=utf-8",
-                dataType: "json",
-                async: false,
-                success: function (result) {
-                    debugger;
-                    console.log(result);
-                    var html = '';
-                    $.each(result, function (index, item) {
-                        var grade = '-';
-                        var status = 'Bootcamp';
-                        if (item.grade != null) {
-                            grade = item.grade.name;
-                            status = 'Finish';
-                        }
-                        html += '<tr>';
-                        html += '<td>' + item.batchClass.batch.name + '</td>';
-                        html += '<td>' + item.employee.firstName + " " + item.employee.lastName + '</td>';
-                        html += '<td>' + grade + '</td>';
-                        html += '<td>' + status + '</td>';
-                        html += '</tr>';
-                    });
-                    $('.tbodyModal').html(html);
-                },
-                error: function (errormessage) {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Oops...',
-                        text: 'Something went wrong!'
-                    })
-                }
-            });
-        }
+        //function loadAllDataTraineByBatch(id) {
+        //    debugger;
+        //    $('#myModal').show();
+        //    $.ajax({
+        //        url: "Trainees/TraineeByBatchList/" + id,
+        //        type: "GET",
+        //        contentType: "application/json;charset=utf-8",
+        //        dataType: "json",
+        //        async: false,
+        //        success: function (result) {
+        //            debugger;
+        //            console.log(result);
+        //            var html = '';
+        //            $.each(result, function (index, item) {
+        //                var grade = '-';
+        //                var status = 'Bootcamp';
+        //                if (item.grade != null) {
+        //                    grade = item.grade.name;
+        //                    status = 'Finish';
+        //                }
+        //                html += '<tr>';
+        //                html += '<td>' + item.batchClass.batch.name + '</td>';
+        //                html += '<td>' + item.employee.firstName + " " + item.employee.lastName + '</td>';
+        //                html += '<td>' + grade + '</td>';
+        //                html += '<td>' + status + '</td>';
+        //                html += '</tr>';
+        //            });
+        //            $('.tbodyModal').html(html);
+        //        },
+        //        error: function (errormessage) {
+        //            Swal.fire({
+        //                icon: 'error',
+        //                title: 'Oops...',
+        //                text: 'Something went wrong!'
+        //            })
+        //        }
+        //    });
+        //}
 
-        function loadDataModal(id) {
-            $.ajax({
-                url: "/Trainees/TraineeByBatchList/" + id,
-                type: "GET",
-                contentType: "application/json;charset=utf-8",
-                dataType: "json",
-                async: false,
-                success: function (result) {
-                    var html = '';
-                    $.each(result, function (index, item) {
-                        var grade = '-';
-                        var status = 'Bootcamp';
-                        if (item.grade != null) {
-                            grade = item.grade.name;
-                            status = 'Finish';
-                        }
-                        html += '<tr>';
-                        html += '<td>' + item.batchClass.batch.name + '</td>';
-                        html += '<td>' + item.employee.firstName + " " + item.employee.lastName + '</td>';
-                        html += '<td>' + grade + '</td>';
-                        html += '<td>' + status + '</td>';
-                        html += '</tr>';
-                    });
-                    $('.traineeDataTable').html(html);
-                },
-                error: function (errormessage) {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Oops...',
-                        text: 'Something went wrong!'
-                    })
-                }
-            });
-        }
+        //function loadDataModal(id) {
+        //    $.ajax({
+        //        url: "/Trainees/TraineeByBatchList/" + id,
+        //        type: "GET",
+        //        contentType: "application/json;charset=utf-8",
+        //        dataType: "json",
+        //        async: false,
+        //        success: function (result) {
+        //            var html = '';
+        //            $.each(result, function (index, item) {
+        //                var grade = '-';
+        //                var status = 'Bootcamp';
+        //                if (item.grade != null) {
+        //                    grade = item.grade.name;
+        //                    status = 'Finish';
+        //                }
+        //                html += '<tr>';
+        //                html += '<td>' + item.batchClass.batch.name + '</td>';
+        //                html += '<td>' + item.employee.firstName + " " + item.employee.lastName + '</td>';
+        //                html += '<td>' + grade + '</td>';
+        //                html += '<td>' + status + '</td>';
+        //                html += '</tr>';
+        //            });
+        //            $('.traineeDataTable').html(html);
+        //        },
+        //        error: function (errormessage) {
+        //            Swal.fire({
+        //                icon: 'error',
+        //                title: 'Oops...',
+        //                text: 'Something went wrong!'
+        //            })
+        //        }
+        //    });
+        //}
     </script>
