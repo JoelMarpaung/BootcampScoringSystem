@@ -31,8 +31,7 @@ namespace API.Controllers
                 Orientation = Orientation.Portrait,
                 PaperSize = PaperKind.A4,
                 Margins = new MarginSettings { Top = 10 },
-                DocumentTitle = "PDF Report",
-                Out = @"E:\Employee_Report.pdf"
+                DocumentTitle = "Trainee Report"
             };
 
             var objectSettings = new ObjectSettings
@@ -40,8 +39,9 @@ namespace API.Controllers
                 PagesCount = true,
                 HtmlContent = TemplateGenerator.GetHTMLString(),
                 WebSettings = { DefaultEncoding = "utf-8", UserStyleSheet = Path.Combine(Directory.GetCurrentDirectory(), "assets", "styles.css") },
-                HeaderSettings = { FontName = "Arial", FontSize = 9, Right = "Page [page] of [toPage]", Line = true },
-                FooterSettings = { FontName = "Arial", FontSize = 9, Line = true, Center = "Report Footer" }
+                HeaderSettings = { FontName = "Century Gothic", FontSize = 15, Right = "Page [page] of [toPage]", Line = true },
+                FooterSettings = { FontName = "Century Gothic", FontSize = 9, Line = true, Center = "Report Trainee" }
+               
             };
 
             var pdf = new HtmlToPdfDocument()
@@ -50,9 +50,8 @@ namespace API.Controllers
                 Objects = { objectSettings }
             };
 
-            _converter.Convert(pdf);
-
-            return Ok("Successfully created PDF document.");
+            var file = _converter.Convert(pdf);
+            return File(file, "application/pdf");
         }
    
 // GET: api/Pdf
