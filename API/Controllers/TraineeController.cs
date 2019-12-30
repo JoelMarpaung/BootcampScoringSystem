@@ -51,6 +51,17 @@ namespace API.Controllers
             return NotFound("No Data Found");
         }
 
+        [HttpGet("GetByBatch/{batchId}")]
+        public ActionResult<Trainee> GetByBatch(int batchId)
+        {
+            var get = traineeServices.GetByBatch(batchId);
+            if (get != null)
+            {
+                return Ok(get);
+            }
+            return NotFound("No Data Found");
+        }
+
         // POST: api/Attitude
         [HttpPost]
         public ActionResult Post(TraineeVM traineeVM)
