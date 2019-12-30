@@ -6,15 +6,15 @@ using Client.Models;
 
 namespace Client.Utility
 {
-    public class DataStorage : Employee
+    public class DataStorage : Student
     {
-        public static List<Employee> GetAllEmployess() => new List<Models.Employee>
+        public static List<Student> GetAllStudents() => new List<Models.Student>
            {
-               new Employee { Name="Mike", Class="Turner", Score=35,},
-                new Employee { Name="Sonja", Class="Markus", Score=22,},
-                new Employee { Name="Luck", Class="Martins", Score=40},
-                new Employee { Name="Sofia", Class="Packner", Score=30},
-                new Employee { Name="John", Class="Doe", Score=45}
+               new Student { Name="Mike", Class="Turner", Score=35,},
+                new Student { Name="Sonja", Class="Markus", Score=22,},
+                new Student { Name="Luck", Class="Martins", Score=40},
+                new Student { Name="Sofia", Class="Packner", Score=30},
+                new Student { Name="John", Class="Doe", Score=45}
 
 
            };

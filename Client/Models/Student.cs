@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Client.Models
 {
-    public class Employee
+    public class Student
     {
         public string Name { get; set; }
         public string Class { get; set; } 
