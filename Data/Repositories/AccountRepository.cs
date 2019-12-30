@@ -6,6 +6,7 @@ using Data.Context;
 using Data.Model;
 using Data.Repositories.Interface;
 using Data.ViewModel;
+using Microsoft.EntityFrameworkCore;
 
 namespace Data.Repositories
 {
@@ -41,7 +42,7 @@ namespace Data.Repositories
 
         public Account Get(AccountVM AccountVM)
         {
-            return myContext.Accounts.Where(a => a.UserName == AccountVM.UserName && a.Password == AccountVM.Password && a.IsDelete == false).FirstOrDefault();
+            return myContext.Accounts.Where(a => a.UserName == AccountVM.UserName && a.Password == AccountVM.Password && a.IsDelete == false).Include(a=>a.Employee).Include(a=>a.Role).FirstOrDefault();
 
         }
 

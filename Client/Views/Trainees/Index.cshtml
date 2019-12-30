@@ -1,4 +1,5 @@
-﻿
+﻿@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
 @{
     ViewData["Title"] = "Trainees List";
 }
@@ -188,13 +189,14 @@
                         <button type="button" class="btnProjectUpdate btn btn-success" onclick="return Update('project')">Save Project</button>
                     </div>
                 }
-                </div>
+            </div>
         </div>
     </div>
 </div>
 
 <script>
     var idTrainee = 0;
+    var classId = @HttpContextAccessor.HttpContext.Session.GetString("ClassId");
     $(document).ready(function () {
         loadBatch();
         $('#dataTraineeGrid').DataTable({
@@ -592,7 +594,7 @@
         });
 
         $.ajax({
-            url: "/CourseComprehensions/ByClassList/1",
+            url: "/CourseComprehensions/ByClassList/" + classId,
             type: "GET",
             contentType: "application/json;charset=utf-8",
             dataType: "json",
@@ -673,7 +675,7 @@
 
     function loadAllDataTraine() {
         $.ajax({
-            url: "/Trainees/TraineeByTrainerList/1",
+            url: "/Trainees/TraineeByTrainerList/"+@HttpContextAccessor.HttpContext.Session.GetString("Id"),
             type: "GET",
             contentType: "application/json;charset=utf-8",
             dataType: "json",
@@ -713,7 +715,7 @@
 
     function loadBatch() {
         $.ajax({
-            url: "/Trainees/BatchByTrainerList/1",
+            url: "/Trainees/BatchByTrainerList/"+@HttpContextAccessor.HttpContext.Session.GetString("Id"),
             type: "GET",
             contentType: "application/json;charset=utf-8",
             dataType: "json",

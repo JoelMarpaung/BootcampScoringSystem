@@ -4,7 +4,7 @@
 }
 <h2>Batch Classes</h2>
 
-<table id="table" class="table table-striped table-responsive nowrap">
+<table id="table" class="table table-striped table-bordered dt-responsive nowrap">
     <thead>
         <tr>
             <th>
@@ -24,192 +24,527 @@
     </thead>
     <tbody class="tbody"></tbody>
 </table>
-
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
+<!-- Modal -->
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">×</button>
-                <h4 class="modal-title" id="myModalLabel">Form Evaluation</h4>
+                <h4 class="modal-title">Trainee By Batch</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body">
-                <table id="modal" class="table table-striped table-responsive nowrap">
+                <table id="dataTraineeGrid" class="table table-striped table-bordered dt-responsive nowrap">
                     <thead>
                         <tr>
-                            <th>
-                                Id
-                            </th>
-                            <th>
-                                Name
-                            </th>
-                            <th>
-                                Grade
-                            </th>
+                            <th>Batch</th>
+                            <th>Trainee Name</th>
+                            <th>Grade</th>
+                            <th>Status</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
-                    <tbody class="tbodyModal"></tbody>
+                    <tbody class="traineeDataTable"></tbody>
                 </table>
             </div>
-            <div class="modal-footer"></div>
         </div>
     </div>
+</div>
+<hr />
+@*Data Traine*@
+<div id="traineeData" class="traineeData">
+    <div class="row">
+        <div id="traineeName" class="col-md-12">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-1">
+            <h5>Class</h5>
+        </div>
+        <div id="traineeClass" class="col-md-5">
+        </div>
+        <div class="col-md-1">
+            <h5>Grade</h5>
+        </div>
+        <div id="traineeGrade" class="col-md-5">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-1">
+            <h5>Batch</h5>
+        </div>
+        <div id="traineeBatch" class="col-md-5">
+        </div>
+        <div class="col-md-1">
+            <h5>Status</h5>
+        </div>
+        <div id="traineeStatus" class="col-md-5">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-1">
+            <h5>Trainer</h5>
+        </div>
+        <div id="traineeTrainer" class="col-md-2">
+        </div>
+    </div>
+    <hr />
+    <div class="row">
+        <div class="col-md-6">
+            <h5><strong>Course Comprehension</strong></h5>
+            <table id="courseComprehensionGrid" class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>No.</th>
+                        <th>Materi</th>
+                        <th>Nilai</th>
+                    </tr>
+                </thead>
+                <tbody class="courseComprehensionDataTable"></tbody>
+            </table>
+        </div>
+        <div class="col-md-6">
+            <h5><strong>Attitude</strong></h5>
+            <table id="attitudeGrid" class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>No.</th>
+                        <th>Character</th>
+                        <th>Nilai</th>
+                    </tr>
+                </thead>
+                <tbody class="attitudeDataTable"></tbody>
+            </table>
+        </div>
+    </div>
+    <hr />
+    <div class="row">
+        <div class="col-md-6">
+            <h5><strong>Final Project</strong></h5>
+            <table id="finalProjectGrid" class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>No.</th>
+                        <th>Penilaian</th>
+                        <th>Nilai</th>
+                    </tr>
+                </thead>
+                <tbody class="finalProjectDataTable"></tbody>
+            </table>
+        </div>
+        <div class="col-md-6">
+            <div class="row">
+                <div class="col-md-7">
+                    <h5>Course Comprehension Score</h5>
+                </div>
+                <div id="traineeCourse" class="col-md-3">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-7">
+                    <h5>Attitude Score</h5>
+                </div>
+                <div id="traineeAttitude" class="col-md-3">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-7">
+                    <h5>Final Project Score</h5>
+                </div>
+                <div id="traineeProject" class="col-md-3">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-7">
+                    <h5>Total Score</h5>
+                </div>
+                <div id="traineeTotal" class="col-md-3">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-8">
+        </div>
+        <div class="col-md-3">
+            <button class="btn btn-block btn-success btnPrint">Print</button>
+        </div>
+    </div>
+</div>
 
-    <script type="text/javascript">
 
-        $(document).ready(function () {
-            loadData();
-            $('#table').dataTable({
-                "aoColumns": [null, null, null, null, { "bSortable": false }],
-                "order": [],
-                "columnDefs": [{
-                    "targets": 'no-sort',
-                    "retrieve": true,
-                    "paging": false,
-                    "orderable": false,
-                }],
-                "ajax": loadData(),
-                "responsive": true
-            });
+<script type="text/javascript">
+    var idTrainee = 0;
+    $(document).ready(function () {
+        $('#table').dataTable({
+            "aoColumns": [null, null, null, null, { "bSortable": false }],
+            "order": [],
+            "columnDefs": [{
+                "targets": 'no-sort',
+                "retrieve": true,
+                "paging": false,
+                "orderable": false,
+            }],
+            "ajax": loadData(),
+            "responsive": true
         });
-        //$('#modal').dataTable({
-        //    "aoColumns": [null, null, null, null, { "bSortable": false }],
-        //    "order": [],
-        //    "columnDefs": [{
-        //        "targets": 'no-sort',
-        //        "retrieve": true,
-        //        "paging": false,
-        //        "orderable": false,
-        //    }],
-        //    "ajax": loadAllDataTraineByBatch(id),
-        //    "responsive": true
-        //});
+        $(".traineeData").hide();
+    });
 
-        //Load Data function
-        function loadData() {
-            debugger;
-            $.ajax({
-                url: "BatchClasses/List",
-                type: "GET",
-                contentType: "application/json;charset=utf-8",
-                dataType: "json",
-                async: false,
-                success: function (result) {
-                    debugger;
-                    var html = '';
-                    const obj = JSON.parse(result);
-                    $.each(obj, function (key, item) {
-                        console.log(result);
-                        html += '<tr>';
-                        html += '<td>' + item.Id + '</td>';
-                        html += '<td>' + item.Class.Name + '</td>';
-                        html += '<td>' + item.Batch.Name + '</td>';
-                        html += '<td>' + item.Trainer.FirstName + ' ' + item.Trainer.LastName + '</td>';
-                        html += '<td><a href="#" onclick="return Detail(' + item.Id + ')">Detail</a></td>';
-                        html += '</tr>';
-                    });
-                    $('.tbody').html(html);
-                },
-                error: function (errormessage) {
-                    console.log(errormessage.responseText);
+    function getDetailTraineeFinish(id) {
+        idTrainee = id;
+        getDetailTrainee(id);
+        $('#myModal').modal('hide');
+    }
+    function getDetailTrainee(id) {
+        $(".traineeData").hide();
+        $('#btnEdit').show();
+        var grade = null;
+        $.ajax({
+            url: "trainees/detailtrainee/" + id,
+            type: "GET",
+            contentType: "application/json;charset=utf-8",
+            dataType: "json",
+            async: false,
+            success: function (result) {
+                var traineeName = '-';
+                var traineeClass = '-';
+                var traineeBatch = '-';
+                var traineeTrainer = '-';
+                var traineeGrade = '<h5>: -</h5>';
+                var traineeStatus = '<h5>: Bootcamp</h5>';
+                var traineeCourse = '<h5>: -</h5>';
+                var traineeAttitude = '<h5>: -</h5>';
+                var traineeProject = '<h5>: -</h5>';
+                var traineeTotal = '<h5>: -</h5>';
+                traineeName = '<h2>' + result.employee.firstName + " " + result.employee.lastName + '<h2>';
+                traineeClass = '<h5>: ' + result.batchClass.class.name + '<h5>';
+                traineeBatch = '<h5>: ' + result.batchClass.batch.name + '<h5>';
+                traineeTrainer = '<h5>: ' + result.batchClass.trainer.firstName + " " + result.batchClass.trainer.lastName + '<h5>';
+                if (result.grade != null) {
+                    traineeGrade = '<h5>: ' + result.grade.name + '<h5>';
+                    traineeStatus = '<h5>: Finish</h5>';
+                    grade = result.grade;
+                    traineeCourse = '<h5>: ' + result.courseScore + '<h5>';
+                    traineeAttitude = '<h5>: ' + result.attitudeScore + '<h5>';
+                    traineeProject = '<h5>: ' + result.projectScore + '<h5>';
+                    traineeTotal = '<h5>: ' + result.totalScore + '<h5>';
                 }
+                $('#traineeName').html(traineeName);
+                $('#traineeClass').html(traineeClass);
+                $('#traineeBatch').html(traineeBatch);
+                $('#traineeTrainer').html(traineeTrainer);
+                $('#traineeGrade').html(traineeGrade);
+                $('#traineeStatus').html(traineeStatus);
+                $('#traineeStatus').html(traineeStatus);
+                $('#traineeCourse').html(traineeCourse);
+                $('#traineeAttitude').html(traineeAttitude);
+                $('#traineeProject').html(traineeProject);
+                $('#traineeTotal').html(traineeTotal);
+            },
+            error: function (errormessage) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Something went wrong!'
+                })
+            }
+        });
+        $('#courseComprehensionGrid').DataTable().destroy();
+        $('#courseComprehensionGrid').DataTable({
+            "ajax": loadAllDataCourseComprehension(id),
+            "order": []
+        });
+        $('#attitudeGrid').DataTable().destroy();
+        $('#attitudeGrid').DataTable({
+            "ajax": loadAllDataAttitude(id)
+        });
+        $('#finalProjectGrid').DataTable().destroy();
+        $('#finalProjectGrid').DataTable({
+            "ajax": loadAllDataFinalProject(id)
+        });
+        if (grade != null) {
+            $('#courseComprehensionGrid').DataTable().destroy();
+            $('#courseComprehensionGrid').DataTable({
+                "ajax": loadAllDataCourseComprehension(id),
+                "order": []
+            });
+            $('#attitudeGrid').DataTable().destroy();
+            $('#attitudeGrid').DataTable({
+                "ajax": loadAllDataAttitude(id)
+            });
+            $('#finalProjectGrid').DataTable().destroy();
+            $('#finalProjectGrid').DataTable({
+                "ajax": loadAllDataFinalProject(id)
             });
         }
-        function Detail(Id) {
-            debugger;
-                $.ajax({
-                    url: "Trainees/BatchByTrainerList/"+Id,
-                    type: "GET",
-                    contentType: "application/json;charset=utf-8",
-                    dataType: "json",
-                    success: function (result) {
-                        debugger;
-                        $('#myModal').show();
-                        //loadAllDataTraineByBatch(Id);
-                    },
-                    error: function (errormessage) {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Oops...',
-                            text: 'Something went wrong!'
-                        })
-                    }
-                });
-            debugger;
-            //$('#myModal').show();
-            //loadAllDataTraineByBatch(Id);
+        //loadAllDataFinalProject(id);
+        //loadAllDataAttitude(id);
+        //loadAllDataCourseComprehension(id);
+        $('.btnPrint').hide();
+        if (grade != null) {
+            $('.btnPrint').show();
         }
 
-        //function loadAllDataTraineByBatch(id) {
-        //    debugger;
-        //    $('#myModal').show();
-        //    $.ajax({
-        //        url: "Trainees/TraineeByBatchList/" + id,
-        //        type: "GET",
-        //        contentType: "application/json;charset=utf-8",
-        //        dataType: "json",
-        //        async: false,
-        //        success: function (result) {
-        //            debugger;
-        //            console.log(result);
-        //            var html = '';
-        //            $.each(result, function (index, item) {
-        //                var grade = '-';
-        //                var status = 'Bootcamp';
-        //                if (item.grade != null) {
-        //                    grade = item.grade.name;
-        //                    status = 'Finish';
-        //                }
-        //                html += '<tr>';
-        //                html += '<td>' + item.batchClass.batch.name + '</td>';
-        //                html += '<td>' + item.employee.firstName + " " + item.employee.lastName + '</td>';
-        //                html += '<td>' + grade + '</td>';
-        //                html += '<td>' + status + '</td>';
-        //                html += '</tr>';
-        //            });
-        //            $('.tbodyModal').html(html);
-        //        },
-        //        error: function (errormessage) {
-        //            Swal.fire({
-        //                icon: 'error',
-        //                title: 'Oops...',
-        //                text: 'Something went wrong!'
-        //            })
-        //        }
-        //    });
-        //}
+        $(".traineeData").show();
+        //window.location.hash = '#traineeData';
+    }
 
-        //function loadDataModal(id) {
-        //    $.ajax({
-        //        url: "/Trainees/TraineeByBatchList/" + id,
-        //        type: "GET",
-        //        contentType: "application/json;charset=utf-8",
-        //        dataType: "json",
-        //        async: false,
-        //        success: function (result) {
-        //            var html = '';
-        //            $.each(result, function (index, item) {
-        //                var grade = '-';
-        //                var status = 'Bootcamp';
-        //                if (item.grade != null) {
-        //                    grade = item.grade.name;
-        //                    status = 'Finish';
-        //                }
-        //                html += '<tr>';
-        //                html += '<td>' + item.batchClass.batch.name + '</td>';
-        //                html += '<td>' + item.employee.firstName + " " + item.employee.lastName + '</td>';
-        //                html += '<td>' + grade + '</td>';
-        //                html += '<td>' + status + '</td>';
-        //                html += '</tr>';
-        //            });
-        //            $('.traineeDataTable').html(html);
-        //        },
-        //        error: function (errormessage) {
-        //            Swal.fire({
-        //                icon: 'error',
-        //                title: 'Oops...',
-        //                text: 'Something went wrong!'
-        //            })
-        //        }
-        //    });
-        //}
-    </script>
+    function loadAllDataFinalProject(id) {
+        var nilai = new Map();
+        $.ajax({
+            url: "/Trainees/FinalProjectByTraineeList/" + id,
+            type: "GET",
+            contentType: "application/json;charset=utf-8",
+            dataType: "json",
+            async: false,
+            success: function (result) {
+                $.each(result, function (index, item) {
+                    nilai.set(item.finalProject.id, item.value + ',' + item.id);
+                });
+                console.log(nilai);
+            },
+            error: function (errormessage) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Something went wrong!'
+                })
+            }
+        });
+
+        $.ajax({
+            url: "/FinalProjects/List/",
+            type: "GET",
+            contentType: "application/json;charset=utf-8",
+            dataType: "json",
+            async: false,
+            success: function (result) {
+                var html = '';
+                var no = 1;
+                const obj = JSON.parse(result);
+                $.each(obj, function (index, item) {
+                    var value = '-';
+                    var num = 0;
+                    var id = 0;
+                    if (nilai.get(item.Id) != null) {
+                        value = nilai.get(item.Id).split(',')[0];
+                        num = value;
+                        id = nilai.get(item.Id).split(',')[1];
+                    }
+
+                    html += '<tr>';
+                    html += '<td>' + no + '</td>';
+                    html += '<td>' + item.Name + '</td>';
+                    html += '<td>' + value + '</td>';
+                    html += '</tr>';
+                    no++;
+                });
+                $('.finalProjectDataTable').html(html);
+            },
+            error: function (errormessage) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Something went wrong!'
+                })
+            }
+        });
+    }
+
+    function loadAllDataAttitude(id) {
+        var nilai = new Map();
+        $.ajax({
+            url: "/Trainees/AttitudeByTraineeList/" + id,
+            type: "GET",
+            contentType: "application/json;charset=utf-8",
+            dataType: "json",
+            async: false,
+            success: function (result) {
+                $.each(result, function (index, item) {
+                    nilai.set(item.attitude.id, item.value + ',' + item.id);
+                });
+            },
+            error: function (errormessage) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Something went wrong!'
+                })
+            }
+        });
+
+        $.ajax({
+            url: "/Attitudes/List/",
+            type: "GET",
+            contentType: "application/json;charset=utf-8",
+            dataType: "json",
+            async: false,
+            success: function (result) {
+                var html = '';
+                var no = 1;
+                const obj = JSON.parse(result);
+                $.each(obj, function (index, item) {
+                    var value = '-';
+                    var id = 0;
+                    var num = 0;
+                    if (nilai.get(item.Id) != null) {
+                        value = nilai.get(item.Id).split(',')[0];
+                        num = value;
+                        id = nilai.get(item.Id).split(',')[1];
+                    }
+
+                    html += '<tr>';
+                    html += '<td>' + no + '</td>';
+                    html += '<td>' + item.Name + '</td>';
+                    html += '<td>' + value + '</td>';
+                    html += '</tr>';
+                    no++;
+                });
+                $('.attitudeDataTable').html(html);
+            },
+            error: function (errormessage) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Something went wrong!'
+                })
+            }
+        });
+    }
+
+    function loadAllDataCourseComprehension(id) {
+        var nilai = new Map();
+        $.ajax({
+            url: "/Trainees/CourseComprehensionByTraineeList/" + id,
+            type: "GET",
+            contentType: "application/json;charset=utf-8",
+            dataType: "json",
+            async: false,
+            success: function (result) {
+                $.each(result, function (index, item) {
+                    nilai.set(item.courseComprehension.id, item.value + ',' + item.id);
+                });
+            },
+            error: function (errormessage) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Something went wrong!'
+                })
+            }
+        });
+
+        $.ajax({
+            url: "/CourseComprehensions/ByClassList/1",
+            type: "GET",
+            contentType: "application/json;charset=utf-8",
+            dataType: "json",
+            async: false,
+            success: function (result) {
+                var html = '';
+                var no = 1;
+                //const obj = JSON.parse(result);
+                $.each(result, function (index, item) {
+                    var value = '-';
+                    var id = 0;
+                    var num = 0;
+                    if (nilai.get(item.id) != null) {
+                        value = nilai.get(item.id).split(',')[0];
+                        num = value;
+                        id = nilai.get(item.id).split(',')[1];
+                    }
+
+                    html += '<tr>';
+                    html += '<td>' + no + '</td>';
+                    html += '<td>' + item.name + '</td>';
+                    html += '<td>' + value + '</td>';
+                    html += '</tr>';
+                    no++;
+                });
+                $('.courseComprehensionDataTable').html(html);
+            },
+            error: function (errormessage) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Something went wrong!'
+                })
+            }
+        });
+    }
+
+    //Load Data function
+    function loadData() {
+        $.ajax({
+            url: "BatchClasses/List",
+            type: "GET",
+            contentType: "application/json;charset=utf-8",
+            dataType: "json",
+            async: false,
+            success: function (result) {
+                var html = '';
+                const obj = JSON.parse(result);
+                $.each(obj, function (key, item) {
+                    html += '<tr>';
+                    html += '<td>' + item.Id + '</td>';
+                    html += '<td>' + item.Class.Name + '</td>';
+                    html += '<td>' + item.Batch.Name + '</td>';
+                    html += '<td>' + item.Trainer.FirstName + ' ' + item.Trainer.LastName + '</td>';
+                    html += '<td><button type="button" class="btn btn-success" onclick="return Detail(' + item.Id + ')">Detail</a></td>';
+                    html += '</tr>';
+                });
+                $('.tbody').html(html);
+            },
+            error: function (errormessage) {
+                console.log(errormessage.responseText);
+            }
+        });
+    }
+    function Detail(Id) {
+        $('#dataTraineeGrid').DataTable().destroy();
+        $('#dataTraineeGrid').DataTable({
+            "ajax": loadAllDataTraineByBatch(Id),
+            "columnDefs": [
+                { "orderable": false, "targets": 4 }
+            ],
+            "order": []
+        });
+        $('#myModal').modal('show');
+    }
+    function loadAllDataTraineByBatch(id) {
+        $.ajax({
+            url: "/Trainees/TraineeByBatchList/" + id,
+            type: "GET",
+            contentType: "application/json;charset=utf-8",
+            dataType: "json",
+            async: false,
+            success: function (result) {
+                var html = '';
+                $.each(result, function (index, item) {
+                    var grade = '-';
+                    var status = 'Bootcamp';
+                    if (item.grade != null) {
+                        grade = item.grade.name;
+                        status = 'Finish';
+                    }
+                    html += '<tr>';
+                    html += '<td>' + item.batchClass.batch.name + '</td>';
+                    html += '<td>' + item.employee.firstName + " " + item.employee.lastName + '</td>';
+                    html += '<td>' + grade + '</td>';
+                    html += '<td>' + status + '</td>';
+                    html += '<td><button class="btn btn-success" onclick="return getDetailTraineeFinish(' + item.id + ')">Detail</button></td>';
+                    //html += '<td><button class="btn btn-primary" onclick="return getDetailTraineeBootcamp(' + item.id + ')">Edit</button></td>';
+                    html += '</tr>';
+                });
+                $('.traineeDataTable').html(html);
+            },
+            error: function (errormessage) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Something went wrong!'
+                })
+            }
+        });
+    }
+</script>
