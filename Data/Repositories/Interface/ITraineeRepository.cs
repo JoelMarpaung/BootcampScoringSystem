@@ -13,6 +13,7 @@ namespace Data.Repositories.Interface
         Trainee Get(TraineeVM TraineeVM);
         IEnumerable<Trainee> GetByTrainer(int trainerId);
         IEnumerable<Trainee> GetByBatch(int batchId);
+        int SubmitScore(int traineeId);
         int Create(TraineeVM TraineeVM);
         int Update(int id, TraineeVM TraineeVM);
         int Delete(int id);

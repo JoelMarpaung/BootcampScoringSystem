@@ -51,6 +51,18 @@ namespace API.Controllers
             return NotFound("No Data Found");
         }
 
+        [HttpGet("SubmitScore/{traineeId}")]
+        public ActionResult SubmitScore(int traineeId)
+        {
+            var get = traineeServices.SubmitScore(traineeId);
+            if (get != 0)
+            {
+                return Ok(get);
+            }
+            return NotFound("No Data Found");
+        }
+
+
         [HttpGet("GetByBatch/{batchId}")]
         public ActionResult<Trainee> GetByBatch(int batchId)
         {
