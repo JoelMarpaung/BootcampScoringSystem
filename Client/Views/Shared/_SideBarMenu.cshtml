@@ -26,17 +26,17 @@
                 @if (@HttpContextAccessor.HttpContext.Session.GetString("RoleId") == "2")
                 {
                     @*<li>
-                        <a class="has-arrow" href="#" aria-expanded="false"><i class="mdi mdi-gauge"></i><span class="hide-menu">Master Data <span class="label label-rounded label-success">5</span></span></a>
-                        <ul aria-expanded="false" class="collapse">*@
-                            <li><a asp-action="Index" asp-controller="Grades" aria-expanded="false"><i class="mdi mdi-gauge"></i><span class="hide-menu">Grade</span></a></li>
-                            <li><a asp-action="Index" asp-controller="CourseComprehensions" aria-expanded="false"><i class="mdi mdi-gauge"></i><span class="hide-menu">Course Comprehension</span></a></li>
-                            <li><a asp-action="Index" asp-controller="FinalProjects" aria-expanded="false"><i class="mdi mdi-gauge"></i><span class="hide-menu">Final Project</span></a></li>
-                            <li><a asp-action="Index" asp-controller="Attitudes" aria-expanded="false"><i class="mdi mdi-gauge"></i><span class="hide-menu">Attitude</span></a></li>
-                            <li><a asp-action="Index" asp-controller="Evaluations" aria-expanded="false"><i class="mdi mdi-gauge"></i><span class="hide-menu">Evaluation</span></a></li>
-                        @*</ul>
-                    </li>*@
+            <a class="has-arrow" href="#" aria-expanded="false"><i class="mdi mdi-gauge"></i><span class="hide-menu">Master Data <span class="label label-rounded label-success">5</span></span></a>
+            <ul aria-expanded="false" class="collapse">*@
                     <li><a asp-action="Index" asp-controller="Trainees" aria-expanded="false"><i class="mdi mdi-gauge"></i><span class="hide-menu">Trainees</span></a></li>
                     <li><a asp-action="Index" asp-controller="BatchClasses" aria-expanded="false"><i class="mdi mdi-gauge"></i><span class="hide-menu">Batch Classes</span></a></li>
+                    <li><a asp-action="Index" asp-controller="Grades">Grade</a></li>
+                    <li><a asp-action="Index" asp-controller="CourseComprehensions">Course Comprehension</a></li>
+                    <li><a asp-action="Index" asp-controller="FinalProjects">Final Project</a></li>
+                    <li><a asp-action="Index" asp-controller="Attitudes">Attitude</a></li>
+                    <li><a asp-action="Index" asp-controller="Evaluations">Evaluation</a></li>
+                    @*</ul>
+            </li>*@
                 }
                 @if (@HttpContextAccessor.HttpContext.Session.GetString("RoleId") == "3")
                 {
