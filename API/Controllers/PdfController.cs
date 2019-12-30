@@ -32,7 +32,7 @@ namespace API.Controllers
                 PaperSize = PaperKind.A4,
                 Margins = new MarginSettings { Top = 10 },
                 DocumentTitle = "PDF Report",
-                Out = @"E:\PDFCreator\Employee_Report.pdf"
+                Out = @"E:\Employee_Report.pdf"
             };
 
             var objectSettings = new ObjectSettings
