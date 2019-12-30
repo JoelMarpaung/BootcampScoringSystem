@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using API.Services;
 using API.Services.Interface;
 using Data.Model;
+using Data.ViewModel;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -27,7 +28,13 @@ namespace API.Controllers
         {
             return "Value";//accountservice.Get(UName, Pass);
         }
-        
-        
+
+        [HttpPost]
+        public Account Post(AccountVM accountVM)
+        {
+            return accountservice.Get(accountVM);
+        }
+
+
     }
 }
