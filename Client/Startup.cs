@@ -31,7 +31,7 @@ namespace Client
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddSingleton(typeof(IConverter), new SynchronizedConverter(new PdfTools()));
- 
+            
             services.Configure<CookiePolicyOptions>(options =>
             {
                 // This lambda determines whether user consent for non-essential cookies is needed for a given request.
