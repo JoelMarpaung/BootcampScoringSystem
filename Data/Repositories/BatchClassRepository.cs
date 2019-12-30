@@ -39,7 +39,7 @@ namespace Data.Repositories
 
         public IEnumerable<BatchClass> Get()
         {
-            return myContext.BatchClasses.ToList();
+            return myContext.BatchClasses.Include(batchclass => batchclass.Class).Include(batchclass => batchclass.Batch).Include(batchclass => batchclass.Trainer).Include(batchclass => batchclass.Trainer).ToList();
         }
 
         public BatchClass Get(int id)
