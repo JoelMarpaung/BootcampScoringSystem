@@ -24,6 +24,7 @@
     </thead>
     <tbody class="tbody"></tbody>
 </table>
+
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -57,18 +58,18 @@
 
         $(document).ready(function () {
             loadData();
-        });
-        $('#table').dataTable({
-            "aoColumns": [null, null, null, null, { "bSortable": false }],
-            "order": [],
-            "columnDefs": [{
-                "targets": 'no-sort',
-                "retrieve": true,
-                "paging": false,
-                "orderable": false,
-            }],
-            "ajax": loadData(),
-            "responsive": true
+            $('#table').dataTable({
+                "aoColumns": [null, null, null, null, { "bSortable": false }],
+                "order": [],
+                "columnDefs": [{
+                    "targets": 'no-sort',
+                    "retrieve": true,
+                    "paging": false,
+                    "orderable": false,
+                }],
+                "ajax": loadData(),
+                "responsive": true
+            });
         });
         $('#modal').dataTable({
             "aoColumns": [null, null, null, null, { "bSortable": false }],
@@ -103,7 +104,7 @@
                         html += '<td>' + item.Class.Name + '</td>';
                         html += '<td>' + item.Batch.Name + '</td>';
                         html += '<td>' + item.Trainer.FirstName + ' ' + item.Trainer.LastName + '</td>';
-                        html += '<td><a href="#" onclick="return Detail(' + item.Id + ')">Detail</a></td>';
+                        html += '<td><a href="#" onclick="return loadAllDataTraineByBatch(' + item.Id + ')">Detail</a></td>';
                         html += '</tr>';
                     });
                     $('.tbody').html(html);
@@ -121,6 +122,7 @@
                     contentType: "application/json;charset=utf-8",
                     dataType: "json",
                     success: function (result) {
+                        debugger;
                         $('#myModal').show();
                         loadAllDataTraineByBatch(Id);
                     },
@@ -138,13 +140,16 @@
         }
 
         function loadAllDataTraineByBatch(id) {
+            debugger;
+            $('#myModal').show();
             $.ajax({
-                url: "/Trainees/TraineeByBatchList/" + id,
+                url: "Trainees/TraineeByBatchList/" + id,
                 type: "GET",
                 contentType: "application/json;charset=utf-8",
                 dataType: "json",
                 async: false,
                 success: function (result) {
+                    debugger;
                     console.log(result);
                     var html = '';
                     $.each(result, function (index, item) {
@@ -159,11 +164,6 @@
                         html += '<td>' + item.employee.firstName + " " + item.employee.lastName + '</td>';
                         html += '<td>' + grade + '</td>';
                         html += '<td>' + status + '</td>';
-                        if (item.grade != null) {
-                            html += '<td><button class="btn btn-success" onclick="return getDetailTraineeFinish(' + item.id + ')">Detail</button></td>';
-                        } else {
-                            html += '<td><button class="btn btn-primary" onclick="return getDetailTraineeBootcamp(' + item.id + ')">Edit</button></td>';
-                        }
                         html += '</tr>';
                     });
                     $('.tbodyModal').html(html);
