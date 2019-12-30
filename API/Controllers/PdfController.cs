@@ -40,7 +40,7 @@ namespace API.Controllers
                 HtmlContent = TemplateGenerator.GetHTMLString(),
                 WebSettings = { DefaultEncoding = "utf-8", UserStyleSheet = Path.Combine(Directory.GetCurrentDirectory(), "assets", "styles.css") },
                 HeaderSettings = { FontName = "Century Gothic", FontSize = 15, Right = "Page [page] of [toPage]", Line = true },
-                FooterSettings = { FontName = "Century Gothic", FontSize = 9, Line = true, Center = "Report Footer" }
+                FooterSettings = { FontName = "Century Gothic", FontSize = 9, Line = true, Center = "Report Trainee" }
                
             };
 
