@@ -24,53 +24,192 @@
     </thead>
     <tbody class="tbody"></tbody>
 </table>
-<script type="text/javascript">
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">×</button>
+                <h4 class="modal-title" id="myModalLabel">Form Evaluation</h4>
+            </div>
+            <div class="modal-body">
+                <table id="modal" class="table table-striped table-responsive nowrap">
+                    <thead>
+                        <tr>
+                            <th>
+                                Id
+                            </th>
+                            <th>
+                                Name
+                            </th>
+                            <th>
+                                Grade
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody class="tbodyModal"></tbody>
+                </table>
+            </div>
+            <div class="modal-footer"></div>
+        </div>
+    </div>
 
-    $(document).ready(function () {
-        loadData();
-    });
-    $('#table').dataTable({
-        "aoColumns": [null, null, null, null, { "bSortable": false }],
-        "order": [],
-        "columnDefs": [{
-            "targets": 'no-sort',
-            "retrieve": true,
-            "paging": false,
-            "orderable": false,
-        }],
-        "ajax": loadData(),
-        "responsive": true
-    });
+    <script type="text/javascript">
 
-
-    //Load Data function
-    function loadData() {
-        debugger;
-        $.ajax({
-            url: "BatchClasses/List",
-            type: "GET",
-            contentType: "application/json;charset=utf-8",
-            dataType: "json",
-            async: false,
-            success: function (result) {
-                debugger;
-                var html = '';
-                const obj = JSON.parse(result);
-                $.each(obj, function (key, item) {
-                    console.log(result);
-                    html += '<tr>';
-                    html += '<td>' + item.Id + '</td>';
-                    html += '<td>' + item.Class.Name + '</td>';
-                    html += '<td>' + item.Batch.Name + '</td>';
-                    html += '<td>' + item.Trainer.FirstName+' '+ item.Trainer.LastName  + '</td>';
-                    html += '<td><a href="#" onclick="return GetbyID(' + item.Id + ')">Edit</a> | <a href="#" onclick="Delete(' + item.Id + ')">Delete</a></td>';
-                    html += '</tr>';
-                });
-                $('.tbody').html(html);
-            },
-            error: function (errormessage) {
-                console.log(errormessage.responseText);
-            }
+        $(document).ready(function () {
+            loadData();
         });
-    }
-</script>
+        $('#table').dataTable({
+            "aoColumns": [null, null, null, null, { "bSortable": false }],
+            "order": [],
+            "columnDefs": [{
+                "targets": 'no-sort',
+                "retrieve": true,
+                "paging": false,
+                "orderable": false,
+            }],
+            "ajax": loadData(),
+            "responsive": true
+        });
+        $('#modal').dataTable({
+            "aoColumns": [null, null, null, null, { "bSortable": false }],
+            "order": [],
+            "columnDefs": [{
+                "targets": 'no-sort',
+                "retrieve": true,
+                "paging": false,
+                "orderable": false,
+            }],
+            "ajax": loadAllDataTraineByBatch(id),
+            "responsive": true
+        });
+
+        //Load Data function
+        function loadData() {
+            debugger;
+            $.ajax({
+                url: "BatchClasses/List",
+                type: "GET",
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                async: false,
+                success: function (result) {
+                    debugger;
+                    var html = '';
+                    const obj = JSON.parse(result);
+                    $.each(obj, function (key, item) {
+                        console.log(result);
+                        html += '<tr>';
+                        html += '<td>' + item.Id + '</td>';
+                        html += '<td>' + item.Class.Name + '</td>';
+                        html += '<td>' + item.Batch.Name + '</td>';
+                        html += '<td>' + item.Trainer.FirstName + ' ' + item.Trainer.LastName + '</td>';
+                        html += '<td><a href="#" onclick="return Detail(' + item.Id + ')">Detail</a></td>';
+                        html += '</tr>';
+                    });
+                    $('.tbody').html(html);
+                },
+                error: function (errormessage) {
+                    console.log(errormessage.responseText);
+                }
+            });
+        }
+        function Detail(Id) {
+            debugger;
+                $.ajax({
+                    url: "Trainees/BatchByTrainerList/"+Id,
+                    type: "GET",
+                    contentType: "application/json;charset=utf-8",
+                    dataType: "json",
+                    success: function (result) {
+                        $('#myModal').show();
+                        loadAllDataTraineByBatch(Id);
+                    },
+                    error: function (errormessage) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Something went wrong!'
+                        })
+                    }
+                });
+            //debugger;
+            //$('#myModal').show();
+            //loadAllDataTraineByBatch(Id);
+        }
+
+        function loadAllDataTraineByBatch(id) {
+            $.ajax({
+                url: "/Trainees/TraineeByBatchList/" + id,
+                type: "GET",
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                async: false,
+                success: function (result) {
+                    console.log(result);
+                    var html = '';
+                    $.each(result, function (index, item) {
+                        var grade = '-';
+                        var status = 'Bootcamp';
+                        if (item.grade != null) {
+                            grade = item.grade.name;
+                            status = 'Finish';
+                        }
+                        html += '<tr>';
+                        html += '<td>' + item.batchClass.batch.name + '</td>';
+                        html += '<td>' + item.employee.firstName + " " + item.employee.lastName + '</td>';
+                        html += '<td>' + grade + '</td>';
+                        html += '<td>' + status + '</td>';
+                        if (item.grade != null) {
+                            html += '<td><button class="btn btn-success" onclick="return getDetailTraineeFinish(' + item.id + ')">Detail</button></td>';
+                        } else {
+                            html += '<td><button class="btn btn-primary" onclick="return getDetailTraineeBootcamp(' + item.id + ')">Edit</button></td>';
+                        }
+                        html += '</tr>';
+                    });
+                    $('.tbodyModal').html(html);
+                },
+                error: function (errormessage) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Something went wrong!'
+                    })
+                }
+            });
+        }
+
+        function loadDataModal(id) {
+            $.ajax({
+                url: "/Trainees/TraineeByBatchList/" + id,
+                type: "GET",
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                async: false,
+                success: function (result) {
+                    var html = '';
+                    $.each(result, function (index, item) {
+                        var grade = '-';
+                        var status = 'Bootcamp';
+                        if (item.grade != null) {
+                            grade = item.grade.name;
+                            status = 'Finish';
+                        }
+                        html += '<tr>';
+                        html += '<td>' + item.batchClass.batch.name + '</td>';
+                        html += '<td>' + item.employee.firstName + " " + item.employee.lastName + '</td>';
+                        html += '<td>' + grade + '</td>';
+                        html += '<td>' + status + '</td>';
+                        html += '</tr>';
+                    });
+                    $('.traineeDataTable').html(html);
+                },
+                error: function (errormessage) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Something went wrong!'
+                    })
+                }
+            });
+        }
+    </script>

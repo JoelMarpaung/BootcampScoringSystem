@@ -49,6 +49,36 @@ namespace Client.Controllers
             }
             return Json("Failed");
         }
+        public async Task<JsonResult> Detail(int id)
+        {
+            HttpResponseMessage response = await client.GetAsync("api/Evaluation");
+            if (response.IsSuccessStatusCode)
+            {
+                var data = await response.Content.ReadAsAsync<Evaluation[]>();
+                var evaluation = data.FirstOrDefault(s => s.Id == id);
+                var json = JsonConvert.SerializeObject(evaluation, Formatting.None, new JsonSerializerSettings()
+                {
+                    ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+                });
+
+                return Json(json);
+            }
+            return Json("Internal Server Error");
+        }
+        public JsonResult BatchByTrainerList(int id)
+        {
+            var response = client.GetAsync("BatchClass/GetByTrainer/" + id);
+            response.Wait();
+            var result = response.Result;
+            if (result.IsSuccessStatusCode)
+            {
+                var data = result.Content.ReadAsAsync<IList<BatchClass>>();
+                data.Wait();
+                var json = data.Result;
+                return Json(json);
+            }
+            return Json("Internal Server Error");
+        }
         // GET: BatchClasses/Details/5
         public ActionResult Details(int id)
         {
