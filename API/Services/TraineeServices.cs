@@ -61,10 +61,14 @@ namespace API.Services
         {
             return _TraineeRepository.GetByBatch(batchId);
         }
-
         public IEnumerable<Trainee> GetByTrainer(int trainerId)
         {
             return _TraineeRepository.GetByTrainer(trainerId);
+        }
+
+        public int SubmitScore(int traineeId)
+        {
+            return _TraineeRepository.SubmitScore(traineeId);
         }
 
         public int Update(int id, TraineeVM traineeVM)
@@ -72,5 +76,6 @@ namespace API.Services
 
             return _TraineeRepository.Update(id, traineeVM);
         }
+
     }
 }

@@ -47,5 +47,15 @@ namespace Data.Model
             this.DeleteDate = DateTimeOffset.Now.LocalDateTime;
 
         }
+
+        public void Update(int id, TraineeVM traineeVM, Grade grade)
+        {
+            this.AttitudeScore = traineeVM.AttitudeScore;
+            this.ProjectScore = traineeVM.ProjectScore;
+            this.CourseScore = traineeVM.CourseScore;
+            this.TotalScore = traineeVM.TotalScore;
+            this.Grade = grade;
+            this.UpdateDate = DateTimeOffset.Now;
+        }
     }
 }

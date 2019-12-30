@@ -61,6 +61,70 @@ namespace Data.Repositories
             return myContext.Trainees.Include(trainee => trainee.BatchClass).ThenInclude(batchclass => batchclass.Batch).Include(trainee => trainee.BatchClass).ThenInclude(batchclass => batchclass.Class).Include(trainee => trainee.BatchClass).ThenInclude(batchclass => batchclass.Trainer).Include(trainee => trainee.Grade).Include(trainee => trainee.Employee).Where(trainee => trainee.BatchClass.Id == batchId).OrderByDescending(trainee => trainee.Id).ToList();
         }
 
+        public int SubmitScore(int traineeId)
+        {
+            var traineeVM = new TraineeVM();
+            //attitude trainees
+            var attitudeTrainees = myContext.AttitudeTrainees.Include(attitude => attitude.Trainee).Include(attitude => attitude.Attitude).Where(at => at.Trainee.Id == traineeId).ToList();
+            
+            var attitudescore = 0;
+
+            foreach (var data in attitudeTrainees)
+            {
+                attitudescore += (data.Value * data.Attitude.Weight) / 100;
+            }
+
+            var attitudetotal = attitudescore * 40 / 100;
+
+            //coursecomprehension
+            var courseComprehension = myContext.CourseComprehensionTrainees.Include(cc => cc.Trainee).Include(cc => cc.CourseComprehension).Where(cc => cc.Trainee.Id == traineeId).ToList();
+
+            var ccscore = 0;
+
+            foreach (var data in courseComprehension)
+            {
+                ccscore += (data.Value * data.CourseComprehension.Weight) / 100;
+            }
+
+            var cctotal = ccscore * 30 / 100;
+
+            //final Project
+            var finalproject = myContext.FinalProjectTrainees.Include(fp => fp.Trainee).Include(fp => fp.FinalProject).Where(at => at.Trainee.Id == traineeId).ToList();
+
+            var fpscore = 0;
+
+            foreach (var data in finalproject)
+            {
+                fpscore += (data.Value * data.FinalProject.Weight) / 100;
+            }
+
+            var fptotal = fpscore * 30 / 100;
+
+            var total = attitudetotal +cctotal+ fptotal;
+
+            var gradeA = myContext.Grades.Where(g => g.Name == "A").FirstOrDefault();
+            var gradeB = myContext.Grades.Where(g => g.Name == "B").FirstOrDefault();
+
+            var grades =0 ;
+            if (total > gradeB.MaxValue)
+            {
+                 grades = gradeA.Id;
+            }
+            else
+            {
+                grades = gradeB.Id;
+            }
+            traineeVM.AttitudeScore = attitudescore;
+            traineeVM.CourseScore = ccscore;
+            traineeVM.ProjectScore = fpscore;
+            traineeVM.TotalScore = total;
+            var grade = myContext.Grades.Find(grades);
+            var update = myContext.Trainees.Find(traineeId);
+            update.Update(traineeId, traineeVM, grade);
+            return myContext.SaveChanges();
+            
+        }
+
         public int Update(int id, TraineeVM TraineeVM)
         {
             var result = 0;
