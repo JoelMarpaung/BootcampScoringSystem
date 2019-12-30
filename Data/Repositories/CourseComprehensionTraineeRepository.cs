@@ -6,6 +6,7 @@ using Data.Context;
 using Data.Model;
 using Data.Repositories.Interface;
 using Data.ViewModel;
+using Microsoft.EntityFrameworkCore;
 
 namespace Data.Repositories
 {
@@ -48,6 +49,11 @@ namespace Data.Repositories
         public CourseComprehensionTrainee Get(CourseComprehensionTraineeVM CourseComprehensionTraineeVM)
         {
             throw new NotImplementedException();
+        }
+
+        public IEnumerable<CourseComprehensionTrainee> GetByTrainee(int traineeId)
+        {
+            return myContext.CourseComprehensionTrainees.Include(cc => cc.CourseComprehension).Include(cc => cc.Trainee).Where(cc => cc.Trainee.Id == traineeId).ToList();
         }
 
         public int Update(int id, CourseComprehensionTraineeVM CourseComprehensionTraineeVM)

@@ -13,14 +13,14 @@ namespace API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AttitudeTraineeController : ControllerBase
+    public class EvaluationController : ControllerBase
     {
-        IAttitudeTraineeServices attitudeTraineeServices = new AttitudeTraineeServices();
-        // GET: api/Attitude
+        IEvaluationServices evaluationServices = new EvaluationServices();
+        // GET: api/Evaluation
         [HttpGet]
         public ActionResult Get()
         {
-            var get = attitudeTraineeServices.Get();
+            var get = evaluationServices.Get();
             if (get != null)
             {
                 return Ok(get);
@@ -28,11 +28,12 @@ namespace API.Controllers
             return NotFound("No Data Found");//new string[] { "value1", "value2" };
         }
 
-        // GET: api/Attitude/5
+
+        // GET: api/evaluation/5
         [HttpGet("{id}")]
-        public ActionResult<AttitudeTrainee> Get(int id)
+        public ActionResult Get(int id)
         {
-            var get = attitudeTraineeServices.Get(id);
+            var get = evaluationServices.Get(id);
             if (get != null)
             {
                 return Ok(get);
@@ -40,24 +41,13 @@ namespace API.Controllers
             return NotFound("No Data Found");
         }
 
-        [HttpGet("GetByTrainee/{traineeId}")]
-        public ActionResult<AttitudeTrainee> GetByTrainee(int traineeId)
-        {
-            var get = attitudeTraineeServices.GetByTrainee(traineeId);
-            if (get != null)
-            {
-                return Ok(get);
-            }
-            return NotFound("No Data Found");
-        }
-
-        // POST: api/Attitude
+        // POST: api/evaluation
         [HttpPost]
-        public ActionResult Post(AttitudeTraineeVM attitudeTraineeVM)
+        public ActionResult Post(EvaluationVM evaluationVM)
         {
             if (ModelState.IsValid)
             {
-                var push = attitudeTraineeServices.Create(attitudeTraineeVM);
+                var push = evaluationServices.Create(evaluationVM);
                 if (push != 0)
                 {
                     return Ok("Successfully Insert");
@@ -66,13 +56,13 @@ namespace API.Controllers
             return StatusCode(500, "Insert Failed");
         }
 
-        // PUT: api/Attitude/5
+        // PUT: api/Evaluation/5
         [HttpPut("{id}")]
-        public ActionResult Put(int id, AttitudeTraineeVM attitudeTraineeVM)
+        public ActionResult Put(int id, EvaluationVM evaluationVM)
         {
             if (ModelState.IsValid)
             {
-                var push = attitudeTraineeServices.Update(id, attitudeTraineeVM);
+                var push = evaluationServices.Update(id, evaluationVM);
                 if (push != 0)
                 {
                     return Ok("Successfully Update");
@@ -87,7 +77,7 @@ namespace API.Controllers
         {
             if (ModelState.IsValid)
             {
-                var push = attitudeTraineeServices.Delete(id);
+                var push = evaluationServices.Delete(id);
                 if (push != 0)
                 {
                     return Ok("Successfully Delete");
@@ -97,4 +87,3 @@ namespace API.Controllers
         }
     }
 }
-

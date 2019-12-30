@@ -3,14 +3,16 @@ using System;
 using Data.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Data.Migrations
 {
     [DbContext(typeof(MyContext))]
-    partial class MyContextModelSnapshot : ModelSnapshot
+    [Migration("20191228143105_UpdateTraineeModel")]
+    partial class UpdateTraineeModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -249,28 +251,6 @@ namespace Data.Migrations
                     b.ToTable("Employees");
                 });
 
-            modelBuilder.Entity("Data.Model.Evaluation", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<DateTimeOffset>("CreateDate");
-
-                    b.Property<DateTimeOffset?>("DeleteDate");
-
-                    b.Property<bool>("IsDelete");
-
-                    b.Property<string>("Name");
-
-                    b.Property<DateTimeOffset?>("UpdateDate");
-
-                    b.Property<int>("Weight");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Evaluations");
-                });
-
             modelBuilder.Entity("Data.Model.FinalProject", b =>
                 {
                     b.Property<int>("Id")
@@ -332,8 +312,6 @@ namespace Data.Migrations
 
                     b.Property<bool>("IsDelete");
 
-                    b.Property<int>("MaxValue");
-
                     b.Property<string>("Name");
 
                     b.Property<DateTimeOffset?>("UpdateDate");
@@ -368,11 +346,7 @@ namespace Data.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("AttitudeScore");
-
                     b.Property<int?>("BatchClassId");
-
-                    b.Property<int>("CourseScore");
 
                     b.Property<DateTimeOffset>("CreateDate");
 
@@ -383,8 +357,6 @@ namespace Data.Migrations
                     b.Property<int?>("GradeId");
 
                     b.Property<bool>("IsDelete");
-
-                    b.Property<int>("ProjectScore");
 
                     b.Property<DateTimeOffset?>("UpdateDate");
 

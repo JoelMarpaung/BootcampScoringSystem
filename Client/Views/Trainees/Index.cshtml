@@ -8,9 +8,7 @@
     <div class="col-md-6">
         <div class="form-group">
             <label for="batch">Batch : </label>
-            <select id="batch" class="form-control">
-                <option value="0">All</option>
-            </select>
+            <select id="batch" class="form-control"></select>
         </div>
     </div>
 </div>
@@ -18,7 +16,7 @@
 @*Trainees Data List*@
 <div class="row">
     <div class="col-12">
-        <table class="table table-bordered">
+        <table id="dataTraineeGrid" class="table table-striped table-bordered dt-responsive nowrap">
             <thead>
                 <tr>
                     <th>Batch</th>
@@ -28,29 +26,7 @@
                     <th>Action</th>
                 </tr>
             </thead>
-            <tbody>
-                <tr>
-                    <td>32</td>
-                    <td>Joel Marpaung</td>
-                    <td>-</td>
-                    <td>Bootcamp</td>
-                    <td><button class="btn btn-primary">Edit</button></td>
-                </tr>
-                <tr>
-                    <td>31</td>
-                    <td>Anak Anak</td>
-                    <td>A</td>
-                    <td>Lulus</td>
-                    <td><button class="btn btn-success">Detail</button></td>
-                </tr>
-                <tr>
-                    <td>31</td>
-                    <td>Anak Anak 2</td>
-                    <td>B</td>
-                    <td>Lulus</td>
-                    <td><button class="btn btn-success">Detail</button></td>
-                </tr>
-            </tbody>
+            <tbody class="traineeDataTable"></tbody>
         </table>
     </div>
 </div>
@@ -59,22 +35,19 @@
 @*Data Traine*@
 <div class="traineeData">
     <div class="row">
-        <div class="col-md-12">
-            <h2>Joel Marpaung</h2>
+        <div id="traineeName" class="col-md-12">
         </div>
     </div>
     <div class="row">
         <div class="col-md-1">
             <h5>Class : </h5>
         </div>
-        <div class="col-md-5">
-            <h5>DotNet</h5>
+        <div id="traineeClass" class="col-md-5">
         </div>
         <div class="col-md-1">
             <h5>Grade</h5>
         </div>
-        <div class="col-md-5">
-            <h5>-</h5>
+        <div id="traineeGrade" class="col-md-5">
         </div>
     </div>
     <div class="row">
@@ -103,7 +76,7 @@
     <div class="row">
         <div class="col-md-6">
             <h5><strong>Course Comprehension</strong></h5>
-            <table class="table table-bordered">
+            <table id="courseComprehensionGrid" class="table table-bordered">
                 <thead>
                     <tr>
                         <th>No.</th>
@@ -112,31 +85,12 @@
                         <th>Action</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <td>1.</td>
-                        <td>Query</td>
-                        <td>80</td>
-                        <td><button class="btn btn-primary" data-toggle="modal" data-target="#traineeModal">Edit</button></td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Entity Framework</td>
-                        <td>85</td>
-                        <td><button class="btn btn-primary">Edit</button></td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>ASP Net Core</td>
-                        <td>-</td>
-                        <td><button class="btn btn-primary">Edit</button></td>
-                    </tr>
-                </tbody>
+                <tbody class="courseComprehensionDataTable"></tbody>
             </table>
         </div>
         <div class="col-md-6">
             <h5><strong>Attitude</strong></h5>
-            <table class="table table-bordered">
+            <table id="attitudeGrid" class="table table-bordered">
                 <thead>
                     <tr>
                         <th>No.</th>
@@ -145,32 +99,7 @@
                         <th>Action</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <td>1.</td>
-                        <td>Disiplin</td>
-                        <td>80</td>
-                        <td><button class="btn btn-primary">Edit</button></td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Kreativitas</td>
-                        <td>85</td>
-                        <td><button class="btn btn-primary">Edit</button></td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>Kerja sama</td>
-                        <td>-</td>
-                        <td><button class="btn btn-primary">Edit</button></td>
-                    </tr>
-                    <tr>
-                        <td>4</td>
-                        <td>Komunikasi</td>
-                        <td>85</td>
-                        <td><button class="btn btn-primary">Edit</button></td>
-                    </tr>
-                </tbody>
+                <tbody class="attitudeDataTable"></tbody>
             </table>
         </div>
     </div>
@@ -178,7 +107,7 @@
     <div class="row">
         <div class="col-md-6">
             <h5><strong>Final Project</strong></h5>
-            <table class="table table-bordered">
+            <table id="finalProjectGrid" class="table table-bordered">
                 <thead>
                     <tr>
                         <th>No.</th>
@@ -187,26 +116,7 @@
                         <th>Action</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <td>1.</td>
-                        <td>Presentasi</td>
-                        <td>-</td>
-                        <td><button class="btn btn-primary">Edit</button></td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Pemahaman Materi</td>
-                        <td>-</td>
-                        <td><button class="btn btn-primary">Edit</button></td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>Waktu Pengerjaan</td>
-                        <td>-</td>
-                        <td><button class="btn btn-primary">Edit</button></td>
-                    </tr>
-                </tbody>
+                <tbody class="finalProjectDataTable"></tbody>
             </table>
         </div>
     </div>
@@ -247,8 +157,302 @@
 <script>
     $(document).ready(function () {
         loadBatch();
-        //loadAllDataTraine();
     });
+    $('#dataTraineeGrid').DataTable({
+        "ajax": loadAllDataTraine(),
+        "columnDefs": [
+            { "orderable": false, "targets": 4 }
+        ],
+        "order": []
+    });
+    $('#courseComprehensionGrid').DataTable({
+        "ajax": loadAllDataCourseComprehension(),
+        "columnDefs": [
+            { "orderable": false, "targets": 3 }
+        ],
+        "order": []
+    });
+    $('#attitudeGrid').DataTable({
+        "ajax": loadAllDataAttitude(),
+        "columnDefs": [
+            { "orderable": false, "targets": 3 }
+        ],
+        "order": []
+    });
+    $('#finalProjectGrid').DataTable({
+        "ajax": loadAllDataFinalProject(),
+        "columnDefs": [
+            { "orderable": false, "targets": 3 }
+        ],
+        "order": []
+    });
+
+    function getDetailTraineeFinish() {
+        $.ajax({
+            url: "/Trainees/FinalProjectByTraineeList/6",
+            type: "GET",
+            contentType: "application/json;charset=utf-8",
+            dataType: "json",
+            async: false,
+            success: function (result) {
+                $.each(result, function (index, item) {
+                    nilai.set(item.finalProject.id, item.value);
+                });
+            },
+            error: function (errormessage) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Something went wrong!'
+                })
+            }
+        });
+
+        $.ajax({
+            url: "/FinalProjects/List/",
+            type: "GET",
+            contentType: "application/json;charset=utf-8",
+            dataType: "json",
+            async: false,
+            success: function (result) {
+                var html = '';
+                var no = 1;
+                const obj = JSON.parse(result);
+                $.each(obj, function (index, item) {
+                    var value = '-';
+                    if (nilai.get(item.Id) != null) {
+                        value = nilai.get(item.Id);
+                    }
+                    html += '<tr>';
+                    html += '<td>' + no + '</td>';
+                    html += '<td>' + item.Name + '</td>';
+                    html += '<td>' + value + '</td>';
+                    html += '<td><a class="btn btn-primary" href="#" onclick="return getDetailTrainee(' + item.Id + ')">Edit</a></td>';
+                    html += '</tr>';
+                    no++;
+                });
+                $('.finalProjectDataTable').html(html);
+            },
+            error: function (errormessage) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Something went wrong!'
+                })
+            }
+        });
+    }
+
+    function loadAllDataFinalProject() {
+        var nilai = new Map();
+        $.ajax({
+            url: "/Trainees/FinalProjectByTraineeList/6",
+            type: "GET",
+            contentType: "application/json;charset=utf-8",
+            dataType: "json",
+            async: false,
+            success: function (result) {
+                $.each(result, function (index, item) {
+                    nilai.set(item.finalProject.id, item.value);
+                });
+            },
+            error: function (errormessage) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Something went wrong!'
+                })
+            }
+        });
+
+        $.ajax({
+            url: "/FinalProjects/List/",
+            type: "GET",
+            contentType: "application/json;charset=utf-8",
+            dataType: "json",
+            async: false,
+            success: function (result) {
+                var html = '';
+                var no = 1;
+                const obj = JSON.parse(result);
+                $.each(obj, function (index, item) {
+                    var value = '-';
+                    if (nilai.get(item.Id) != null) {
+                        value = nilai.get(item.Id);
+                    }
+                    html += '<tr>';
+                    html += '<td>' + no + '</td>';
+                    html += '<td>' + item.Name + '</td>';
+                    html += '<td>' + value + '</td>';
+                    html += '<td><a class="btn btn-primary" href="#" onclick="return getDetailTrainee(' + item.Id + ')">Edit</a></td>';
+                    html += '</tr>';
+                    no++;
+                });
+                $('.finalProjectDataTable').html(html);
+            },
+            error: function (errormessage) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Something went wrong!'
+                })
+            }
+        });
+    }
+
+    function loadAllDataAttitude(){
+        var nilai = new Map();
+        $.ajax({
+            url: "/Trainees/AttitudeByTraineeList/6",
+            type: "GET",
+            contentType: "application/json;charset=utf-8",
+            dataType: "json",
+            async: false,
+            success: function (result) {
+                $.each(result, function (index, item) {
+                    nilai.set(item.attitude.id, item.value);
+                });
+            },
+            error: function (errormessage) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Something went wrong!'
+                })
+            }
+        });
+
+        $.ajax({
+            url: "/Attitudes/List/",
+            type: "GET",
+            contentType: "application/json;charset=utf-8",
+            dataType: "json",
+            async: false,
+            success: function (result) {
+                var html = '';
+                var no = 1;
+                const obj = JSON.parse(result);
+                $.each(obj, function (index, item) {
+                    var value = '-';
+                    if (nilai.get(item.Id) != null) {
+                        value = nilai.get(item.Id);
+                    }
+                    html += '<tr>';
+                    html += '<td>' + no + '</td>';
+                    html += '<td>' + item.Name + '</td>';
+                    html += '<td>' + value + '</td>';
+                    html += '<td><a class="btn btn-primary" href="#" onclick="return getDetailTrainee(' + item.Id + ')">Edit</a></td>';
+                    html += '</tr>';
+                    no++;
+                });
+                $('.attitudeDataTable').html(html);
+            },
+            error: function (errormessage) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Something went wrong!'
+                })
+            }
+        });
+    }
+
+    function loadAllDataCourseComprehension() {
+        var nilai = new Map();
+        $.ajax({
+            url: "/Trainees/CourseComprehensionByTraineeList/6",
+            type: "GET",
+            contentType: "application/json;charset=utf-8",
+            dataType: "json",
+            async: false,
+            success: function (result) {
+                $.each(result, function (index, item) {
+                    nilai.set(item.courseComprehension.id, item.value);
+                });
+            },
+            error: function (errormessage) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Something went wrong!'
+                })
+            }
+        });
+
+        $.ajax({
+            url: "/CourseComprehensions/ByClassList/1",
+            type: "GET",
+            contentType: "application/json;charset=utf-8",
+            dataType: "json",
+            async: false,
+            success: function (result) {
+                var html = '';
+                var no = 1;
+                //const obj = JSON.parse(result);
+                $.each(result, function (index, item) {
+                    var value = '-';
+                    if (nilai.get(item.id) != null) {
+                        value = nilai.get(item.id);
+                    }
+                    html += '<tr>';
+                    html += '<td>' + no + '</td>';
+                    html += '<td>' + item.name + '</td>';
+                    html += '<td>' + value + '</td>';
+                    html += '<td><a class="btn btn-primary" href="#" onclick="return getDetailTrainee(' + item.id + ')">Edit</a></td>';
+                    html += '</tr>';
+                    no++;
+                });
+                $('.courseComprehensionDataTable').html(html);
+            },
+            error: function (errormessage) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Something went wrong!'
+                })
+            }
+        });
+    }
+
+    function loadAllDataTraine() {
+        $.ajax({
+            url: "/Trainees/TraineeByTrainerList/1",
+            type: "GET",
+            contentType: "application/json;charset=utf-8",
+            dataType: "json",
+            async: false,
+            success: function (result) {
+                var html = '';
+                $.each(result, function (index, item) {
+                    var grade = '-';
+                    var status = 'Bootcamp';
+                    if (item.grade != null) {
+                        grade = item.grade.name;
+                        status = 'Finish';
+                    }
+                    html += '<tr>';
+                    html += '<td>' + item.batchClass.batch.name + '</td>';
+                    html += '<td>' + item.employee.firstName + " " + item.employee.lastName + '</td>';
+                    html += '<td>' + grade + '</td>';
+                    html += '<td>' + status + '</td>';
+                    if (item.grade != null) {
+                        html += '<td><a class="btn btn-success" href="#" onclick="return getDetailTraineeFinish(' + item.id + ')">Detail</a></td>';
+                    } else {
+                        html += '<td><a class="btn btn-primary" href="#" onclick="return getDetailTraineeBootcamp(' + item.id + ')">Edit</a></td>';
+                    }
+                    html += '</tr>';
+                });
+                $('.traineeDataTable').html(html);
+            },
+            error: function (errormessage) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Something went wrong!'
+                })
+            }
+        });
+    }
 
     function loadBatch() {
         $.ajax({
@@ -259,7 +463,6 @@
             success: function (result) {
                 var html = '<option value="0">All</option>';
                 //const obj = JSON.parse(result);
-                console.log(result);
                 $.each(result, function (index, item) {
                     html += '<option value=' + item.id;
                     html += '>' + item.batch.name + '</option>';

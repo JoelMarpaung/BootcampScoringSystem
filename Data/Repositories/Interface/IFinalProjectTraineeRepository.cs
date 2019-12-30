@@ -11,6 +11,7 @@ namespace Data.Repositories.Interface
         IEnumerable <FinalProjectTrainee> Get();
         FinalProjectTrainee Get(int id);
         FinalProjectTrainee Get(FinalProjectTraineeVM FinalProjectEmployeeVM);
+        IEnumerable<FinalProjectTrainee> GetByTrainee(int traineeId);
         int Create(FinalProjectTraineeVM FinalProjectEmployeeVM);
         int Update(int id, FinalProjectTraineeVM FinalProjectEmployeeVM);
         int Delete(int id);

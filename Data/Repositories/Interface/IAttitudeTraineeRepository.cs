@@ -11,6 +11,7 @@ namespace Data.Repositories.Interface
         IEnumerable<AttitudeTrainee> Get();
         AttitudeTrainee Get(int id);
         AttitudeTrainee Get(AttitudeTraineeVM AttitudeTraineeVM);
+        IEnumerable<AttitudeTrainee> GetByTrainee(int traineeId);
         int Create(AttitudeTraineeVM AttitudeTraineeVM);
         int Update(int id, AttitudeTraineeVM AttitudeTraineeVM);
         int Delete(int id);

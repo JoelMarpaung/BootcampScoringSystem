@@ -11,6 +11,7 @@ namespace Data.Model
         public int AttitudeScore { get; set; }
         public int ProjectScore { get; set; }
         public int CourseScore { get; set; }
+        public Employee Employee { get; set; }
         public Grade Grade { get; set; }
         public BatchClass BatchClass { get; set; }
 

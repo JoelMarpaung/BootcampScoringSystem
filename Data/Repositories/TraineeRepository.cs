@@ -38,12 +38,12 @@ namespace Data.Repositories
 
         public IEnumerable<Trainee> Get()
         {
-            return myContext.Trainees.Include(trainee => trainee.BatchClass).ThenInclude(batchclass => batchclass.Batch).Include(trainee => trainee.BatchClass).ThenInclude(batchclass => batchclass.Class).Include(trainee => trainee.Grade).ToList();
+            return myContext.Trainees.Include(trainee => trainee.BatchClass).ThenInclude(batchclass => batchclass.Batch).Include(trainee => trainee.BatchClass).ThenInclude(batchclass => batchclass.Class).Include(trainee => trainee.BatchClass).ThenInclude(batchclass => batchclass.Trainer).Include(trainee => trainee.Grade).Include(trainee => trainee.Employee).OrderByDescending(trainee=>trainee.Id).ToList();
         }
 
         public Trainee Get(int id)
         {
-            return myContext.Trainees.Find(id);
+            return myContext.Trainees.Include(trainee => trainee.BatchClass).ThenInclude(batchclass => batchclass.Batch).Include(trainee => trainee.BatchClass).ThenInclude(batchclass => batchclass.Class).Include(trainee => trainee.BatchClass).ThenInclude(batchclass => batchclass.Trainer).Include(trainee => trainee.Grade).Include(trainee => trainee.Employee).FirstOrDefault(t=>t.Id==id);
         }
 
         public Trainee Get(TraineeVM TraineeVM)
@@ -53,7 +53,7 @@ namespace Data.Repositories
 
         public IEnumerable<Trainee> GetByTrainer(int trainerId)
         {
-            return myContext.Trainees.Include(trainee => trainee.BatchClass).ThenInclude(batchclass => batchclass.Batch).Include(trainee => trainee.BatchClass).ThenInclude(batchclass => batchclass.Class).Include(trainee => trainee.Grade).ToList();
+            return myContext.Trainees.Include(trainee => trainee.BatchClass).ThenInclude(batchclass => batchclass.Batch).Include(trainee => trainee.BatchClass).ThenInclude(batchclass => batchclass.Class).Include(trainee => trainee.BatchClass).ThenInclude(batchclass => batchclass.Trainer).Include(trainee => trainee.Grade).Where(trainee=>trainee.BatchClass.Trainer.Id == trainerId).Include(trainee=>trainee.Employee).OrderByDescending(trainee => trainee.Id).ToList();
         }
 
         public int Update(int id, TraineeVM TraineeVM)

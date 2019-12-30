@@ -67,6 +67,21 @@ namespace Client.Controllers
             return Json(classes);
         }
 
+        public JsonResult ByClassList(int id)
+        {
+            var response = client.GetAsync("API/CourseComprehension/GetByClass/"+id);
+            response.Wait();
+            var result = response.Result;
+            if (result.IsSuccessStatusCode)
+            {
+                var data = result.Content.ReadAsAsync<CourseComprehension[]>();
+                data.Wait();
+                var json = data.Result;
+                return Json(json);
+            }
+            return Json("Internal Server Error");
+        }
+
         public JsonResult InsertOrUpdate(CourseComprehensionVM coursecomprehensionVM)
         {
             var myContent = JsonConvert.SerializeObject(coursecomprehensionVM);

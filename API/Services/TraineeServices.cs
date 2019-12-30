@@ -57,6 +57,11 @@ namespace API.Services
             return _TraineeRepository.Get(traineeVM);
         }
 
+        public IEnumerable<Trainee> GetByTrainer(int trainerId)
+        {
+            return _TraineeRepository.GetByTrainer(trainerId);
+        }
+
         public int Update(int id, TraineeVM traineeVM)
         {
 

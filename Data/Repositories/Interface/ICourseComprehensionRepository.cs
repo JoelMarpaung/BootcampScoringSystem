@@ -11,6 +11,7 @@ namespace Data.Repositories.Interface
         IEnumerable<CourseComprehension> Get();
         CourseComprehension Get(int id);
         CourseComprehension Get(CourseComprehensionVM CourseComprehensionVM);
+        IEnumerable<CourseComprehension> GetByClass(int classId);
         int Create(CourseComprehensionVM CourseComprehensionVM);
         int Update(int id, CourseComprehensionVM CourseComprehensionVM);
         int Delete(int id);
