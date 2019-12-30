@@ -6,6 +6,7 @@ namespace Data.ViewModel
 {
    public class FinalProjectTraineeVM
     {
+        public int Id { get; set; }
         public int Value { get; set; }
         public int Trainee { get; set; }
         public int FinalProject { get; set; }
