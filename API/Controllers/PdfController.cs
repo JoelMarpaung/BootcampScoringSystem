@@ -15,12 +15,12 @@ namespace API.Controllers
     [ApiController]
     public class PdfController : ControllerBase
     {
-        public IConverter _converter;
+        public BasicConverter _converter = new BasicConverter(new PdfTools());
 
-        public PdfController(IConverter converter)
-        {
-            _converter = converter;
-        }
+        //public PdfController(IConverter converter)
+        //{
+        //    _converter = converter;
+        //}
 
         [HttpGet]
         public ActionResult CreatePDF()
@@ -32,7 +32,7 @@ namespace API.Controllers
                 PaperSize = PaperKind.A4,
                 Margins = new MarginSettings { Top = 10 },
                 DocumentTitle = "PDF Report",
-                Out = @"D:\PDFCreator\Employee_Report.pdf"
+                Out = @"E:\PDFCreator\Employee_Report.pdf"
             };
 
             var objectSettings = new ObjectSettings
