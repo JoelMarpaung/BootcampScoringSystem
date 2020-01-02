@@ -73,6 +73,18 @@ namespace Client.Controllers
                             var json = data2.Result.FirstOrDefault();
                             HttpContext.Session.SetString("ClassId", json.Class.Id.ToString());
                         }
+                    }else if(user.Role.Id == 3)
+                    {
+                        var response = client.GetAsync("Trainee/" + user.Id.ToString());
+                        response.Wait();
+                        var result2 = response.Result;
+                        if (result2.IsSuccessStatusCode)
+                        {
+                            var data2 = result2.Content.ReadAsAsync<Trainee>();
+                            data2.Wait();
+                            var json = data2.Result;
+                            HttpContext.Session.SetString("ClassId", json.BatchClass.Class.Id.ToString());
+                        }
                     }
                     HttpContext.Session.SetString("Id", user.Id.ToString());
                     HttpContext.Session.SetString("Name", user.Employee.FirstName.ToString()+" "+ user.Employee.LastName.ToString());
@@ -93,6 +105,7 @@ namespace Client.Controllers
             HttpContext.Session.Remove("Id");
             HttpContext.Session.Remove("Name");
             HttpContext.Session.Remove("RoleId");
+            HttpContext.Session.Remove("ClassId");
             return RedirectToAction(nameof(Index));
         }
 

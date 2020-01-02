@@ -152,8 +152,8 @@
         <div class="col-md-8">
         </div>
         <div class="col-md-3">
-            <button class="btn btn-block btn-success btnSubmit">Submit</button>
-            <button class="btn btn-block btn-success btnPrint">Print</button>
+            <button class="btn btn-block btn-success btnSubmit" onclick="return confirm()">Submit</button>
+            @*<button class="btn btn-block btn-success btnPrint">Print</button>*@
         </div>
     </div>
 </div>
@@ -208,6 +208,72 @@
         });
         $(".traineeData").hide();
     });
+
+    function confirm() {
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: 'btn btn-success',
+                cancelButton: 'btn btn-danger'
+            },
+            buttonsStyling: false
+        })
+
+        swalWithBootstrapButtons.fire({
+            title: 'Are you sure want to submit the score?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, submit it!',
+            cancelButtonText: 'No, cancel!',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.value) {
+                submitScore(idTrainee);
+                swalWithBootstrapButtons.fire(
+                    'Success!',
+                    'Data has been submitted and counted automatically.',
+                    'success'
+                )
+            } else if (
+                /* Read more about handling dismissals below */
+                result.dismiss === Swal.DismissReason.cancel
+            ) {
+                swalWithBootstrapButtons.fire(
+                    'Cancelled',
+                    'Your imaginary data is safe :)',
+                    'error'
+                )
+            }
+        })
+    }
+
+    function submitScore(idTrainee) {
+        $.ajax({
+            url: "/Trainees/GetScore/" + idTrainee,
+            type: "GET",
+            contentType: "application/json;charset=utf-8",
+            dataType: "json",
+            async: false,
+            success: function (result) {
+                $('#dataTraineeGrid').DataTable().destroy();
+                $('#dataTraineeGrid').DataTable({
+                    "ajax": loadAllDataTraine(),
+                    "columnDefs": [
+                        { "orderable": false, "targets": 4 }
+                    ],
+                    "order": []
+                });
+                getDetailTrainee(idTrainee);
+            },
+            error: function (errormessage) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Something went wrong!'
+                })
+            }
+        });
+    }
 
     function Update(status) {
         var item = new Object();

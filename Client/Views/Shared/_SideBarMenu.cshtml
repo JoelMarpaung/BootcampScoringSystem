@@ -40,7 +40,7 @@
                 }
                 @if (@HttpContextAccessor.HttpContext.Session.GetString("RoleId") == "3")
                 {
-                    <li><a asp-action="Index" asp-controller="Trainees" aria-expanded="false"><i class="mdi mdi-gauge"></i><span class="hide-menu">Trainee</span></a></li>
+                    <li><a asp-action="Trainee" asp-controller="Trainees" aria-expanded="false"><i class="mdi mdi-gauge"></i><span class="hide-menu">Trainee</span></a></li>
                 }
             </ul>
         </nav>

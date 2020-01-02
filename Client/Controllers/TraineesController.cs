@@ -25,6 +25,11 @@ namespace Client.Controllers
             return View();
         }
 
+        public ActionResult Trainee()
+        {
+            return View();
+        }
+
         public JsonResult BatchByTrainerList(int id)
         {
             var response = client.GetAsync("BatchClass/GetByTrainer/" + id);
@@ -136,7 +141,7 @@ namespace Client.Controllers
             var result = response.Result;
             if (result.IsSuccessStatusCode)
             {
-                var data = result.Content.ReadAsAsync<Trainee>();
+                var data = result.Content.ReadAsAsync<int>();
                 data.Wait();
                 var json = data.Result;
                 return Json(json);

@@ -1,56 +1,9 @@
-﻿
+﻿@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Trainee";
 }
-<h2>Batch Classes</h2>
 
-<table id="table" class="table table-striped table-bordered dt-responsive nowrap">
-    <thead>
-        <tr>
-            <th>
-                Id
-            </th>
-            <th>
-                Class
-            </th>
-            <th>
-                Batch
-            </th>
-            <th>
-                trainer
-            </th>
-            <th>Action</th>
-        </tr>
-    </thead>
-    <tbody class="tbody"></tbody>
-</table>
-<!-- Modal -->
-<div class="modal fade" id="myModal" role="dialog">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">Trainee By Batch</h4>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
-            <div class="modal-body">
-                <table id="dataTraineeGrid" class="table table-striped table-bordered dt-responsive nowrap">
-                    <thead>
-                        <tr>
-                            <th>Batch</th>
-                            <th>Trainee Name</th>
-                            <th>Grade</th>
-                            <th>Status</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody class="traineeDataTable"></tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-</div>
-<hr />
-@*Data Traine*@
 <div id="traineeData" class="traineeData">
     <div class="row">
         <div id="traineeName" class="col-md-12">
@@ -166,38 +119,19 @@
         <div class="col-md-8">
         </div>
         <div class="col-md-3">
+            @*<button class="btn btn-block btn-success btnSubmit" onclick="return confirm()">Submit</button>*@
             @*<button class="btn btn-block btn-success btnPrint">Print</button>*@
         </div>
     </div>
 </div>
 
-
-<script type="text/javascript">
-    var idTrainee = 0;
-    var idClass = 0;
+<script>
+    var idTrainee = @HttpContextAccessor.HttpContext.Session.GetString("Id");
+    var classId = @HttpContextAccessor.HttpContext.Session.GetString("ClassId");
     $(document).ready(function () {
-        $('#table').dataTable({
-            "aoColumns": [null, null, null, null, { "bSortable": false }],
-            "order": [],
-            "columnDefs": [{
-                "targets": 'no-sort',
-                "retrieve": true,
-                "paging": false,
-                "orderable": false,
-            }],
-            "ajax": loadData(),
-            "responsive": true
-        });
-        $(".traineeData").hide();
+        getDetailTrainee(@HttpContextAccessor.HttpContext.Session.GetString("Id"));
     });
-
-    function getDetailTraineeFinish(id) {
-        idTrainee = id;
-        getDetailTrainee(id);
-        $('#myModal').modal('hide');
-    }
     function getDetailTrainee(id) {
-        $(".traineeData").hide();
         $('#btnEdit').show();
         var grade = null;
         $.ajax({
@@ -257,11 +191,13 @@
         });
         $('#attitudeGrid').DataTable().destroy();
         $('#attitudeGrid').DataTable({
-            "ajax": loadAllDataAttitude(id)
+            "ajax": loadAllDataAttitude(id),
+            "order": []
         });
         $('#finalProjectGrid').DataTable().destroy();
         $('#finalProjectGrid').DataTable({
-            "ajax": loadAllDataFinalProject(id)
+            "ajax": loadAllDataFinalProject(id),
+            "order": []
         });
         if (grade != null) {
             $('#courseComprehensionGrid').DataTable().destroy();
@@ -271,22 +207,25 @@
             });
             $('#attitudeGrid').DataTable().destroy();
             $('#attitudeGrid').DataTable({
-                "ajax": loadAllDataAttitude(id)
+                "ajax": loadAllDataAttitude(id),
+                "order": []
             });
             $('#finalProjectGrid').DataTable().destroy();
             $('#finalProjectGrid').DataTable({
-                "ajax": loadAllDataFinalProject(id)
+                "ajax": loadAllDataFinalProject(id),
+                "order": []
             });
         }
         //loadAllDataFinalProject(id);
         //loadAllDataAttitude(id);
         //loadAllDataCourseComprehension(id);
+        $('.btnSubmit').show();
         $('.btnPrint').hide();
         if (grade != null) {
+            $('.colEdit').hide();
+            $('.btnSubmit').hide();
             $('.btnPrint').show();
         }
-
-        $(".traineeData").show();
         //window.location.hash = '#traineeData';
     }
 
@@ -436,7 +375,7 @@
         });
 
         $.ajax({
-            url: "/CourseComprehensions/ByClassList/" + idClass,
+            url: "/CourseComprehensions/ByClassList/" + classId,
             type: "GET",
             contentType: "application/json;charset=utf-8",
             dataType: "json",
@@ -474,79 +413,4 @@
         });
     }
 
-    //Load Data function
-    function loadData() {
-        $.ajax({
-            url: "BatchClasses/List",
-            type: "GET",
-            contentType: "application/json;charset=utf-8",
-            dataType: "json",
-            async: false,
-            success: function (result) {
-                var html = '';
-                const obj = JSON.parse(result);
-                $.each(obj, function (key, item) {
-                    html += '<tr>';
-                    html += '<td>' + item.Id + '</td>';
-                    html += '<td>' + item.Class.Name + '</td>';
-                    html += '<td>' + item.Batch.Name + '</td>';
-                    html += '<td>' + item.Trainer.FirstName + ' ' + item.Trainer.LastName + '</td>';
-                    html += '<td><button type="button" class="btn btn-success" onclick="return Detail(' + item.Id + "," + item.Class.Id + ')">Detail</a></td>';
-                    html += '</tr>';
-                });
-                $('.tbody').html(html);
-            },
-            error: function (errormessage) {
-                console.log(errormessage.responseText);
-            }
-        });
-    }
-    function Detail(Id, IdClass) {
-        idClass = IdClass;
-        $('#dataTraineeGrid').DataTable().destroy();
-        $('#dataTraineeGrid').DataTable({
-            "ajax": loadAllDataTraineByBatch(Id),
-            "columnDefs": [
-                { "orderable": false, "targets": 4 }
-            ],
-            "order": []
-        });
-        $('#myModal').modal('show');
-    }
-    function loadAllDataTraineByBatch(id) {
-        $.ajax({
-            url: "/Trainees/TraineeByBatchList/" + id,
-            type: "GET",
-            contentType: "application/json;charset=utf-8",
-            dataType: "json",
-            async: false,
-            success: function (result) {
-                var html = '';
-                $.each(result, function (index, item) {
-                    var grade = '-';
-                    var status = 'Bootcamp';
-                    if (item.grade != null) {
-                        grade = item.grade.name;
-                        status = 'Finish';
-                    }
-                    html += '<tr>';
-                    html += '<td>' + item.batchClass.batch.name + '</td>';
-                    html += '<td>' + item.employee.firstName + " " + item.employee.lastName + '</td>';
-                    html += '<td>' + grade + '</td>';
-                    html += '<td>' + status + '</td>';
-                    html += '<td><button class="btn btn-success" onclick="return getDetailTraineeFinish(' + item.id + ')">Detail</button></td>';
-                    //html += '<td><button class="btn btn-primary" onclick="return getDetailTraineeBootcamp(' + item.id + ')">Edit</button></td>';
-                    html += '</tr>';
-                });
-                $('.traineeDataTable').html(html);
-            },
-            error: function (errormessage) {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: 'Something went wrong!'
-                })
-            }
-        });
-    }
 </script>
